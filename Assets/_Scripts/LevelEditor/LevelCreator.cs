@@ -68,7 +68,6 @@ public class LevelCreator : MonoBehaviour
                 highlightPos.y = highlightPos.y + 0.05f;
                 if (objHighlight == null)
                 {
-                    Debug.Log("Instantiating highlight");
                     objHighlight = Instantiate(objToPlace, highlightPos, Quaternion.identity);
                 }
                 else
@@ -80,7 +79,7 @@ public class LevelCreator : MonoBehaviour
                     }
                 }
             } 
-            else if (highlightedNode.vis != null)
+            else if (objHighlight != null && highlightedNode.vis != null)
             {
                 objHighlight.SetActive(true);
             } 
@@ -94,51 +93,51 @@ public class LevelCreator : MonoBehaviour
 
     void CheckPlaceObject()
     {
-        if (objToPlace != null && highlightedNode.vis == null)
-        {
-            RoadPiece roadToPlace = objHighlight.GetComponent<RoadPiece>();
-            Transform toPlaceTransform = gridBase.GetNodeTransform(highlightedNode);
-            Node[] surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode);
-            int numSurroundingRoads = 0;
-            foreach (Node node in surroundingNodes)
-            {
-                if (node.vis != null)
-                {
-                    numSurroundingRoads++;
-                }
-            }
-            foreach (Node node in surroundingNodes)
-            {
-                if (node.vis != null)
-                {
-                    node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(roadToPlace);
-                }
-            }
-            // if (numSurroundingRoads == 1)
-            // {
-            //     foreach (Node node in surroundingNodes)
-            //     {
-            //         if (node.vis != null)
-            //         {
-            //             Transform otherTrans = gridBase.GetNodeTransform(node);
-            //             if ((otherTrans.position - toPlaceTransform.position).z != 0)
-            //             {
-            //                 Quaternion rot = Quaternion.LookRotation(gridBase.gridHolder.forward,
-            //                                                          gridBase.gridHolder.up);
-            //                 objHighlight.transform.rotation = rot;
-            //                 node.vis.transform.rotation = rot;
-            //             }
-            //             else
-            //             {
-            //                 Quaternion rot = Quaternion.LookRotation(gridBase.gridHolder.right,
-            //                                                          gridBase.gridHolder.up);
-            //                 objHighlight.transform.rotation = rot;
-            //                 node.vis.transform.rotation = rot;
-            //             }
-            //         }
-            //     }
-            // }
-        }
+        // if (objToPlace != null && highlightedNode.vis == null)
+        // {
+        //     RoadPiece roadToPlace = objHighlight.GetComponent<RoadPiece>();
+        //     Transform toPlaceTransform = gridBase.GetNodeTransform(highlightedNode);
+        //     Node[] surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode);
+        //     int numSurroundingRoads = 0;
+        //     foreach (Node node in surroundingNodes)
+        //     {
+        //         if (node.vis != null)
+        //         {
+        //             numSurroundingRoads++;
+        //         }
+        //     }
+        //     foreach (Node node in surroundingNodes)
+        //     {
+        //         if (node.vis != null)
+        //         {
+        //             node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(roadToPlace);
+        //         }
+        //     }
+        //     // if (numSurroundingRoads == 1)
+        //     // {
+        //     //     foreach (Node node in surroundingNodes)
+        //     //     {
+        //     //         if (node.vis != null)
+        //     //         {
+        //     //             Transform otherTrans = gridBase.GetNodeTransform(node);
+        //     //             if ((otherTrans.position - toPlaceTransform.position).z != 0)
+        //     //             {
+        //     //                 Quaternion rot = Quaternion.LookRotation(gridBase.gridHolder.forward,
+        //     //                                                          gridBase.gridHolder.up);
+        //     //                 objHighlight.transform.rotation = rot;
+        //     //                 node.vis.transform.rotation = rot;
+        //     //             }
+        //     //             else
+        //     //             {
+        //     //                 Quaternion rot = Quaternion.LookRotation(gridBase.gridHolder.right,
+        //     //                                                          gridBase.gridHolder.up);
+        //     //                 objHighlight.transform.rotation = rot;
+        //     //                 node.vis.transform.rotation = rot;
+        //     //             }
+        //     //         }
+        //     //     }
+        //     // }
+        // }
     }
 
     public void PlaceObject()
@@ -155,6 +154,39 @@ public class LevelCreator : MonoBehaviour
             if (objHighlight)
             {
                 Destroy(objHighlight);
+            }
+
+            RoadPiece road = obj.GetComponent<RoadPiece>();
+            Node[] surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode);
+            int numSurroundingRoads = 0;
+            foreach (Node node in surroundingNodes)
+            {
+                if (node.vis != null)
+                {
+                    numSurroundingRoads++;
+                }
+            }
+            foreach (Node node in surroundingNodes)
+            {
+                if (node.vis != null)
+                {
+                    Debug.Log(node.vis);
+                    GameObject[] newVis = node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(road);
+                    Debug.Log("----");
+                    foreach (GameObject vis in newVis)
+                    {
+                        Debug.Log(vis);
+                    }
+                    Debug.Log("----");
+                    if (newVis[0] != null)
+                    {
+                        node.vis = newVis[0];
+                    }
+                    if (newVis[1] != null)
+                    {
+                        road = newVis[1].GetComponent<RoadPiece>();
+                    }
+                }
             }
         }
     }

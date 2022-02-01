@@ -33,8 +33,13 @@ public class FourWayIntersection : RoadPiece
 
 
     protected override RoadConnection GetRoadConnectionFromVector(Vector3 vector) { return null; }
-    public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other) 
-    { return null; }
+    public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
+                                                           RoadPiece otherPiece, out GameObject go)
+    { 
+        go = null;
+        return null; 
+    }
     
-    public override void HandleRoadPlacement(RoadPiece toPlace) { }
+    public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false) 
+    { return null; }
 }

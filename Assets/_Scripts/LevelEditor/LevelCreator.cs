@@ -1,5 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
@@ -33,6 +34,7 @@ public class LevelCreator : MonoBehaviour
         {
             if (objToPlace != null && !interfaceManager.mouseOverUIElement)
             {
+                CheckPlaceObject();
                 PlaceObject();
             }
         }
@@ -60,7 +62,7 @@ public class LevelCreator : MonoBehaviour
             }
             highlightedNode = node;
             // gridBase.HighlightNode(highlightedNode);
-            if (objToPlace)
+            if (objToPlace && highlightedNode.vis == null)
             {
                 Vector3 highlightPos = gridBase.GetNodeTransform(node).position;
                 highlightPos.y = highlightPos.y + 0.05f;
@@ -72,28 +74,81 @@ public class LevelCreator : MonoBehaviour
                 else
                 {
                     objHighlight.transform.position = highlightPos;
+                    if (!objHighlight.activeSelf)
+                    {
+                        objHighlight.SetActive(true);
+                    }
                 }
-            } else if (objHighlight != null)
+            } 
+            else if (highlightedNode.vis != null)
+            {
+                objHighlight.SetActive(true);
+            } 
+            else if (objHighlight != null)
             {
                 Destroy(objHighlight);
+                objHighlight = null;
             }
+        }
+    }
+
+    void CheckPlaceObject()
+    {
+        if (objToPlace != null && highlightedNode.vis == null)
+        {
+            RoadPiece roadToPlace = objHighlight.GetComponent<RoadPiece>();
+            Transform toPlaceTransform = gridBase.GetNodeTransform(highlightedNode);
+            Node[] surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode);
+            int numSurroundingRoads = 0;
+            foreach (Node node in surroundingNodes)
+            {
+                if (node.vis != null)
+                {
+                    numSurroundingRoads++;
+                }
+            }
+            foreach (Node node in surroundingNodes)
+            {
+                if (node.vis != null)
+                {
+                    node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(roadToPlace);
+                }
+            }
+            // if (numSurroundingRoads == 1)
+            // {
+            //     foreach (Node node in surroundingNodes)
+            //     {
+            //         if (node.vis != null)
+            //         {
+            //             Transform otherTrans = gridBase.GetNodeTransform(node);
+            //             if ((otherTrans.position - toPlaceTransform.position).z != 0)
+            //             {
+            //                 Quaternion rot = Quaternion.LookRotation(gridBase.gridHolder.forward,
+            //                                                          gridBase.gridHolder.up);
+            //                 objHighlight.transform.rotation = rot;
+            //                 node.vis.transform.rotation = rot;
+            //             }
+            //             else
+            //             {
+            //                 Quaternion rot = Quaternion.LookRotation(gridBase.gridHolder.right,
+            //                                                          gridBase.gridHolder.up);
+            //                 objHighlight.transform.rotation = rot;
+            //                 node.vis.transform.rotation = rot;
+            //             }
+            //         }
+            //     }
+            // }
         }
     }
 
     public void PlaceObject()
     {
-        List<Node> surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode);
-        foreach (Node node in surroundingNodes)
-        {
-            if (node.vis != null)
-                Debug.Log(node.vis.name);
-        }
         if (objToPlace != null && highlightedNode != null)
         {
             Transform nodeTransform = gridBase.GetNodeTransform(highlightedNode);
             Vector3 pos = nodeTransform.position;
             pos.y = pos.y + gridBase.objectOffset;
-            GameObject obj = Instantiate(objToPlace, pos, Quaternion.identity);
+            GameObject obj = Instantiate(objToPlace, pos, objHighlight.transform.rotation);
             obj.transform.parent = nodeTransform;
             highlightedNode.vis = obj;
             manager.inSceneGameObjects.Add(obj);

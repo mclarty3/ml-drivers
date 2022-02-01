@@ -30,4 +30,11 @@ public class FourWayIntersection : RoadPiece
     {
         
     }
+
+
+    protected override RoadConnection GetRoadConnectionFromVector(Vector3 vector) { return null; }
+    public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other) 
+    { return null; }
+    
+    public override void HandleRoadPlacement(RoadPiece toPlace) { }
 }

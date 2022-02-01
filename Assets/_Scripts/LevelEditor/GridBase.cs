@@ -16,7 +16,7 @@ public class GridBase : MonoBehaviour
     public Node[,] grid;
 
     private static GridBase instance = null;
-    private Transform gridHolder;
+    public Transform gridHolder;
 
     public static GridBase GetInstance()
     {
@@ -95,24 +95,38 @@ public class GridBase : MonoBehaviour
         return gridHolder.GetChild(index);
     }
 
-    public List<Node> GetSurroundingNodes(Node node)
+    public Node[] GetSurroundingNodes(Node node)
     {
-        List<Node> surroundingNodes = new List<Node>();
-        if (node.x > 0)
-        {
-            surroundingNodes.Add(grid[node.x - 1, node.z]);
-        }
-        if (node.x < sizeX - 1)
-        {
-            surroundingNodes.Add(grid[node.x + 1, node.z]);
-        }
-        if (node.z > 0)
-        {
-            surroundingNodes.Add(grid[node.x, node.z - 1]);
-        }
+        Node[] surroundingNodes = new Node[4] {Node.nullNode, Node.nullNode, 
+                                               Node.nullNode, Node.nullNode};
+        // List<Node> surroundingNodes = new List<Node>();
+        int i = 0;
+        // Top
         if (node.z < sizeZ - 1)
         {
-            surroundingNodes.Add(grid[node.x, node.z + 1]);
+            // surroundingNodes.Add(grid[node.x, node.z + 1]);
+            surroundingNodes[i] = grid[node.x, node.z + 1];
+        }
+        i += 1;
+        // Right
+        if (node.x < sizeX - 1)
+        {
+            // surroundingNodes.Add(grid[node.x + 1, node.z]);
+            surroundingNodes[i] = grid[node.x + 1, node.z];
+        }
+        i += 1;
+        // Bottom
+        if (node.z > 0)
+        {
+            // surroundingNodes.Add(grid[node.x, node.z - 1]);
+            surroundingNodes[i] = grid[node.x, node.z - 1];
+        }
+        i += 1;
+        // Left
+        if (node.x > 0)
+        {
+            // surroundingNodes.Add(grid[node.x - 1, node.z]);
+            surroundingNodes[i] = grid[node.x - 1, node.z];
         }
         return surroundingNodes;
     }

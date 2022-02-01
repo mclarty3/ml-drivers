@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> inSceneGameObjects;
     public List<GameObject> inSceneRoadPieces;
 
+    public Dictionary<string, GameObject> prefabDict;
+
     private static LevelManager instance = null;
     public static LevelManager GetInstance()
     {

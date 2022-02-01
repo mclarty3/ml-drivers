@@ -26,7 +26,7 @@ public class RoadConnection : MonoBehaviour
         
     }
 
-    void ConnectTo(RoadConnection other)
+    public void ConnectTo(RoadConnection other)
     {
         connectedTo = other;
         foreach (Path path in outPaths)

@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3097731588102981301}
   - component: {fileID: 3097731588102981302}
   m_Layer: 0
-  m_Name: Straight_Road
+  m_Name: TwoDirectionRoad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3097731588102981300}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.0007970291, y: 0.22218812, z: 0.00022386975, w: 0.9750035}
   m_LocalPosition: {x: -0.1, y: 0, z: -17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -491,8 +491,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3097731588624194373}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.6, y: 0, z: -0.041671753}
+  m_LocalRotation: {x: 5.529728e-10, y: 1, z: -0.0000000017462298, w: 0}
+  m_LocalPosition: {x: 0.5999998, y: -0.0000000010477379, z: -0.041671105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3097731589483473801}
@@ -1400,7 +1400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3097731589732106858}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 0, z: -0.041671753}
+  m_LocalPosition: {x: -0.60000026, y: -6.693881e-10, z: -0.04167133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3097731589483473801}

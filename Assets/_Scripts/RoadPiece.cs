@@ -36,7 +36,7 @@ public abstract class RoadPiece : MonoBehaviour
     {
     }
 
-    protected List<RoadConnection> GetConnectedRoads()
+    public List<RoadConnection> GetConnectedRoads()
     {
         List<RoadConnection> connectedRoads = new List<RoadConnection>();
         foreach (RoadConnection connection in roadConnections)
@@ -51,7 +51,8 @@ public abstract class RoadPiece : MonoBehaviour
     }
 
     protected abstract RoadConnection GetRoadConnectionFromVector(Vector3 vector);
-    public abstract RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other);
+    public abstract RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
+                                                           RoadPiece otherPiece, out GameObject go);
 
-    public abstract void HandleRoadPlacement(RoadPiece toPlace);
+    public abstract GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false);
 }

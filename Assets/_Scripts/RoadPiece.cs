@@ -18,7 +18,6 @@ public abstract class RoadPiece : MonoBehaviour
 
     [SerializeField]
     protected Path[] _paths;
-    private List<RoadPiece> connectedRoads;
     [SerializeField]
     public List<RoadConnection> roadConnections = new List<RoadConnection>();
 
@@ -36,4 +35,23 @@ public abstract class RoadPiece : MonoBehaviour
     void Update()
     {
     }
+
+    protected List<RoadConnection> GetConnectedRoads()
+    {
+        List<RoadConnection> connectedRoads = new List<RoadConnection>();
+        foreach (RoadConnection connection in roadConnections)
+        {
+            if (connection.connectedTo != null)
+            {
+                connectedRoads.Add(connection);
+            }
+        }
+
+        return connectedRoads;
+    }
+
+    protected abstract RoadConnection GetRoadConnectionFromVector(Vector3 vector);
+    public abstract RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other);
+
+    public abstract void HandleRoadPlacement(RoadPiece toPlace);
 }

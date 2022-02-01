@@ -9,7 +9,7 @@ public class RoadConnection : MonoBehaviour
     public RoadPiece roadPiece = null;
     public List<Path> outPaths;
     public List<Path> inPaths;
-    public RoadConnection connectedTo;
+    public RoadConnection connectedTo = null;
 
     // Start is called before the first frame update
     void Start()

@@ -6,23 +6,29 @@ using System;
 
 public class FourWayIntersection : RoadPiece
 {
-    public PathCreator zMinusToZPlusPath = null;
-    public PathCreator zMinusToXPlusPath = null;
-    public PathCreator zMinusToXMinusPath = null;
-    public PathCreator xPlusToXMinusPath = null;
-    public PathCreator xPlusToZPlusPath = null;
-    public PathCreator xPlusToZMinusPath = null;
-    public PathCreator zPlusToZMinusPath = null;
-    public PathCreator zPlusToXPlusPath = null;
-    public PathCreator zPlusToXMinusPath = null;
-    public PathCreator xMinusToXPlusPath = null;
-    public PathCreator xMinusToZMinusPath = null;
-    public PathCreator xMinusToZPlusPath = null;
+    public static GameObject prefab = null;
+
+    
+    void Awake()
+    {
+        prefab = Resources.Load<GameObject>("Prefabs/FourWayIntersection");
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        if (roadConnections.Count != 4)
+        {
+            Debug.LogError("FourWayIntersection must have exactly four road connections");
+        }
+        foreach (RoadConnection connection in roadConnections)
+        {
+            if (connection.outPaths.Count != 3 || connection.inPaths.Count != 3)
+            {
+                Debug.LogError("FourWayIntersection must have exactly three out and three in paths for "
+                                + "each road connection");
+            }
+        }
     }
 
     // Update is called once per frame

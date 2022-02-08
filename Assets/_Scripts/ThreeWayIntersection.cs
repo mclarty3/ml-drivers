@@ -77,8 +77,45 @@ public class ThreeWayIntersection : RoadPiece
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     {
         List<RoadConnection> connectedRoads = GetConnectedRoads();
-        if (connectedRoads.Count == 2)
-        {}
+        List<RoadConnection> placementConnections = toPlace.GetConnectedRoads();
+
+        GameObject[] changedObjects = new GameObject[2] { null, null };
+
+        Vector3 otherPos = toPlace.transform.position;
+        Vector3 vector = otherPos - transform.position;
+        if (connectedRoads.Count == 3)
+        {
+            GameObject newNodeVis = ConvertToFourWay(toPlace);
+            if (!dontRepeat)
+            {
+                changedObjects[0] = newNodeVis;
+            }
+            else
+            {
+                changedObjects[1] = newNodeVis;
+            }
+            return changedObjects;
+        }
         return null;
+    }
+
+    public GameObject ConvertToFourWay(RoadPiece newPiece)
+    {
+        Vector3 toNewPiece = newPiece.transform.position - transform.position;
+        GameObject newRoad = Instantiate(FourWayIntersection.prefab, transform.position, 
+                                         transform.rotation);
+
+        FourWayIntersection fourWay = newRoad.GetComponent<FourWayIntersection>();
+        RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
+                                                                     fourWay.roadConnections[3], 
+                                                                     this, out GameObject go);
+        fourWay.roadConnections[3].ConnectTo(newConnect);
+        for (int i = 0; i < 3; i++)
+        {
+            fourWay.roadConnections[i].ConnectTo(roadConnections[i].connectedTo);
+            roadConnections[i].connectedTo.ConnectTo(fourWay.roadConnections[i]);
+        }
+        Destroy(gameObject);
+        return newRoad;
     }
 }

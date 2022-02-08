@@ -76,18 +76,23 @@ public class TwoDirectionRoad : RoadPiece
         }
         else
         {
+            Debug.Log("SHOULD BE CONNECTING????");
             transform.rotation = Quaternion.LookRotation(-vector, transform.up); 
             roadConnections[0].ConnectTo(other);
             roadConnections[0].connectedTo = other;
+            Debug.Log(roadConnections[0]);
             return roadConnections[0];
         }
     }
 
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     {
+        // Called on surrounding roads when a new road is placed in an adjacent tile
+
         List<RoadConnection> connectedRoads = GetConnectedRoads();
         List<RoadConnection> placementConnections = toPlace.GetConnectedRoads();
-        GameObject[] changedObjects = new GameObject[2] {null, null};
+        // Returns {newOtherRoad, newPlacedRoad} if either or both change
+        GameObject[] changedObjects = new GameObject[2] { null, null };
         GameObject newPlacement = null;
 
         if (placementConnections.Count > 0)
@@ -96,46 +101,45 @@ public class TwoDirectionRoad : RoadPiece
         }
 
         Vector3 otherPos = toPlace.transform.position;
-        Vector3 vector = otherPos - transform.position;
+        Vector3 toOtherPos = otherPos - transform.position;
+        // If this road is an unconnected straight road
         if (connectedRoads.Count == 0)
         {
-            transform.rotation = Quaternion.LookRotation(otherPos - transform.position, transform.up);
+            transform.rotation = Quaternion.LookRotation(toOtherPos, transform.up);
             RoadConnection connect;
-            if (vector.z > 0)
-            {
-                connect = roadConnections[0];
-            }
-            else if (vector.z < 0)
-            {
-                connect = roadConnections[1];
-            }
-            else
-            {
-                transform.rotation = Quaternion.LookRotation(vector, transform.up);
-                connect = roadConnections[0];
-            }
-            RoadConnection newConnect = toPlace.AddConnectionFromVector(vector, connect, this, 
+            // if (vector.z > 0)
+            // {
+            //     connect = roadConnections[0];
+            // }
+            // else if (vector.z < 0)
+            // {
+            //     connect = roadConnections[1];
+            // }
+            // else
+            // {
+            transform.rotation = Quaternion.LookRotation(toOtherPos, transform.up);
+            connect = roadConnections[0];
+            // }
+            RoadConnection newConnect = toPlace.AddConnectionFromVector(toOtherPos, connect, this, 
                                                                      out newPlacement);
             if (newConnect != null)
             {
                 connect.ConnectTo(newConnect);
             }
-            // connect.ConnectTo(toPlace.AddConnectionFromVector(vector, connect, this, 
-            //                                                   out newPlacement));
             if (newPlacement != null)
             {
                 changedObjects[1] = newPlacement;
             }
-            // return changedObjects;
+            return changedObjects;
         }
         else if (connectedRoads.Count == 1)
         {
-            float angle = Vector3.Angle(vector, transform.forward);
+            float angle = Vector3.Angle(toOtherPos, transform.forward);
             if (angle == 180 || angle == 0)
             {
-                RoadConnection thisConnect = GetRoadConnectionFromVector(-vector);
-                RoadConnection otherConnect = toPlace.AddConnectionFromVector(vector, thisConnect, this, 
-                                                                              out newPlacement);
+                RoadConnection thisConnect = GetRoadConnectionFromVector(-toOtherPos);
+                RoadConnection otherConnect = toPlace.AddConnectionFromVector(toOtherPos, thisConnect, 
+                                                                              this, out newPlacement);
                 if (otherConnect != null)
                 {
                     thisConnect.ConnectTo(otherConnect);
@@ -197,8 +201,9 @@ public class TwoDirectionRoad : RoadPiece
                 xMinusIndex = 0;   
             }
             ThreeWayIntersection threeWay = newRoad.GetComponent<ThreeWayIntersection>();
-            RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, threeWay.roadConnections[0], 
-                                                                        newPiece, out go);
+            RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
+                                                                         threeWay.roadConnections[0], 
+                                                                         newPiece, out go);
             threeWay.roadConnections[0].ConnectTo(newConnect);
             threeWay.roadConnections[1].ConnectTo(roadConnections[xPlusIndex].connectedTo);
             roadConnections[xPlusIndex].connectedTo.ConnectTo(threeWay.roadConnections[1]);

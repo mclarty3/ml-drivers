@@ -170,14 +170,11 @@ public class LevelCreator : MonoBehaviour
             {
                 if (node.vis != null)
                 {
-                    Debug.Log(node.vis);
                     GameObject[] newVis = node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(road);
-                    Debug.Log("----");
                     foreach (GameObject vis in newVis)
                     {
                         Debug.Log(vis);
                     }
-                    Debug.Log("----");
                     if (newVis[0] != null)
                     {
                         node.vis = newVis[0];

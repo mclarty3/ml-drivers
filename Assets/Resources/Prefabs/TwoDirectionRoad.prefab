@@ -120,7 +120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3097731588102981300}
   m_LocalRotation: {x: -0.0007970291, y: 0.22218812, z: 0.00022386975, w: 0.9750035}
-  m_LocalPosition: {x: -0.1, y: 0, z: -17.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3097731588523832789}
@@ -147,6 +147,7 @@ MonoBehaviour:
   roadConnections:
   - {fileID: 3097731589281020306}
   - {fileID: 3097731588919115714}
+  elbowRoad: 0
 --- !u!1 &3097731588105638401
 GameObject:
   m_ObjectHideFlags: 0

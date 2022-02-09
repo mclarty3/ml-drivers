@@ -18,6 +18,12 @@ public class Path : MonoBehaviour
         }
     }
 
+    public int NumNodes {
+        get {
+            return nodes.Length;
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +60,7 @@ public class Path : MonoBehaviour
         Vector3[] nodes = new Vector3[path.path.NumPoints];
         for (int i = 0; i < path.path.NumPoints; i++)
         {
-            nodes[i] = path.path.GetPoint(i);
+            nodes[i] = path.path.GetPoint(path.path.NumPoints - i - 1);
         }
         return nodes;
     }

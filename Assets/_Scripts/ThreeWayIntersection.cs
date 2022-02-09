@@ -5,14 +5,14 @@ using UnityEngine;
 public class ThreeWayIntersection : RoadPiece
 {
     public static GameObject prefab = null;
+
+    void Awake()
+    {
+        prefab = Resources.Load<GameObject>("Prefabs/ThreeWayIntersection");
+    }
     // Start is called before the first frame update
     void Start()
     {
-        if (prefab == null)
-        {
-            prefab = Resources.Load<GameObject>("Prefabs/ThreeWayIntersection");
-        }
-
         if (roadConnections.Count != 3)
         {
             Debug.LogError("ThreeWayIntersection must have exactly three road connections");
@@ -102,7 +102,8 @@ public class ThreeWayIntersection : RoadPiece
     public GameObject ConvertToFourWay(RoadPiece newPiece)
     {
         Vector3 toNewPiece = newPiece.transform.position - transform.position;
-        GameObject newRoad = Instantiate(FourWayIntersection.prefab, transform.position, 
+        GameObject fourWayPrefab = LevelManager.GetInstance().prefabDict["FourWayIntersection"];
+        GameObject newRoad = Instantiate(fourWayPrefab, transform.position, 
                                          transform.rotation);
 
         FourWayIntersection fourWay = newRoad.GetComponent<FourWayIntersection>();

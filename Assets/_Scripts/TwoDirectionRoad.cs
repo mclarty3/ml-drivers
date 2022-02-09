@@ -69,18 +69,16 @@ public class TwoDirectionRoad : RoadPiece
             }
             else
             {
-                // TODO: Convert to elbow road
+                Debug.Log("Converting to Elbow from AddConnectionFromVector");
                 go = ConvertToElbow(otherPiece);
                 return null;
             }
         }
         else
         {
-            Debug.Log("SHOULD BE CONNECTING????");
             transform.rotation = Quaternion.LookRotation(-vector, transform.up); 
             roadConnections[0].ConnectTo(other);
             roadConnections[0].connectedTo = other;
-            Debug.Log(roadConnections[0]);
             return roadConnections[0];
         }
     }
@@ -94,6 +92,9 @@ public class TwoDirectionRoad : RoadPiece
         // Returns {newOtherRoad, newPlacedRoad} if either or both change
         GameObject[] changedObjects = new GameObject[2] { null, null };
         GameObject newPlacement = null;
+
+        Debug.Log("HANDLING ROAD PLACEMENT");
+        Debug.Log(connectedRoads.Count);
 
         if (placementConnections.Count > 0)
         {
@@ -153,29 +154,32 @@ public class TwoDirectionRoad : RoadPiece
             else
             {
                 GameObject newNodeVis = ConvertToElbow(toPlace);
-                if (!dontRepeat)
-                {
-                    changedObjects[0] = newNodeVis;
-                }
-                else
-                {
-                    changedObjects[1] = newNodeVis;
-                }
+                // if (!dontRepeat)
+                // {
+                //     changedObjects[0] = newNodeVis;
+                // }
+                // else
+                // {
+                //     changedObjects[1] = newNodeVis;
+                // }
+                changedObjects[dontRepeat ? 1 : 0] = newNodeVis;
                 return changedObjects;
                 // return ConvertToElbow(toPlace);
             }
         }
         else if (connectedRoads.Count == 2)
         {
+            Debug.Log("Should be converting to threeway");
             GameObject newNodeVis = ConvertToThreeWay(toPlace);
-            if (!dontRepeat)
-            {
-                changedObjects[0] = newNodeVis;
-            }
-            else
-            {
-                changedObjects[1] = newNodeVis;
-            }
+            // if (!dontRepeat)
+            // {
+            //     changedObjects[0] = newNodeVis;
+            // }
+            // else
+            // {
+            //     changedObjects[1] = newNodeVis;
+            // }
+            changedObjects[dontRepeat ? 1 : 0] = newNodeVis;
             return changedObjects;
             // return ConvertToThreeWay(toPlace);
         }
@@ -188,6 +192,7 @@ public class TwoDirectionRoad : RoadPiece
         Quaternion newRotation = Quaternion.LookRotation(toNewPiece, transform.up);
         GameObject newRoad;
         GameObject go;
+        Debug.Log(elbowRoad);
         if (!elbowRoad)
         {
             newRoad = Instantiate(ThreeWayIntersection.prefab, transform.position, 
@@ -212,6 +217,7 @@ public class TwoDirectionRoad : RoadPiece
         }
         else
         {
+            Debug.Log("Turning elbow into three way");
             float angle = Convert.ToInt16(Vector3.Angle(transform.forward, toNewPiece));
             // New  road is perpendicular relative to Z+ of elbow
             int zPlusIndex = 0;

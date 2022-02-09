@@ -170,18 +170,20 @@ public class LevelCreator : MonoBehaviour
             {
                 if (node.vis != null)
                 {
+                    // Get changed objects (surroundingRoad, placedRoad)
                     GameObject[] newVis = node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(road);
-                    foreach (GameObject vis in newVis)
-                    {
-                        Debug.Log(vis);
-                    }
+
                     if (newVis[0] != null)
                     {
+                        Debug.Log("Setting node " + node.x + "," + node.z + " to " + newVis[0].name);
                         node.vis = newVis[0];
+                        newVis[0].transform.parent = gridBase.GetNodeTransform(node);
                     }
                     if (newVis[1] != null)
                     {
                         road = newVis[1].GetComponent<RoadPiece>();
+                        highlightedNode.vis = newVis[1];
+                        newVis[1].transform.parent = gridBase.GetNodeTransform(highlightedNode);
                     }
                 }
             }

@@ -20,6 +20,14 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        prefabDict = new Dictionary<string, GameObject>()
+        {
+            { "TwoDirectionRoad",       Resources.Load<GameObject>("Prefabs/TwoDirectionRoad") },
+            { "ElbowRoad",              Resources.Load<GameObject>("Prefabs/ElbowRoad") },
+            { "ThreeWayIntersection",   Resources.Load<GameObject>("Prefabs/ThreeWayIntersection") },
+            { "FourWayIntersection",    Resources.Load<GameObject>("Prefabs/FourWayIntersection") }
+        };
+
     }
 
     // Start is called before the first frame update

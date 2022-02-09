@@ -175,7 +175,6 @@ public class LevelCreator : MonoBehaviour
 
                     if (newVis[0] != null)
                     {
-                        Debug.Log("Setting node " + node.x + "," + node.z + " to " + newVis[0].name);
                         node.vis = newVis[0];
                         newVis[0].transform.parent = gridBase.GetNodeTransform(node);
                     }

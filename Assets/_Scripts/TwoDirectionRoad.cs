@@ -64,12 +64,10 @@ public class TwoDirectionRoad : RoadPiece
             {
                 RoadConnection connection = GetRoadConnectionFromVector(vector);
                 connection.ConnectTo(other);
-                // connection.connectedTo = other;
                 return connection;
             }
             else
             {
-                Debug.Log("Converting to Elbow from AddConnectionFromVector");
                 go = ConvertToElbow(otherPiece);
                 return null;
             }
@@ -86,20 +84,10 @@ public class TwoDirectionRoad : RoadPiece
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     {
         // Called on surrounding roads when a new road is placed in an adjacent tile
-
         List<RoadConnection> connectedRoads = GetConnectedRoads();
-        List<RoadConnection> placementConnections = toPlace.GetConnectedRoads();
-        // Returns {newOtherRoad, newPlacedRoad} if either or both change
+        
         GameObject[] changedObjects = new GameObject[2] { null, null };
         GameObject newPlacement = null;
-
-        Debug.Log("HANDLING ROAD PLACEMENT");
-        Debug.Log(connectedRoads.Count);
-
-        if (placementConnections.Count > 0)
-        {
-
-        }
 
         Vector3 otherPos = toPlace.transform.position;
         Vector3 toOtherPos = otherPos - transform.position;
@@ -108,19 +96,8 @@ public class TwoDirectionRoad : RoadPiece
         {
             transform.rotation = Quaternion.LookRotation(toOtherPos, transform.up);
             RoadConnection connect;
-            // if (vector.z > 0)
-            // {
-            //     connect = roadConnections[0];
-            // }
-            // else if (vector.z < 0)
-            // {
-            //     connect = roadConnections[1];
-            // }
-            // else
-            // {
             transform.rotation = Quaternion.LookRotation(toOtherPos, transform.up);
             connect = roadConnections[0];
-            // }
             RoadConnection newConnect = toPlace.AddConnectionFromVector(toOtherPos, connect, this, 
                                                                      out newPlacement);
             if (newConnect != null)
@@ -154,34 +131,15 @@ public class TwoDirectionRoad : RoadPiece
             else
             {
                 GameObject newNodeVis = ConvertToElbow(toPlace);
-                // if (!dontRepeat)
-                // {
-                //     changedObjects[0] = newNodeVis;
-                // }
-                // else
-                // {
-                //     changedObjects[1] = newNodeVis;
-                // }
                 changedObjects[dontRepeat ? 1 : 0] = newNodeVis;
                 return changedObjects;
-                // return ConvertToElbow(toPlace);
             }
         }
         else if (connectedRoads.Count == 2)
         {
-            Debug.Log("Should be converting to threeway");
             GameObject newNodeVis = ConvertToThreeWay(toPlace);
-            // if (!dontRepeat)
-            // {
-            //     changedObjects[0] = newNodeVis;
-            // }
-            // else
-            // {
-            //     changedObjects[1] = newNodeVis;
-            // }
             changedObjects[dontRepeat ? 1 : 0] = newNodeVis;
             return changedObjects;
-            // return ConvertToThreeWay(toPlace);
         }
         return changedObjects;
     }
@@ -192,15 +150,16 @@ public class TwoDirectionRoad : RoadPiece
         Quaternion newRotation = Quaternion.LookRotation(toNewPiece, transform.up);
         GameObject newRoad;
         GameObject go;
-        Debug.Log(elbowRoad);
+        GameObject threeWayPrefab = LevelManager.GetInstance().prefabDict["ThreeWayIntersection"];
         if (!elbowRoad)
         {
-            newRoad = Instantiate(ThreeWayIntersection.prefab, transform.position, 
+            newRoad = Instantiate(threeWayPrefab, transform.position, 
                                             newRotation);
             int xPlusIndex = 0;
             int xMinusIndex = 1;
-            float angle = Convert.ToInt16(Vector3.Angle(newRoad.transform.forward, transform.forward));
-            if (angle == 90)
+            float angle = Convert.ToInt16(Vector3.SignedAngle(newRoad.transform.forward, 
+                                                              transform.forward, transform.up));
+            if (angle != 90)
             {
                 xPlusIndex = 1;
                 xMinusIndex = 0;   
@@ -217,7 +176,6 @@ public class TwoDirectionRoad : RoadPiece
         }
         else
         {
-            Debug.Log("Turning elbow into three way");
             float angle = Convert.ToInt16(Vector3.Angle(transform.forward, toNewPiece));
             // New  road is perpendicular relative to Z+ of elbow
             int zPlusIndex = 0;
@@ -231,7 +189,7 @@ public class TwoDirectionRoad : RoadPiece
                 newIndex = 2;
                 rot = Quaternion.LookRotation(-transform.right, transform.up);
             }
-            newRoad = Instantiate(ThreeWayIntersection.prefab, transform.position, rot);
+            newRoad = Instantiate(threeWayPrefab, transform.position, rot);
             ThreeWayIntersection threeWay = newRoad.GetComponent<ThreeWayIntersection>();
             RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
                                                                          threeWay.roadConnections[newIndex], 

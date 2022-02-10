@@ -107,15 +107,15 @@ public class ThreeWayIntersection : RoadPiece
                                          transform.rotation);
 
         FourWayIntersection fourWay = newRoad.GetComponent<FourWayIntersection>();
-        RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
-                                                                     fourWay.roadConnections[3], 
-                                                                     this, out GameObject go);
-        fourWay.roadConnections[3].ConnectTo(newConnect);
         for (int i = 0; i < 3; i++)
         {
             fourWay.roadConnections[i].ConnectTo(roadConnections[i].connectedTo);
             roadConnections[i].connectedTo.ConnectTo(fourWay.roadConnections[i]);
         }
+        RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
+                                                                     fourWay.roadConnections[3], 
+                                                                     this, out GameObject go);
+        fourWay.roadConnections[3].ConnectTo(newConnect);
         Destroy(gameObject);
         return newRoad;
     }

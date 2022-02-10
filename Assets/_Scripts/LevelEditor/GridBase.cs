@@ -51,7 +51,6 @@ public class GridBase : MonoBehaviour
                 nodeObj.posZ = z;
 
                 Node node = new Node();
-                // node.vis = go;
                 node.x = x;
                 node.z = z;
                 grid[x, z] = node;
@@ -70,21 +69,22 @@ public class GridBase : MonoBehaviour
                                             (sizeZ / 2) * spacing);
     }
 
-    public Node NodeFromWorldPosition(Vector3 worldPosition)
+    public Node NodeFromWorldPosition(Vector3 worldPosition, out bool isOnGrid)
     {
         int x = Mathf.FloorToInt((worldPosition.x + (spacing / 2)) / spacing);
         int z = Mathf.FloorToInt((worldPosition.z + (spacing / 2)) / spacing);
+        isOnGrid = true;
 
-        if (x >= sizeX) 
+        if (x < 0 || x >= sizeX)
         {
-            x = sizeX - 1;
+            x = x < 0 ? 0 : sizeX - 1;
+            isOnGrid = false;
         }
-        if (z >= sizeZ) 
+        if (z < 0 || z >= sizeZ)
         {
-            z = sizeZ - 1;
+            z = z < 0 ? 0 : sizeZ - 1;
+            isOnGrid = false;
         }
-        if (x < 0) x = 0;
-        if (z < 0) z = 0;
 
         return grid[x, z];
     }
@@ -95,39 +95,95 @@ public class GridBase : MonoBehaviour
         return gridHolder.GetChild(index);
     }
 
-    public Node[] GetSurroundingNodes(Node node)
+    public Node GetAdjacentNode(Node node, int direction)
     {
-        Node[] surroundingNodes = new Node[4] {Node.nullNode, Node.nullNode, 
-                                               Node.nullNode, Node.nullNode};
+        int x = 0;
+        int z = 0;
+        
+        switch (direction)
+        {
+            case 0:
+                x = node.x;
+                z = node.z + 1;
+                break;
+            case 1:
+                x = node.x + 1;
+                z = node.z + 1;
+                break;
+            case 2:
+                x = node.x + 1;
+                z = node.z;
+                break;
+            case 3:
+                x = node.x + 1;
+                z = node.z - 1;
+                break;
+            case 4:
+                x = node.x;
+                z = node.z - 1;
+                break;
+            case 5:
+                x = node.x - 1;
+                z = node.z - 1;
+                break;
+            case 6:
+                x = node.x - 1;
+                z = node.z;
+                break;
+            case 7:
+                x = node.x - 1;
+                z = node.z + 1;
+                break;
+        }
+        if (x < 0 || x >= sizeX || z < 0 || z >= sizeZ)
+        {
+            return null;
+        }
+        
+        return grid[x, z];
+    }
+
+    public Node[] GetSurroundingNodes(Node node, bool includeCornerNodes=false)
+    {
+        Node[] surroundingNodes;
+        if (includeCornerNodes) {
+            surroundingNodes = new Node[8];
+        } else {
+            surroundingNodes = new Node[4];
+        }
+
+        for (int i = 0; i < surroundingNodes.Length; i++)
+        {
+            surroundingNodes[i] = GetAdjacentNode(node, includeCornerNodes ? i : i * 2);
+        }
+
+        return surroundingNodes;
+
         // List<Node> surroundingNodes = new List<Node>();
-        int i = 0;
-        // Top
-        if (node.z < sizeZ - 1)
-        {
-            // surroundingNodes.Add(grid[node.x, node.z + 1]);
-            surroundingNodes[i] = grid[node.x, node.z + 1];
-        }
-        i += 1;
-        // Right
-        if (node.x < sizeX - 1)
-        {
-            // surroundingNodes.Add(grid[node.x + 1, node.z]);
-            surroundingNodes[i] = grid[node.x + 1, node.z];
-        }
-        i += 1;
-        // Bottom
-        if (node.z > 0)
-        {
-            // surroundingNodes.Add(grid[node.x, node.z - 1]);
-            surroundingNodes[i] = grid[node.x, node.z - 1];
-        }
-        i += 1;
-        // Left
-        if (node.x > 0)
-        {
-            // surroundingNodes.Add(grid[node.x - 1, node.z]);
-            surroundingNodes[i] = grid[node.x - 1, node.z];
-        }
+        // int i = 0;
+        // // Top
+        // if (node.z < sizeZ - 1)
+        // {
+        //     surroundingNodes[i] = grid[node.x, node.z + 1];
+        // }
+        // i += 1;
+        // // Right
+        // if (node.x < sizeX - 1)
+        // {
+        //     surroundingNodes[i] = grid[node.x + 1, node.z];
+        // }
+        // i += 1;
+        // // Bottom
+        // if (node.z > 0)
+        // {
+        //     surroundingNodes[i] = grid[node.x, node.z - 1];
+        // }
+        // i += 1;
+        // // Left
+        // if (node.x > 0)
+        // {
+        //     surroundingNodes[i] = grid[node.x - 1, node.z];
+        // }
         return surroundingNodes;
     }
 
@@ -143,17 +199,5 @@ public class GridBase : MonoBehaviour
         int index = node.x * sizeZ + node.z;
         Transform nodeObj = GetNodeTransform(node);
         nodeObj.GetComponent<Renderer>().material = nodePrefab.GetComponent<Renderer>().sharedMaterial;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

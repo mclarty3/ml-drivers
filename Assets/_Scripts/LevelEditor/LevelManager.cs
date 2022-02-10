@@ -10,16 +10,24 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> inSceneRoadPieces;
 
     public Dictionary<string, GameObject> prefabDict;
+    public bool printDebugMessages = false;
 
-    private static LevelManager instance = null;
+    private static LevelManager _instance;
     public static LevelManager GetInstance()
     {
-        return instance;
+        return _instance;
     }
 
     void Awake()
     {
-        instance = this;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
         prefabDict = new Dictionary<string, GameObject>()
         {
             { "TwoDirectionRoad",       Resources.Load<GameObject>("Prefabs/TwoDirectionRoad") },

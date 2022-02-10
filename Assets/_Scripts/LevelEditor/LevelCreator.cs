@@ -17,7 +17,6 @@ public class LevelCreator : MonoBehaviour
 
     public Node highlightedNode = null;
 
-    // Start is called before the first frame update
     void Start()
     {
         gridBase = GridBase.GetInstance();
@@ -63,6 +62,7 @@ public class LevelCreator : MonoBehaviour
             }
             highlightedNode = node;
             // gridBase.HighlightNode(highlightedNode);
+
             if (objToPlace && highlightedNode.vis == null && isOnGrid)
             {
                 Vector3 highlightPos = gridBase.GetNodeTransform(node).position;
@@ -99,7 +99,6 @@ public class LevelCreator : MonoBehaviour
         {
             return;
         }
-
         
         log.Log("Attempting to place object at position: (" + 
                 highlightedNode.x + ", " + highlightedNode.z + ")");
@@ -110,8 +109,9 @@ public class LevelCreator : MonoBehaviour
 
         RoadPiece road = obj.GetComponent<RoadPiece>();
         Node[] surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode, true);
-        int numSurroundingRoads = 0;
         bool invalidPlacement = false;
+        
+        // Check to see if the placement is invalid (road completes a square of four roads)
         for (int i = 0; i < surroundingNodes.Length; i+=2)
         {
             if (surroundingNodes[i] == null || surroundingNodes[i].vis == null)
@@ -144,13 +144,6 @@ public class LevelCreator : MonoBehaviour
 
         log.Log("Placing object - checking surrounding roads");
 
-        foreach (Node node in surroundingNodes)
-        {
-            if (node != null && node.vis != null)
-            {
-                numSurroundingRoads++;
-            }
-        }
         for (int i = 0; i < surroundingNodes.Length; i+=2)
         {
             Node node = surroundingNodes[i];

@@ -94,7 +94,6 @@ public class TwoDirectionRoad : RoadPiece
         {
             transform.rotation = Quaternion.LookRotation(-vector, transform.up); 
             roadConnections[0].ConnectTo(other);
-            // roadConnections[0].connectedTo = other;
             return roadConnections[0];
         }
 

@@ -158,33 +158,6 @@ public class GridBase : MonoBehaviour
         }
 
         return surroundingNodes;
-
-        // List<Node> surroundingNodes = new List<Node>();
-        // int i = 0;
-        // // Top
-        // if (node.z < sizeZ - 1)
-        // {
-        //     surroundingNodes[i] = grid[node.x, node.z + 1];
-        // }
-        // i += 1;
-        // // Right
-        // if (node.x < sizeX - 1)
-        // {
-        //     surroundingNodes[i] = grid[node.x + 1, node.z];
-        // }
-        // i += 1;
-        // // Bottom
-        // if (node.z > 0)
-        // {
-        //     surroundingNodes[i] = grid[node.x, node.z - 1];
-        // }
-        // i += 1;
-        // // Left
-        // if (node.x > 0)
-        // {
-        //     surroundingNodes[i] = grid[node.x - 1, node.z];
-        // }
-        return surroundingNodes;
     }
 
     public void HighlightNode(Node node)

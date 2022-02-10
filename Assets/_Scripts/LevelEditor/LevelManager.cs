@@ -43,10 +43,4 @@ public class LevelManager : MonoBehaviour
     {
         gridBase = GridBase.GetInstance();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

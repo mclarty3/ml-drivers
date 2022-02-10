@@ -66,6 +66,24 @@ public class TwoDirectionRoad : RoadPiece
                 connection.ConnectTo(other);
                 return connection;
             }
+            else if (elbowRoad)
+            {
+                RoadConnection connection = null;
+                foreach (RoadConnection conn in roadConnections)
+                {
+                    if (conn.connectedTo == null)
+                    {
+                        connection = conn;
+                        break;
+                    }
+                }
+                if (connection != null)
+                {
+                    connection.ConnectTo(other);
+                    other.ConnectTo(connection);
+                    return connection;
+                }
+            }
             else
             {
                 go = ConvertToElbow(otherPiece);
@@ -76,9 +94,11 @@ public class TwoDirectionRoad : RoadPiece
         {
             transform.rotation = Quaternion.LookRotation(-vector, transform.up); 
             roadConnections[0].ConnectTo(other);
-            roadConnections[0].connectedTo = other;
+            // roadConnections[0].connectedTo = other;
             return roadConnections[0];
         }
+
+        return null;
     }
 
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
@@ -165,14 +185,17 @@ public class TwoDirectionRoad : RoadPiece
                 xMinusIndex = 0;   
             }
             ThreeWayIntersection threeWay = newRoad.GetComponent<ThreeWayIntersection>();
-            RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
-                                                                         threeWay.roadConnections[0], 
-                                                                         newPiece, out go);
-            threeWay.roadConnections[0].ConnectTo(newConnect);
             threeWay.roadConnections[1].ConnectTo(roadConnections[xPlusIndex].connectedTo);
             roadConnections[xPlusIndex].connectedTo.ConnectTo(threeWay.roadConnections[1]);
             threeWay.roadConnections[2].ConnectTo(roadConnections[xMinusIndex].connectedTo);
             roadConnections[xMinusIndex].connectedTo.ConnectTo(threeWay.roadConnections[2]);
+            RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
+                                                                         threeWay.roadConnections[0], 
+                                                                         threeWay, out go);
+            if (newConnect != null)
+            {
+                threeWay.roadConnections[0].ConnectTo(newConnect);
+            }
         }
         else
         {
@@ -193,8 +216,11 @@ public class TwoDirectionRoad : RoadPiece
             ThreeWayIntersection threeWay = newRoad.GetComponent<ThreeWayIntersection>();
             RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
                                                                          threeWay.roadConnections[newIndex], 
-                                                                         newPiece, out go);
-            threeWay.roadConnections[newIndex].ConnectTo(newConnect);
+                                                                         threeWay, out go);
+            if (newConnect != null)
+            {
+                threeWay.roadConnections[newIndex].ConnectTo(newConnect);
+            }
             threeWay.roadConnections[zPlusIndex].ConnectTo(roadConnections[0].connectedTo);
             roadConnections[0].connectedTo.ConnectTo(threeWay.roadConnections[zPlusIndex]);
             threeWay.roadConnections[xIndex].ConnectTo(roadConnections[1].connectedTo);
@@ -233,11 +259,15 @@ public class TwoDirectionRoad : RoadPiece
         }
         GameObject newRoad = Instantiate(TwoDirectionRoad.elbowPrefab, transform.position, rot);
         TwoDirectionRoad elbow = newRoad.GetComponent<TwoDirectionRoad>();
-        RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, elbow.roadConnections[newConnectionIndex], 
-                                                                     newPiece, out go);
-        elbow.roadConnections[newConnectionIndex].ConnectTo(newConnect);
         elbow.roadConnections[currentConnectionIndex].ConnectTo(connection.connectedTo);
         connection.connectedTo.ConnectTo(elbow.roadConnections[currentConnectionIndex]);
+        RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
+                                                                     elbow.roadConnections[newConnectionIndex], 
+                                                                     elbow, out go);
+        if (newConnect != null)
+        {
+            elbow.roadConnections[newConnectionIndex].ConnectTo(newConnect);
+        }
         Destroy(gameObject);
 
         return newRoad;

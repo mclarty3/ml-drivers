@@ -60,6 +60,7 @@ public class Path : MonoBehaviour
         Vector3[] nodes = new Vector3[path.path.NumPoints];
         for (int i = 0; i < path.path.NumPoints; i++)
         {
+            // I somehow reversed all the paths for the roads, so reversing the list of points here
             nodes[i] = path.path.GetPoint(path.path.NumPoints - i - 1);
         }
         return nodes;

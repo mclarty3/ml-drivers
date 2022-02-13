@@ -142,13 +142,25 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
+        int count = 0;
+        foreach (Node n in surroundingNodes)
+        {
+            if (n == null || n.vis == null)
+            {
+                continue;
+            }
+            count++;
+        }
+
         log.Log("Placing object - checking surrounding roads");
+        log.Log("Surrounding roads: " + count);
 
         for (int i = 0; i < surroundingNodes.Length; i+=2)
         {
             Node node = surroundingNodes[i];
             if (node != null && node.vis != null)
             {
+                Debug.Log(node.vis);
                 // Get changed objects (surroundingRoad, placedRoad)
                 GameObject[] newVis = node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(road);
 
@@ -169,7 +181,10 @@ public class LevelCreator : MonoBehaviour
         }
     
         obj.transform.parent = nodeTransform;
-        highlightedNode.vis = obj;
+        if (highlightedNode.vis == null)
+        {
+            highlightedNode.vis = obj;
+        }
         manager.inSceneGameObjects.Add(obj);
         if (objHighlight)
         {

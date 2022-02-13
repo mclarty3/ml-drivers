@@ -4361,7 +4361,7 @@ Transform:
   - {fileID: 1347726222}
   - {fileID: 1893069018}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &54887043
 GameObject:
@@ -4717,13 +4717,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 533752176}
-  - {fileID: 779994335}
-  - {fileID: 1913407962}
-  - {fileID: 1341132618}
-  - {fileID: 1411804181}
-  - {fileID: 1941012143}
   roadConnections:
   - {fileID: 81155581}
   - {fileID: 595171482}
@@ -5661,7 +5654,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &69081351
 GameObject:
@@ -7840,9 +7833,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 38408102}
-  - {fileID: 746632289}
   roadConnections:
   - {fileID: 1536729236}
   - {fileID: 639956581}
@@ -12514,7 +12504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &167436418
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12618,7 +12608,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -12629,8 +12619,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167436417}
-  m_LocalRotation: {x: -0, y: -0.9999911, z: -0, w: -0.004232928}
-  m_LocalPosition: {x: -2.771, y: 0.1, z: 0.12}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.001, y: 0.039, z: 0.189}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 836977626}
@@ -12640,9 +12630,9 @@ Transform:
   - {fileID: 1801619662}
   - {fileID: 10889724}
   - {fileID: 2104074326}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -180.485, z: 0}
+  m_Father: {fileID: 628693100}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &168303296
 GameObject:
   m_ObjectHideFlags: 0
@@ -12776,9 +12766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 747123032}
-  - {fileID: 1480796222}
   roadConnections:
   - {fileID: 580371164}
   - {fileID: 1262465397}
@@ -13246,9 +13233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 474518447}
-  - {fileID: 1107318091}
   roadConnections:
   - {fileID: 1288520034}
   - {fileID: 2031048979}
@@ -13894,7 +13878,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Two-Lane
+  m_Text: Place Road
 --- !u!222 &182401298
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18790,9 +18774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 582473677}
-  - {fileID: 982522942}
   roadConnections:
   - {fileID: 720091003}
   - {fileID: 875845704}
@@ -29245,9 +29226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 2112485610}
-  - {fileID: 1792592898}
   roadConnections:
   - {fileID: 351885327}
   - {fileID: 951457380}
@@ -29941,9 +29919,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 835483690}
-  - {fileID: 1171491537}
   roadConnections:
   - {fileID: 394789629}
   - {fileID: 345028050}
@@ -30384,7 +30359,7 @@ RectTransform:
   - {fileID: 120079608}
   - {fileID: 1822592826}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -34534,9 +34509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1004522357}
-  - {fileID: 1924551348}
   roadConnections:
   - {fileID: 120374044}
   - {fileID: 1843751474}
@@ -34796,9 +34768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 3423179}
-  - {fileID: 1396373654}
   roadConnections:
   - {fileID: 1838062892}
   - {fileID: 1869730140}
@@ -36117,9 +36086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1738580000}
-  - {fileID: 610114137}
   roadConnections:
   - {fileID: 26371077}
   - {fileID: 226624420}
@@ -36473,9 +36439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 146482263}
-  - {fileID: 1876585410}
   roadConnections:
   - {fileID: 1946878838}
   - {fileID: 7584704}
@@ -41612,9 +41575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 2002002127}
-  - {fileID: 294764881}
   roadConnections:
   - {fileID: 555831447}
   - {fileID: 127247925}
@@ -42194,11 +42154,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 628693098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.86, y: 2.6125913, z: 8.07}
+  m_LocalPosition: {x: -3.51, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 167436426}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &629094350
 GameObject:
@@ -42229,19 +42190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36114ca231f465a4fbdebd0cae1be426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1727707008}
-  - {fileID: 745636047}
-  - {fileID: 1025521898}
-  - {fileID: 1031518413}
-  - {fileID: 136020095}
-  - {fileID: 104283065}
-  - {fileID: 1325820809}
-  - {fileID: 138802767}
-  - {fileID: 1551636032}
-  - {fileID: 939728070}
-  - {fileID: 939954508}
-  - {fileID: 1904895579}
   roadConnections:
   - {fileID: 2108290607}
   - {fileID: 1197532476}
@@ -43619,9 +43567,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 489282378}
-  - {fileID: 1654805465}
   roadConnections:
   - {fileID: 84977342}
   - {fileID: 1000001931}
@@ -43672,9 +43617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 2081421408}
-  - {fileID: 729076371}
   roadConnections:
   - {fileID: 146818057}
   - {fileID: 445933879}
@@ -46386,9 +46328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1605695673}
-  - {fileID: 1909511521}
   roadConnections:
   - {fileID: 1076153575}
   - {fileID: 1472482650}
@@ -46856,7 +46795,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 74.213, y: -71.51, z: -46.619}
 --- !u!1 &706766539
 GameObject:
@@ -47793,13 +47732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 534254472}
-  - {fileID: 912799218}
-  - {fileID: 3310871}
-  - {fileID: 305008325}
-  - {fileID: 2059281744}
-  - {fileID: 10438641}
   roadConnections:
   - {fileID: 63894089}
   - {fileID: 777473991}
@@ -49929,13 +49861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1447855896}
-  - {fileID: 1992210427}
-  - {fileID: 97076152}
-  - {fileID: 180080403}
-  - {fileID: 1634664146}
-  - {fileID: 599392134}
   roadConnections:
   - {fileID: 283893663}
   - {fileID: 302117247}
@@ -50292,19 +50217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36114ca231f465a4fbdebd0cae1be426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1518980754}
-  - {fileID: 1928760366}
-  - {fileID: 1302630223}
-  - {fileID: 562483889}
-  - {fileID: 906747954}
-  - {fileID: 1476862266}
-  - {fileID: 408071904}
-  - {fileID: 1829701103}
-  - {fileID: 168303298}
-  - {fileID: 1050657516}
-  - {fileID: 1248436857}
-  - {fileID: 1046970915}
   roadConnections:
   - {fileID: 1788388099}
   - {fileID: 978533074}
@@ -51667,9 +51579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 541601460}
-  - {fileID: 1836534484}
   roadConnections:
   - {fileID: 1048586291}
   - {fileID: 101730077}
@@ -51884,9 +51793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1795905216}
-  - {fileID: 572537349}
   roadConnections:
   - {fileID: 1258196865}
   - {fileID: 1337880979}
@@ -51937,9 +51843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1641514611}
-  - {fileID: 34547113}
   roadConnections:
   - {fileID: 883541236}
   - {fileID: 77654333}
@@ -58158,9 +58061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 496272651}
-  - {fileID: 1798094611}
   roadConnections:
   - {fileID: 1013557444}
   - {fileID: 535874550}
@@ -58970,13 +58870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1771925734}
-  - {fileID: 804944299}
-  - {fileID: 111755881}
-  - {fileID: 834735479}
-  - {fileID: 347577848}
-  - {fileID: 978481591}
   roadConnections:
   - {fileID: 762535872}
   - {fileID: 1145867187}
@@ -62535,13 +62428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1613154887}
-  - {fileID: 2002585248}
-  - {fileID: 1542969243}
-  - {fileID: 1127362019}
-  - {fileID: 65045755}
-  - {fileID: 2035006285}
   roadConnections:
   - {fileID: 825832025}
   - {fileID: 2082184916}
@@ -65412,13 +65298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 734952621}
-  - {fileID: 406809458}
-  - {fileID: 2000742663}
-  - {fileID: 1051685930}
-  - {fileID: 1329593091}
-  - {fileID: 406588839}
   roadConnections:
   - {fileID: 999898185}
   - {fileID: 287671792}
@@ -66631,19 +66510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36114ca231f465a4fbdebd0cae1be426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 818283094}
-  - {fileID: 463509961}
-  - {fileID: 686581952}
-  - {fileID: 1364976957}
-  - {fileID: 1964835233}
-  - {fileID: 480775966}
-  - {fileID: 2070106405}
-  - {fileID: 1548690860}
-  - {fileID: 447923988}
-  - {fileID: 189438588}
-  - {fileID: 928560514}
-  - {fileID: 436028401}
   roadConnections:
   - {fileID: 26835424}
   - {fileID: 1155102851}
@@ -68270,9 +68136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1410267233}
-  - {fileID: 1551918564}
   roadConnections:
   - {fileID: 1542574097}
   - {fileID: 1832323196}
@@ -71198,9 +71061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 63937302}
-  - {fileID: 1192564341}
   roadConnections:
   - {fileID: 1041434613}
   - {fileID: 1080289296}
@@ -71900,9 +71760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 2028272246}
-  - {fileID: 1121893007}
   roadConnections:
   - {fileID: 1389784293}
   - {fileID: 30137857}
@@ -72345,7 +72202,6 @@ RectTransform:
   m_Children:
   - {fileID: 920983007}
   - {fileID: 1786950546}
-  - {fileID: 1205124511}
   m_Father: {fileID: 120079608}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -72783,9 +72639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 891522599}
-  - {fileID: 1001093498}
   roadConnections:
   - {fileID: 285476797}
   - {fileID: 486384457}
@@ -72836,19 +72689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36114ca231f465a4fbdebd0cae1be426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 824187530}
-  - {fileID: 6318199}
-  - {fileID: 2048759265}
-  - {fileID: 1918794421}
-  - {fileID: 1963178468}
-  - {fileID: 444315659}
-  - {fileID: 408603204}
-  - {fileID: 2126987047}
-  - {fileID: 1079026328}
-  - {fileID: 182743226}
-  - {fileID: 997826996}
-  - {fileID: 174507113}
   roadConnections:
   - {fileID: 1340498257}
   - {fileID: 363040151}
@@ -72900,9 +72740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1641397357}
-  - {fileID: 1729487121}
   roadConnections:
   - {fileID: 1772216280}
   - {fileID: 1653709391}
@@ -75058,9 +74895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 493791290}
-  - {fileID: 1526367825}
   roadConnections:
   - {fileID: 1050215821}
   - {fileID: 1161470565}
@@ -75700,19 +75534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36114ca231f465a4fbdebd0cae1be426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1051958914}
-  - {fileID: 932837457}
-  - {fileID: 424456002}
-  - {fileID: 985442464}
-  - {fileID: 868605119}
-  - {fileID: 1488697605}
-  - {fileID: 677213583}
-  - {fileID: 1646382269}
-  - {fileID: 1028218513}
-  - {fileID: 1327181323}
-  - {fileID: 1936594373}
-  - {fileID: 1383017129}
   roadConnections:
   - {fileID: 188495380}
   - {fileID: 715882444}
@@ -78426,85 +78247,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183344735}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1183414220
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1183414221}
-  - component: {fileID: 1183414223}
-  - component: {fileID: 1183414222}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1183414221
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183414220}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00022299468}
-  m_LocalScale: {x: 0.93999994, y: 0.531265, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1205124511}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1183414222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183414220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 234
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: Four-Way Intersection
---- !u!222 &1183414223
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183414220}
-  m_CullTransparentMesh: 0
 --- !u!1 &1183848189
 GameObject:
   m_ObjectHideFlags: 0
@@ -79770,126 +79512,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1204880630}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1205124510
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1205124511}
-  - component: {fileID: 1205124514}
-  - component: {fileID: 1205124513}
-  - component: {fileID: 1205124512}
-  m_Layer: 5
-  m_Name: FourWayIntersectionButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1205124511
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205124510}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 10.25, y: 2.1834679, z: 1}
-  m_Children:
-  - {fileID: 1183414221}
-  m_Father: {fileID: 1094128927}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 313}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1205124512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205124510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1205124513}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1205124513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205124510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1205124514
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205124510}
-  m_CullTransparentMesh: 0
 --- !u!1 &1206403678
 GameObject:
   m_ObjectHideFlags: 0
@@ -80204,9 +79826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1115855146}
-  - {fileID: 1529409423}
   roadConnections:
   - {fileID: 1693240633}
   - {fileID: 480089540}
@@ -80328,9 +79947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1889993593}
-  - {fileID: 1024219836}
   roadConnections:
   - {fileID: 1560134057}
   - {fileID: 2128207863}
@@ -81785,9 +81401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1278852123}
-  - {fileID: 2089382287}
   roadConnections:
   - {fileID: 22376360}
   - {fileID: 1350999361}
@@ -82218,9 +81831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1743918812}
-  - {fileID: 1803864325}
   roadConnections:
   - {fileID: 1365688899}
   - {fileID: 174447491}
@@ -86644,9 +86254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 579823895}
-  - {fileID: 1716182007}
   roadConnections:
   - {fileID: 1313312293}
   - {fileID: 1529857869}
@@ -88122,9 +87729,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 538271136}
-  - {fileID: 130706981}
   roadConnections:
   - {fileID: 15504682}
   - {fileID: 122012117}
@@ -89660,13 +89264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 536399138}
-  - {fileID: 1163489602}
-  - {fileID: 875175675}
-  - {fileID: 2146623517}
-  - {fileID: 743072370}
-  - {fileID: 1634907561}
   roadConnections:
   - {fileID: 2117726914}
   - {fileID: 1943253694}
@@ -91422,9 +91019,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 942750488}
-  - {fileID: 425483736}
   roadConnections:
   - {fileID: 2049683131}
   - {fileID: 116134973}
@@ -93996,9 +93590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 988668938}
-  - {fileID: 390310341}
   roadConnections:
   - {fileID: 403197522}
   - {fileID: 1565794199}
@@ -95098,9 +94689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 889907703}
-  - {fileID: 1302275789}
   roadConnections:
   - {fileID: 1509389886}
   - {fileID: 1374237562}
@@ -96219,9 +95807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1173358872}
-  - {fileID: 247135915}
   roadConnections:
   - {fileID: 1151909944}
   - {fileID: 374454011}
@@ -97079,9 +96664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 36067727}
-  - {fileID: 1461017337}
   roadConnections:
   - {fileID: 159927420}
   - {fileID: 1764422400}
@@ -99658,13 +99240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 138559901}
-  - {fileID: 790283561}
-  - {fileID: 451500942}
-  - {fileID: 2089374357}
-  - {fileID: 696235943}
-  - {fileID: 1502171546}
   roadConnections:
   - {fileID: 1493557526}
   - {fileID: 129082329}
@@ -102928,9 +102503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 422460161}
-  - {fileID: 224709197}
   roadConnections:
   - {fileID: 396170872}
   - {fileID: 1720433331}
@@ -106259,9 +105831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1547784102}
-  - {fileID: 1314898705}
   roadConnections:
   - {fileID: 1415955214}
   - {fileID: 1159236980}
@@ -106570,9 +106139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1843294116}
-  - {fileID: 2023358684}
   roadConnections:
   - {fileID: 1985458273}
   - {fileID: 383536556}
@@ -109277,9 +108843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 2124686691}
-  - {fileID: 386466146}
   roadConnections:
   - {fileID: 87992302}
   - {fileID: 1870020325}
@@ -109538,9 +109101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 401967512}
-  - {fileID: 2053427172}
   roadConnections:
   - {fileID: 512766882}
   - {fileID: 1074909322}
@@ -111325,9 +110885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1469234916}
-  - {fileID: 1949024004}
   roadConnections:
   - {fileID: 357607292}
   - {fileID: 663858191}
@@ -111989,9 +111546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1492385000}
-  - {fileID: 1418429816}
   roadConnections:
   - {fileID: 236249642}
   - {fileID: 211864779}
@@ -112503,9 +112057,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 2053345015}
-  - {fileID: 1695445510}
   roadConnections:
   - {fileID: 1201359900}
   - {fileID: 2141406589}
@@ -115801,9 +115352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 79128561}
-  - {fileID: 1592542434}
   roadConnections:
   - {fileID: 260262067}
   - {fileID: 221506394}
@@ -117067,9 +116615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 9622020}
-  - {fileID: 1853025073}
   roadConnections:
   - {fileID: 1585044103}
   - {fileID: 135538237}
@@ -119326,7 +118871,7 @@ GameObject:
   - component: {fileID: 1786950548}
   - component: {fileID: 1786950547}
   m_Layer: 5
-  m_Name: TwoLaneRoadButton
+  m_Name: PlaceRoadRoadButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120304,9 +119849,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 728523132}
-  - {fileID: 1346005447}
   roadConnections:
   - {fileID: 489074017}
   - {fileID: 632417995}
@@ -123009,9 +122551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1559439670}
-  - {fileID: 1186259316}
   roadConnections:
   - {fileID: 1046121291}
   - {fileID: 1560278411}
@@ -123176,9 +122715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1967920178}
-  - {fileID: 886186720}
   roadConnections:
   - {fileID: 85983436}
   - {fileID: 1676758617}
@@ -126615,19 +126151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36114ca231f465a4fbdebd0cae1be426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1668315669}
-  - {fileID: 2066884154}
-  - {fileID: 1978872506}
-  - {fileID: 170310992}
-  - {fileID: 1429710273}
-  - {fileID: 988202821}
-  - {fileID: 529785636}
-  - {fileID: 1975156340}
-  - {fileID: 1864804536}
-  - {fileID: 1286096856}
-  - {fileID: 984687585}
-  - {fileID: 1888884049}
   roadConnections:
   - {fileID: 862696591}
   - {fileID: 741634850}
@@ -127369,9 +126892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1754522980}
-  - {fileID: 973564888}
   roadConnections:
   - {fileID: 994193578}
   - {fileID: 1495539024}
@@ -130701,9 +130221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 853729800}
-  - {fileID: 110431850}
   roadConnections:
   - {fileID: 805309037}
   - {fileID: 514565169}
@@ -131342,9 +130859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1534694741}
-  - {fileID: 1468130811}
   roadConnections:
   - {fileID: 807971365}
   - {fileID: 836344832}
@@ -132681,7 +132195,7 @@ Transform:
   m_Children:
   - {fileID: 1817111340}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1994199465
 MonoBehaviour:
@@ -132766,9 +132280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 393838701}
-  - {fileID: 342882780}
   roadConnections:
   - {fileID: 1289608123}
   - {fileID: 250627849}
@@ -133587,9 +133098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1090920867}
-  - {fileID: 542812151}
   roadConnections:
   - {fileID: 286864257}
   - {fileID: 1436827117}
@@ -134876,9 +134384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb9781b4e4de374ab8a9c78e2b50954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1033645945}
-  - {fileID: 396196727}
   roadConnections:
   - {fileID: 1624684534}
   - {fileID: 1967245637}
@@ -137828,13 +137333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 238491603}
-  - {fileID: 1620254673}
-  - {fileID: 1509280365}
-  - {fileID: 1297459332}
-  - {fileID: 924401096}
-  - {fileID: 503883713}
   roadConnections:
   - {fileID: 1528386222}
   - {fileID: 1139138646}
@@ -139429,13 +138927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 1925847722}
-  - {fileID: 1603940451}
-  - {fileID: 1070467091}
-  - {fileID: 164138867}
-  - {fileID: 624671977}
-  - {fileID: 1692035459}
   roadConnections:
   - {fileID: 1753985601}
   - {fileID: 1366968742}

@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class ThreeWayIntersection : RoadPiece
 {
-    public static GameObject prefab = null;
-
-    void Awake()
-    {
-        prefab = Resources.Load<GameObject>("Prefabs/ThreeWayIntersection");
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +17,6 @@ public class ThreeWayIntersection : RoadPiece
             {
                 Debug.LogError("ThreeWayIntersection must have exactly two out and two in paths for each road connection");
             }
-        }
-
-        if (prefab == null)
-        {
-            Debug.LogError("ThreeWayIntersection must have a prefab");
         }
     }
 

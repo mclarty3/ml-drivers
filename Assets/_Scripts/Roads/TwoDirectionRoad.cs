@@ -8,22 +8,6 @@ public class TwoDirectionRoad : RoadPiece
 {
     public bool elbowRoad = false;
 
-    public static GameObject straightPrefab = null;
-    public static GameObject elbowPrefab = null;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (straightPrefab == null)
-        {  
-            straightPrefab = Resources.Load<GameObject>("Prefabs/TwoDirectionRoad");
-        }
-        if (elbowPrefab == null)
-        {
-            elbowPrefab = Resources.Load<GameObject>("Prefabs/ElbowRoad");
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -234,6 +218,7 @@ public class TwoDirectionRoad : RoadPiece
     {
         RoadConnection connection = null;
         GameObject go;
+        GameObject elbowRoadPrefab = LevelManager.GetInstance().prefabDict["ElbowRoad"];
         if (roadConnections[0].connectedTo != null)
         {
             connection = roadConnections[0];
@@ -256,7 +241,7 @@ public class TwoDirectionRoad : RoadPiece
             currentConnectionIndex = 1;
             newConnectionIndex = 0;
         }
-        GameObject newRoad = Instantiate(TwoDirectionRoad.elbowPrefab, transform.position, rot);
+        GameObject newRoad = Instantiate(elbowRoadPrefab, transform.position, rot);
         TwoDirectionRoad elbow = newRoad.GetComponent<TwoDirectionRoad>();
         elbow.roadConnections[currentConnectionIndex].ConnectTo(connection.connectedTo);
         connection.connectedTo.ConnectTo(elbow.roadConnections[currentConnectionIndex]);

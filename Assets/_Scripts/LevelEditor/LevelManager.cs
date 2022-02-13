@@ -30,12 +30,23 @@ public class LevelManager : MonoBehaviour
         }
         prefabDict = new Dictionary<string, GameObject>()
         {
-            { "TwoDirectionRoad",       Resources.Load<GameObject>("Prefabs/TwoDirectionRoad") },
-            { "ElbowRoad",              Resources.Load<GameObject>("Prefabs/ElbowRoad") },
-            { "ThreeWayIntersection",   Resources.Load<GameObject>("Prefabs/ThreeWayIntersection") },
-            { "FourWayIntersection",    Resources.Load<GameObject>("Prefabs/FourWayIntersection") }
+            {
+                "TwoDirectionRoad",     
+                Resources.Load<GameObject>("Prefabs/RoadPieces/TwoDirectionRoad")
+            },
+            {
+                "ElbowRoad",            
+                Resources.Load<GameObject>("Prefabs/RoadPieces/ElbowRoad")
+            },
+            {
+                "ThreeWayIntersection", 
+                Resources.Load<GameObject>("Prefabs/RoadPieces/ThreeWayIntersection")
+            },
+            {
+                "FourWayIntersection",  
+                Resources.Load<GameObject>("Prefabs/RoadPieces/FourWayIntersection")
+            }
         };
-
     }
 
     // Start is called before the first frame update

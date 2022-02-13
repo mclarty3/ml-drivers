@@ -6,14 +6,6 @@ using System;
 
 public class FourWayIntersection : RoadPiece
 {
-    public static GameObject prefab = null;
-
-    
-    void Awake()
-    {
-        prefab = Resources.Load<GameObject>("Prefabs/FourWayIntersection");
-    }
-
     // Start is called before the first frame update
     void Start()
     {

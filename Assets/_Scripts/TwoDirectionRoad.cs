@@ -118,7 +118,7 @@ public class TwoDirectionRoad : RoadPiece
             transform.rotation = Quaternion.LookRotation(toOtherPos, transform.up);
             connect = roadConnections[0];
             RoadConnection newConnect = toPlace.AddConnectionFromVector(toOtherPos, connect, this, 
-                                                                     out newPlacement);
+                                                                        out newPlacement);
             if (newConnect != null)
             {
                 connect.ConnectTo(newConnect);

@@ -66,11 +66,11 @@ public class ThreeWayIntersection : RoadPiece
                                                            RoadPiece otherPiece, out GameObject go)
     {
         List<RoadConnection> connectedRoads = GetConnectedRoads();
+        go = null;
         if (connectedRoads.Count == 3)
         {
-
+            go = ConvertToFourWay(otherPiece);
         }
-        go = null;
         return null;
     }
 

@@ -23,7 +23,7 @@ public class RoadConnection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ConnectTo(RoadConnection other)
@@ -31,7 +31,8 @@ public class RoadConnection : MonoBehaviour
         connectedTo = other;
         foreach (Path path in outPaths)
         {
-            path.connectingPaths = other.inPaths;
+            // path.connectingPaths = other.inPaths;
+            path.connectingPaths = other == null ? null : other.inPaths;
         }
     }
 }

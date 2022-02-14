@@ -39,6 +39,13 @@ public class LevelCreator : MonoBehaviour
                 PlaceObject();
             }
         }
+        if (Input.GetMouseButton(1))
+        {
+            if (highlightedNode.vis != null && !interfaceManager.mouseOverUIElement)
+            {
+                RemoveObject();
+            }
+        }
     }
 
     void UpdateMousePosition()
@@ -80,11 +87,11 @@ public class LevelCreator : MonoBehaviour
                         objHighlight.SetActive(true);
                     }
                 }
-            } 
+            }
             else if (objHighlight != null && highlightedNode.vis != null)
             {
                 objHighlight.SetActive(true);
-            } 
+            }
             else if (objHighlight != null)
             {
                 Destroy(objHighlight);
@@ -95,13 +102,13 @@ public class LevelCreator : MonoBehaviour
 
     public void PlaceObject()
     {
-        if (objToPlace == null || highlightedNode == null || objHighlight == null || 
+        if (objToPlace == null || highlightedNode == null || objHighlight == null ||
             highlightedNode.vis != null)
         {
             return;
         }
-        
-        log.Log("Attempting to place object at position: (" + 
+
+        log.Log("Attempting to place object at position: (" +
                 highlightedNode.x + ", " + highlightedNode.z + ")");
 
         Transform nodeTransform = gridBase.GetNodeTransform(highlightedNode);
@@ -111,7 +118,7 @@ public class LevelCreator : MonoBehaviour
         RoadPiece road = obj.GetComponent<RoadPiece>();
         Node[] surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode, true);
         bool invalidPlacement = false;
-        
+
         // Check to see if the placement is invalid (road completes a square of four roads)
         for (int i = 0; i < surroundingNodes.Length; i+=2)
         {
@@ -161,7 +168,6 @@ public class LevelCreator : MonoBehaviour
             Node node = surroundingNodes[i];
             if (node != null && node.vis != null)
             {
-                Debug.Log(node.vis);
                 // Get changed objects (surroundingRoad, placedRoad)
                 GameObject[] newVis = node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(road);
 
@@ -180,7 +186,7 @@ public class LevelCreator : MonoBehaviour
                 }
             }
         }
-    
+
         obj.transform.parent = nodeTransform;
         if (highlightedNode.vis == null)
         {
@@ -191,6 +197,34 @@ public class LevelCreator : MonoBehaviour
         {
             Destroy(objHighlight);
         }
+    }
+
+    void RemoveObject()
+    {
+        GameObject objToRemove = highlightedNode.vis;
+        RoadPiece road = objToRemove.GetComponent<RoadPiece>();
+        Node[] surroundingNodes = gridBase.GetSurroundingNodes(highlightedNode);
+
+        foreach (Node node in surroundingNodes)
+        {
+            if (node == null || node.vis == null)
+            {
+                continue;
+            }
+            RoadPiece roadPiece = node.vis.GetComponent<RoadPiece>();
+            if (roadPiece != null)
+            {
+                GameObject newObj = roadPiece.HandleRoadRemoval(road);
+                if (newObj != null)
+                {
+                    node.vis = newObj;
+                    newObj.transform.parent = gridBase.GetNodeTransform(node);
+                }
+            }
+        }
+
+        highlightedNode.vis = null;
+        Destroy(objToRemove);
     }
 
     public void SetObjectToPlace(GameObject obj)

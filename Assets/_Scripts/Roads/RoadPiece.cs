@@ -15,7 +15,7 @@ public abstract class RoadPiece : MonoBehaviour
         { typeof(FourWayIntersection), 1 },
     };
 
-    public List<RoadConnection> GetConnectedRoads()
+    public List<RoadConnection> GetFullConnections()
     {
         List<RoadConnection> connectedRoads = new List<RoadConnection>();
         foreach (RoadConnection connection in roadConnections)
@@ -29,9 +29,37 @@ public abstract class RoadPiece : MonoBehaviour
         return connectedRoads;
     }
 
+    public List<RoadConnection> GetConnectedRoads()
+    {
+        List<RoadConnection> connectedRoads = new List<RoadConnection>();
+        foreach (RoadConnection connection in roadConnections)
+        {
+            if (connection.connectedTo != null)
+            {
+                connectedRoads.Add(connection.connectedTo);
+            }
+        }
+
+        return connectedRoads;
+    }
+
+    /// <summary>
+    /// Returns the connection that faces the direction a given vector comes from.
+    /// </summary>
     protected abstract RoadConnection GetRoadConnectionFromVector(Vector3 vector);
+
+    /// <summary>
+    /// Returns a road connection from this road, and adds an additional connector to the road
+    /// if applicable (TwoWay -> ThreeWay, ThreeWay -> FourWay)
+    /// </summary>
     public abstract RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
                                                            RoadPiece otherPiece, out GameObject go);
 
+    /// <summary>
+    /// Given another RoadPiece placed adjacent to this road piece, connect the given roads and convert
+    /// one or both of them to a different road type if necessary.
+    /// </summary>
     public abstract GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false);
+
+    public abstract GameObject HandleRoadRemoval(RoadPiece toRemove);
 }

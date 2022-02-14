@@ -65280,6 +65280,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -65352,6 +65353,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf33bd8a892b9148943898b4bbba9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScreenEdgeBorderThickness: 1
+  RTSMode: 1
+  FlyCameraMode: 0
+  minPanSpeed: 5
+  maxPanSpeed: 0
+  secToMaxSpeed: 0
+  zoomSpeed: 5
+  enableMovementLimits: 0
+  heightLimit: {x: 0, y: 0}
+  lenghtLimit: {x: 0, y: 0}
+  widthLimit: {x: 0, y: 0}
+  rotationEnabled: 1
+  rotateSpeed: 5
 --- !u!1 &963440234
 GameObject:
   m_ObjectHideFlags: 0
@@ -137935,8 +137961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePrefab: {fileID: 5666115428827711806, guid: e817430bc8e238140bcbe9057e7aee93, type: 3}
   highlightMaterial: {fileID: 0}
-  sizeX: 10
-  sizeZ: 10
+  sizeX: 15
+  sizeZ: 15
   spacing: 3.25
   verticalOffset: 0
   objectOffset: 0.05
@@ -138015,7 +138041,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994199462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b41aa3886d407024b954078304ea8695, type: 3}
   m_Name: 

@@ -16,7 +16,7 @@ public class GridBase : MonoBehaviour
     public Node[,] grid;
 
     private static GridBase instance = null;
-    public Transform gridHolder;
+    private Transform gridHolder;
 
     public static GridBase GetInstance()
     {

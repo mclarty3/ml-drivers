@@ -10,7 +10,7 @@ public class DebugLogger : MonoBehaviour
         return _instance;
     }
 
-    public LevelManager lm;
+    LevelManager lm;
 
     void Awake()
     {
@@ -32,15 +32,8 @@ public class DebugLogger : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         lm = LevelManager.GetInstance();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -12,6 +12,7 @@ public class LevelCreator : MonoBehaviour
 
     GameObject objToPlace = null;
     GameObject objHighlight = null;
+    [HideInInspector]
     public Vector3 mousePosition;
     Vector3 worldPosition;
 

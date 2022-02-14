@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ThreeWayIntersection : RoadPiece
 {
@@ -19,13 +20,6 @@ public class ThreeWayIntersection : RoadPiece
             }
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     protected override RoadConnection GetRoadConnectionFromVector(Vector3 vector)
     {
@@ -54,7 +48,7 @@ public class ThreeWayIntersection : RoadPiece
     public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
                                                            RoadPiece otherPiece, out GameObject go)
     {
-        List<RoadConnection> connectedRoads = GetConnectedRoads();
+        List<RoadConnection> connectedRoads = GetFullConnections();
         go = null;
         if (connectedRoads.Count == 3)
         {
@@ -65,8 +59,8 @@ public class ThreeWayIntersection : RoadPiece
 
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     {
-        List<RoadConnection> connectedRoads = GetConnectedRoads();
-        List<RoadConnection> placementConnections = toPlace.GetConnectedRoads();
+        List<RoadConnection> connectedRoads = GetFullConnections();
+        List<RoadConnection> placementConnections = toPlace.GetFullConnections();
 
         GameObject[] changedObjects = new GameObject[2] { null, null };
 
@@ -88,11 +82,16 @@ public class ThreeWayIntersection : RoadPiece
         return null;
     }
 
+    public override GameObject HandleRoadRemoval(RoadPiece toRemove)
+    {
+        throw new NotImplementedException();
+    }
+
     public GameObject ConvertToFourWay(RoadPiece newPiece)
     {
         Vector3 toNewPiece = newPiece.transform.position - transform.position;
         GameObject fourWayPrefab = LevelManager.GetInstance().prefabDict["FourWayIntersection"];
-        GameObject newRoad = Instantiate(fourWayPrefab, transform.position, 
+        GameObject newRoad = Instantiate(fourWayPrefab, transform.position,
                                          transform.rotation);
 
         FourWayIntersection fourWay = newRoad.GetComponent<FourWayIntersection>();
@@ -101,8 +100,8 @@ public class ThreeWayIntersection : RoadPiece
             fourWay.roadConnections[i].ConnectTo(roadConnections[i].connectedTo);
             roadConnections[i].connectedTo.ConnectTo(fourWay.roadConnections[i]);
         }
-        RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece, 
-                                                                     fourWay.roadConnections[3], 
+        RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece,
+                                                                     fourWay.roadConnections[3],
                                                                      this, out GameObject go);
         fourWay.roadConnections[3].ConnectTo(newConnect);
         Destroy(gameObject);

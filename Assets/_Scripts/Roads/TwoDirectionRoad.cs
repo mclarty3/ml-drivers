@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class TwoDirectionRoad : RoadPiece
 {
@@ -32,13 +33,12 @@ public class TwoDirectionRoad : RoadPiece
     public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
                                                            RoadPiece otherPiece, out GameObject go)
     {
-        List<RoadConnection> connectedRoads = GetConnectedRoads();
+        List<RoadConnection> connectedRoads = GetFullConnections();
         go = null;
         if (connectedRoads.Count == 2)
         {
             GameObject[] thisOtherRoad = ConvertToThreeWay(otherPiece);
             go = thisOtherRoad[0];
-            // go = ConvertToThreeWay(otherPiece);
             return null;
         }
         else if (connectedRoads.Count == 1)
@@ -72,7 +72,6 @@ public class TwoDirectionRoad : RoadPiece
             {
                 GameObject[] thisOtherRoad = ConvertToElbow(otherPiece);
                 go = thisOtherRoad[0];
-                // go = ConvertToElbow(otherPiece);
                 return null;
             }
         }
@@ -89,7 +88,7 @@ public class TwoDirectionRoad : RoadPiece
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     {
         // Called on surrounding roads when a new road is placed in an adjacent tile
-        List<RoadConnection> connectedRoads = GetConnectedRoads();
+        List<RoadConnection> connectedRoads = GetFullConnections();
 
         GameObject[] changedObjects = new GameObject[2] { null, null };
         GameObject newPlacement = null;
@@ -141,9 +140,6 @@ public class TwoDirectionRoad : RoadPiece
                 return new GameObject[2] {changedObjects[1], changedObjects[0]};
             }
             return changedObjects;
-                // GameObject newNodeVis = ConvertToElbow(toPlace);
-                // changedObjects[dontRepeat ? 1 : 0] = newNodeVis;
-                // return changedObjects;
             }
         }
         else if (connectedRoads.Count == 2)
@@ -154,11 +150,34 @@ public class TwoDirectionRoad : RoadPiece
                 return new GameObject[2] {changedObjects[1], changedObjects[0]};
             }
             return changedObjects;
-            // GameObject newNodeVis = ConvertToThreeWay(toPlace);
-            // changedObjects[dontRepeat ? 1 : 0] = newNodeVis;
-            // return changedObjects;
         }
         return changedObjects;
+    }
+
+    public override GameObject HandleRoadRemoval(RoadPiece toRemove)
+    {
+        List<RoadConnection> connectedRoads = GetFullConnections();
+        RoadConnection removeConnect = connectedRoads.Where(x => x.connectedTo.roadPiece == toRemove)
+                                                     .FirstOrDefault();
+        RoadConnection keepConnect = connectedRoads.Where(x => x.connectedTo.roadPiece != toRemove)
+                                                   .FirstOrDefault();
+        if (removeConnect == null)
+        {
+            return null;
+        }
+        GameObject newObj = null;
+
+        Vector3 otherPos = toRemove.transform.position;
+        Vector3 toOtherPos = otherPos - transform.position;
+
+        removeConnect.ConnectTo(null);
+
+        if (elbowRoad)
+        {
+            newObj = ConvertElbowToStraight(keepConnect);
+        }
+
+        return newObj;
     }
 
     public GameObject[] ConvertToThreeWay(RoadPiece newPiece)
@@ -229,7 +248,6 @@ public class TwoDirectionRoad : RoadPiece
 
         thisOtherRoad[0] = newRoad;
         return thisOtherRoad;
-        // return newRoad;
     }
 
     public GameObject[] ConvertToElbow(RoadPiece newPiece)
@@ -276,6 +294,28 @@ public class TwoDirectionRoad : RoadPiece
 
         thisOtherRoad[0] = newRoad;
         return thisOtherRoad;
-        // return newRoad;
+    }
+
+    public GameObject ConvertElbowToStraight(RoadConnection keepConnection)
+    {
+        RoadPiece otherPiece = keepConnection.connectedTo.roadPiece;
+        Vector3 otherPos = otherPiece.transform.position;
+
+        GameObject straightPrefab = LevelManager.GetInstance().prefabDict["TwoDirectionRoad"];
+
+        GameObject straightRoad = Instantiate(straightPrefab, transform.position, transform.rotation);
+        RoadPiece straightPiece = straightRoad.GetComponent<RoadPiece>();
+        RoadConnection newConnect = straightPiece.AddConnectionFromVector(transform.position - otherPos,
+                                                                          keepConnection.connectedTo,
+                                                                          otherPiece,
+                                                                          out GameObject go);
+
+        if (newConnect != null)
+        {
+            keepConnection.connectedTo.ConnectTo(newConnect);
+        }
+
+        Destroy(gameObject);
+        return straightRoad;
     }
 }

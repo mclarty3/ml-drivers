@@ -26,18 +26,23 @@ public class FourWayIntersection : RoadPiece
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
     protected override RoadConnection GetRoadConnectionFromVector(Vector3 vector) { return null; }
     public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
                                                            RoadPiece otherPiece, out GameObject go)
-    { 
+    {
         go = null;
-        return null; 
+        return null;
     }
-    
-    public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false) 
+
+    public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     { return null; }
+
+    public override GameObject HandleRoadRemoval(RoadPiece toRemove)
+    {
+        throw new NotImplementedException();
+    }
 }

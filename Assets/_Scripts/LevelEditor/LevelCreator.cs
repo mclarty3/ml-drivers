@@ -175,6 +175,7 @@ public class LevelCreator : MonoBehaviour
                 {
                     log.Log("Converting surrounding road piece");
                     node.vis = newVis[0];
+                    node.objId = manager.GetRoadPiecePrefabId(node.vis.name);
                     newVis[0].transform.parent = gridBase.GetNodeTransform(node);
                 }
                 if (newVis[1] != null)
@@ -182,6 +183,7 @@ public class LevelCreator : MonoBehaviour
                     log.Log("Converting placed road piece");
                     road = newVis[1].GetComponent<RoadPiece>();
                     highlightedNode.vis = newVis[1];
+                    highlightedNode.objId = manager.GetRoadPiecePrefabId(highlightedNode.vis.name);
                     newVis[1].transform.parent = gridBase.GetNodeTransform(highlightedNode);
                 }
             }
@@ -191,6 +193,7 @@ public class LevelCreator : MonoBehaviour
         if (highlightedNode.vis == null)
         {
             highlightedNode.vis = obj;
+            highlightedNode.objId = manager.GetRoadPiecePrefabId(highlightedNode.vis.name);
         }
         manager.inSceneGameObjects.Add(obj);
         if (objHighlight)
@@ -218,12 +221,14 @@ public class LevelCreator : MonoBehaviour
                 if (newObj != null)
                 {
                     node.vis = newObj;
+                    node.objId = manager.GetRoadPiecePrefabId(node.vis.name);
                     newObj.transform.parent = gridBase.GetNodeTransform(node);
                 }
             }
         }
 
         highlightedNode.vis = null;
+        highlightedNode.objId = 0;
         Destroy(objToRemove);
     }
 

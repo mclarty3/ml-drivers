@@ -7,12 +7,14 @@ public class Node
     public int x;
     public int z;
     public GameObject vis;
+    public int objId;
 
     public Node(int x=-1, int z=-1, GameObject vis=null)
     {
         x = -1;
         z = -1;
         vis = null;
+        objId = 0;
     }
 
     public static Node nullNode = new Node();
@@ -23,7 +25,7 @@ public class Node
         {
             return false;
         }
-        
+
         if (obj.GetType() == this.GetType()) {
             Node other = (Node)obj;
             return (x == other.x && z == other.z);

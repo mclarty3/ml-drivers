@@ -42,8 +42,8 @@ public class GridBase : MonoBehaviour
             {
                 float posX = x * spacing;
                 float posZ = z * spacing;
-                GameObject go = Instantiate(nodePrefab, new Vector3(posX, verticalOffset, posZ),
-                                              Quaternion.identity) as GameObject;
+                Vector3 pos = new Vector3(posX, verticalOffset, posZ) + transform.position;
+                GameObject go = Instantiate(nodePrefab, pos, Quaternion.identity) as GameObject;
                 go.transform.parent = gridHolder;
 
                 Node node = new Node();
@@ -63,6 +63,7 @@ public class GridBase : MonoBehaviour
         go.transform.parent = gridHolder;
         go.transform.position = new Vector3((sizeX / 2) * spacing, verticalOffset,
                                             (sizeZ / 2) * spacing);
+        go.transform.position += transform.position;
     }
 
     public void ResetGrid()
@@ -167,10 +168,43 @@ public class GridBase : MonoBehaviour
         return false;
     }
 
+    public List<RoadPiece> GetRoadPieces(ref bool checkDisconnectedRoads)
+    {
+        List<RoadPiece> pieces = new List<RoadPiece>();
+        bool foundDisconnectedRoad = false;
+        for (int x = 0; x < sizeX; x++)
+        {
+            for (int z = 0; z < sizeZ; z++)
+            {
+                Node node = grid[x, z];
+                if (node.vis == null || !node.vis.TryGetComponent<RoadPiece>(out RoadPiece roadPiece))
+                {
+                    continue;
+                }
+
+                pieces.Add(roadPiece);
+
+                if (checkDisconnectedRoads)
+                {
+                    foreach (RoadConnection conn in roadPiece.roadConnections)
+                    {
+                        if (conn.connectedTo == null)
+                        {
+                            foundDisconnectedRoad = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        checkDisconnectedRoads = foundDisconnectedRoad;
+        return pieces;
+    }
+
     public Node NodeFromWorldPosition(Vector3 worldPosition, out bool isOnGrid)
     {
-        int x = Mathf.FloorToInt((worldPosition.x + (spacing / 2)) / spacing);
-        int z = Mathf.FloorToInt((worldPosition.z + (spacing / 2)) / spacing);
+        int x = Mathf.FloorToInt((worldPosition.x - transform.position.x + (spacing / 2)) / spacing);
+        int z = Mathf.FloorToInt((worldPosition.z - transform.position.z + (spacing / 2)) / spacing);
         isOnGrid = true;
 
         if (x < 0 || x >= sizeX)

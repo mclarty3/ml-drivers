@@ -9,6 +9,7 @@ public class LevelCreator : MonoBehaviour
     GridBase gridBase;
     InterfaceManager interfaceManager;
     ModalManager modalManager;
+    CarSpawner carSpawner;
     DebugLogger log;
 
     GameObject objToPlace = null;
@@ -25,6 +26,7 @@ public class LevelCreator : MonoBehaviour
         manager = LevelManager.GetInstance();
         interfaceManager = InterfaceManager.GetInstance();
         modalManager = GetComponent<ModalManager>();
+        carSpawner = GetComponent<CarSpawner>();
         log = DebugLogger.GetInstance();
     }
 
@@ -36,14 +38,22 @@ public class LevelCreator : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (objToPlace != null && !interfaceManager.mouseOverUIElement)
+            if (carSpawner.simulationActive)
+            {
+
+            }
+            else if (objToPlace != null && !interfaceManager.mouseOverUIElement)
             {
                 PlaceObject();
             }
         }
         if (Input.GetMouseButton(1))
         {
-            if (highlightedNode.vis != null && !interfaceManager.mouseOverUIElement)
+            if (carSpawner.simulationActive)
+            {
+
+            }
+            else if (highlightedNode.vis != null && !interfaceManager.mouseOverUIElement)
             {
                 RemoveObject();
             }

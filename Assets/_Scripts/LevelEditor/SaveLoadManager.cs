@@ -53,9 +53,7 @@ public static class SaveLoadManager
                 {
                     if (file.EndsWith(".dat"))
                     {
-                        Debug.Log(file);
                         levelNames.Add(System.IO.Path.GetFileNameWithoutExtension(file));
-                        Debug.Log(System.IO.Path.GetFileNameWithoutExtension(file));
                     }
                 }
             }

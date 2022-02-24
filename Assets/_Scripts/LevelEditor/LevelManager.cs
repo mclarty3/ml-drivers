@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     ModalManager modalManager;
     ModalManager loadMapModalManager;
     InterfaceManager interfaceManager;
+    CarSpawner carSpawner;
 
     public List<GameObject> inSceneGameObjects;
     public List<GameObject> inSceneRoadPieces;
@@ -44,6 +45,7 @@ public class LevelManager : MonoBehaviour
         gridBase = GridBase.GetInstance();
         modalManager = GetComponent<ModalManager>();
         interfaceManager = InterfaceManager.GetInstance();
+        carSpawner = GetComponent<CarSpawner>();
 
         prefabDict = new Dictionary<string, GameObject>()
         {
@@ -122,6 +124,7 @@ public class LevelManager : MonoBehaviour
             modalManager.SetModalConfirmButtonOnClick(() => ClearLevel(true));
             modalManager.SetModalConfirmButtonOnClick(() => modalManager.OpenModal(false));
             modalManager.SetModalConfirmButtonOnClick(() => interfaceManager.MouseExit());
+            modalManager.SetModalConfirmButtonOnClick(() => carSpawner.EndSimulation());
             modalManager.OpenModal();
             return;
         }

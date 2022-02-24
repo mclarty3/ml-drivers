@@ -6,10 +6,13 @@ using System.IO;
 
 public static class SaveLoadManager
 {
-    public static void SaveLevel(GridBase grid)
+    public static void SaveLevel(GridBase grid, string levelName, bool customLevel=true)
     {
+        string path = customLevel ? Application.persistentDataPath + "/" :
+                                    Application.dataPath + "/PresetMaps/";
+        path += levelName + ".dat";
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream stream = new FileStream(Application.persistentDataPath + "/level.dat", FileMode.Create);
+        FileStream stream = new FileStream(path, FileMode.Create);
 
         GridData data = new GridData(grid);
 
@@ -17,12 +20,15 @@ public static class SaveLoadManager
         stream.Close();
     }
 
-    public static int[] LoadLevel()
+    public static int[] LoadLevel(string levelName, bool customLevel=true)
     {
-        if (File.Exists(Application.persistentDataPath + "/level.dat"))
+        string path = customLevel ? Application.persistentDataPath + "/" :
+                                    Application.dataPath + "/PresetMaps/";
+        path += levelName + ".dat";
+        if (File.Exists(path))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream stream = new FileStream(Application.persistentDataPath + "/level.dat", FileMode.Open);
+            FileStream stream = new FileStream(path, FileMode.Open);
 
             GridData data = bf.Deserialize(stream) as GridData;
             stream.Close();
@@ -33,6 +39,28 @@ public static class SaveLoadManager
         {
             return null;
         }
+    }
+
+    public static List<string> GetSavedLevels()
+    {
+        List<string> levelNames = new List<string>();
+        foreach (string path in new List<string>() { Application.persistentDataPath + "/",
+                                                     Application.dataPath + "/PresetMaps/" })
+        {
+            if (Directory.Exists(path))
+            {
+                foreach (string file in Directory.GetFiles(path))
+                {
+                    if (file.EndsWith(".dat"))
+                    {
+                        Debug.Log(file);
+                        levelNames.Add(System.IO.Path.GetFileNameWithoutExtension(file));
+                        Debug.Log(System.IO.Path.GetFileNameWithoutExtension(file));
+                    }
+                }
+            }
+        }
+        return levelNames;
     }
 }
 

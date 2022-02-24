@@ -52,6 +52,17 @@ public class ThreeWayIntersection : RoadPiece
         {
             go = ConvertToFourWay(otherPiece);
         }
+        else
+        {
+            foreach (RoadConnection conn in roadConnections)
+            {
+                if (conn.connectedTo == null)
+                {
+                    other.ConnectTo(conn);
+                    conn.ConnectTo(other);
+                }
+            }
+        }
         return null;
     }
 

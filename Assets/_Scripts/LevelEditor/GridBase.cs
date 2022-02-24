@@ -46,10 +46,6 @@ public class GridBase : MonoBehaviour
                                               Quaternion.identity) as GameObject;
                 go.transform.parent = gridHolder;
 
-                NodeObject nodeObj = go.GetComponent<NodeObject>();
-                nodeObj.posX = x;
-                nodeObj.posZ = z;
-
                 Node node = new Node();
                 node.x = x;
                 node.z = z;
@@ -69,7 +65,15 @@ public class GridBase : MonoBehaviour
                                             (sizeZ / 2) * spacing);
     }
 
-    public void ResetGrid(int[] gridData, Dictionary<int, GameObject> prefabIds)
+    public void ResetGrid()
+    {
+        Destroy(gridHolder.gameObject);
+        CreateGrid();
+        CreateMouseCollision();
+        return;
+    }
+
+    public void ResetGridFromData(int[] gridData=null, Dictionary<int, GameObject> prefabIds=null)
     {
         int sizeX = gridData[0];
         int sizeZ = gridData[1];
@@ -79,11 +83,9 @@ public class GridBase : MonoBehaviour
             return;
         }
 
-        Destroy(gridHolder.gameObject);
         this.sizeX = sizeX;
         this.sizeZ = sizeZ;
-        CreateGrid();
-        CreateMouseCollision();
+        ResetGrid();
 
         for (int i = 2; i < gridData.Length; i+=2)
         {
@@ -123,7 +125,7 @@ public class GridBase : MonoBehaviour
 
                 foreach (Node other in surroundingNodes)
                 {
-                    if (other.vis == null)
+                    if (other == null || other.vis == null)
                     {
                         continue;
                     }
@@ -134,13 +136,35 @@ public class GridBase : MonoBehaviour
                     RoadConnection connect = roadPiece.GetRoadConnectionFromVector(-direction);
                     RoadConnection otherConnect = otherPiece.GetRoadConnectionFromVector(direction);
 
-                    Debug.Log(roadPiece, otherPiece);
-
                     connect.ConnectTo(otherConnect);
                     otherConnect.ConnectTo(connect);
                 }
             }
         }
+    }
+
+    public bool IsDisconnectedRoad()
+    {
+        for (int x = 0; x < sizeX; x++)
+        {
+            for (int z = 0; z < sizeZ; z++)
+            {
+                Node node = grid[x, z];
+                if (node.vis == null || !node.vis.TryGetComponent<RoadPiece>(out RoadPiece roadPiece))
+                {
+                    continue;
+                }
+
+                foreach (RoadConnection conn in roadPiece.roadConnections)
+                {
+                    if (conn.connectedTo == null)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public Node NodeFromWorldPosition(Vector3 worldPosition, out bool isOnGrid)

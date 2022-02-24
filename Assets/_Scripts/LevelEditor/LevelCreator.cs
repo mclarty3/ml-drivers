@@ -8,6 +8,7 @@ public class LevelCreator : MonoBehaviour
     LevelManager manager;
     GridBase gridBase;
     InterfaceManager interfaceManager;
+    ModalManager modalManager;
     DebugLogger log;
 
     GameObject objToPlace = null;
@@ -23,6 +24,7 @@ public class LevelCreator : MonoBehaviour
         gridBase = GridBase.GetInstance();
         manager = LevelManager.GetInstance();
         interfaceManager = InterfaceManager.GetInstance();
+        modalManager = GetComponent<ModalManager>();
         log = DebugLogger.GetInstance();
     }
 
@@ -57,12 +59,16 @@ public class LevelCreator : MonoBehaviour
         {
             mousePosition = hit.point;
         }
+        else
+        {
+            mousePosition = Vector3.positiveInfinity;
+        }
     }
 
     void UpdateHighlightedNode()
     {
         Node node = gridBase.NodeFromWorldPosition(mousePosition, out bool isOnGrid);
-        if (node != highlightedNode)
+        if (node != highlightedNode && !interfaceManager.mouseOverUIElement && !modalManager.isOpen)
         {
             if (highlightedNode != null)
             {
@@ -88,14 +94,22 @@ public class LevelCreator : MonoBehaviour
                     }
                 }
             }
-            else if (objHighlight != null && highlightedNode.vis != null)
-            {
-                objHighlight.SetActive(true);
-            }
-            else if (objHighlight != null)
+            // else if (objHighlight != null && highlightedNode.vis != null)
+            // {
+            //     objHighlight.SetActive(true);
+            // }
+            // else if (objHighlight != null)
+            else
             {
                 Destroy(objHighlight);
                 objHighlight = null;
+            }
+        }
+        else if (node != highlightedNode)
+        {
+            if (objHighlight != null)
+            {
+                objHighlight.SetActive(false);
             }
         }
     }

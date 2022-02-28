@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class ThreeWayIntersection : RoadPiece
 {
@@ -21,23 +22,20 @@ public class ThreeWayIntersection : RoadPiece
         }
     }
 
-    protected override RoadConnection GetRoadConnectionFromVector(Vector3 vector)
+    public override RoadConnection GetRoadConnectionFromVector(Vector3 vector)
     {
-        if (vector == Vector3.forward)
+        vector = -vector.normalized;
+        if (vector == transform.forward)
         {
             return roadConnections[0];
         }
-        else if (vector == Vector3.right)
+        else if (vector == transform.right)
         {
             return roadConnections[1];
         }
-        else if (vector == Vector3.back)
+        else if (vector == -transform.right)
         {
             return roadConnections[2];
-        }
-        else if (vector == Vector3.left)
-        {
-            return roadConnections[3];
         }
         else
         {
@@ -53,6 +51,17 @@ public class ThreeWayIntersection : RoadPiece
         if (connectedRoads.Count == 3)
         {
             go = ConvertToFourWay(otherPiece);
+        }
+        else
+        {
+            foreach (RoadConnection conn in roadConnections)
+            {
+                if (conn.connectedTo == null)
+                {
+                    other.ConnectTo(conn);
+                    conn.ConnectTo(other);
+                }
+            }
         }
         return null;
     }
@@ -82,9 +91,80 @@ public class ThreeWayIntersection : RoadPiece
         return null;
     }
 
-    public override GameObject HandleRoadRemoval(RoadPiece toRemove)
+    // public override GameObject HandleRoadRemoval(RoadPiece toRemove)
+    // {
+    //     List<RoadConnection> connectedRoads = GetFullConnections();
+    //     List<RoadConnection> keepConnects = connectedRoads.FindAll(x => x.connectedTo.roadPiece != toRemove);
+
+    //     GameObject straightPrefab = LevelManager.GetInstance().prefabDict["TwoDirectionRoad"];
+    //     GameObject newRoad = Instantiate(straightPrefab, transform.position, transform.rotation);
+    //     RoadPiece newPiece = newRoad.GetComponent<RoadPiece>();
+
+    //     foreach (RoadConnection connection in keepConnects)
+    //     {
+    //         RoadConnection otherConnection = connection.connectedTo;
+    //         otherConnection.connectedTo = null;
+    //         RoadPiece otherPiece = otherConnection.roadPiece;
+    //         Vector3 positionDiff = transform.position - otherPiece.transform.position;
+    //         RoadConnection newConnect = newPiece.AddConnectionFromVector(positionDiff, otherConnection,
+    //                                                                      otherPiece, out GameObject go);
+
+    //     }
+
+    //     Destroy(gameObject);
+    //     return newRoad;
+    // }
+
+    public GameObject ReduceConnections(List<RoadConnection> keepConnections)
     {
-        throw new NotImplementedException();
+        GameObject straightPrefab = LevelManager.GetInstance().prefabDict["TwoDirectionRoad"];
+        GameObject straightRoad = Instantiate(straightPrefab, transform.position, transform.rotation);
+        RoadPiece straightPiece = straightRoad.GetComponent<RoadPiece>();
+
+        foreach (RoadConnection connection in keepConnections)
+        {
+            RoadConnection otherConnection = connection.connectedTo;
+            otherConnection.connectedTo = null;
+            RoadPiece otherPiece = otherConnection.roadPiece;
+            Vector3 positionDiff = transform.position - otherPiece.transform.position;
+            RoadConnection newConnect = straightPiece.AddConnectionFromVector(positionDiff,
+                                                                              otherConnection,
+                                                                              otherPiece,
+                                                                              out GameObject newObj);
+
+        }
+
+        Destroy(gameObject);
+        return straightRoad;
+    }
+
+    public GameObject ConvertToStraight(RoadConnection keepConnection)
+    {
+        GameObject straightPrefab = LevelManager.GetInstance().prefabDict["TwoDirectionRoad"];
+        GameObject straightRoad = Instantiate(straightPrefab, transform.position, transform.rotation);
+        RoadPiece straightPiece = straightRoad.GetComponent<RoadPiece>();
+
+        for (int i = 1; i < 3; i++)
+        {
+            RoadConnection otherConnection = roadConnections[i].connectedTo;
+            RoadPiece otherPiece = otherConnection.roadPiece;
+            Vector3 positionDiff = transform.position - otherPiece.transform.position;
+            RoadConnection newConnect = straightPiece.AddConnectionFromVector(positionDiff,
+                                                                              otherConnection,
+                                                                              otherPiece,
+                                                                              out GameObject newObj);
+
+        }
+
+        Destroy(gameObject);
+        return straightRoad;
+    }
+
+    public GameObject ConvertToElbow(RoadConnection keepConnection, bool flip=false)
+    {
+        GameObject elbowPrefab = LevelManager.GetInstance().prefabDict["ElbowRoad"];
+        GameObject elbowRoad = Instantiate(elbowPrefab, transform.position, transform.rotation);
+        return null;
     }
 
     public GameObject ConvertToFourWay(RoadPiece newPiece)
@@ -103,7 +183,7 @@ public class ThreeWayIntersection : RoadPiece
         RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece,
                                                                      fourWay.roadConnections[3],
                                                                      this, out GameObject go);
-        fourWay.roadConnections[3].ConnectTo(newConnect);
+        // fourWay.roadConnections[3].ConnectTo(newConnect);
         Destroy(gameObject);
         return newRoad;
     }

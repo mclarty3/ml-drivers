@@ -29,8 +29,31 @@ public class FourWayIntersection : RoadPiece
 
     }
 
+    public override RoadConnection GetRoadConnectionFromVector(Vector3 vector)
+    {
+        vector = -vector.normalized;
+        if (vector == transform.forward)
+        {
+            return roadConnections[0];
+        }
+        else if (vector == transform.right)
+        {
+            return roadConnections[1];
+        }
+        else if (vector == -transform.right)
+        {
+            return roadConnections[2];
+        }
+        else if (vector == -transform.forward)
+        {
+            return roadConnections[3];
+        }
+        else
+        {
+            return null;
+        }
+    }
 
-    protected override RoadConnection GetRoadConnectionFromVector(Vector3 vector) { return null; }
     public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
                                                            RoadPiece otherPiece, out GameObject go)
     {
@@ -41,8 +64,8 @@ public class FourWayIntersection : RoadPiece
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     { return null; }
 
-    public override GameObject HandleRoadRemoval(RoadPiece toRemove)
-    {
-        throw new NotImplementedException();
-    }
+    // public override GameObject HandleRoadRemoval(RoadPiece toRemove)
+    // {
+    //     throw new NotImplementedException();
+    // }
 }

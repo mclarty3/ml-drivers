@@ -13,21 +13,32 @@ public class TwoDirectionRoad : RoadPiece
 
     }
 
-    protected override RoadConnection GetRoadConnectionFromVector(Vector3 vector)
+    public override RoadConnection GetRoadConnectionFromVector(Vector3 vector)
     {
-        vector = vector.normalized;
-        if (-vector == transform.forward)
+        vector = -vector.normalized;
+        if (elbowRoad)
         {
-            return roadConnections[0];
-        }
-        else if (vector == transform.forward)
-        {
-            return roadConnections[1];
+            if (vector == transform.forward)
+            {
+                return roadConnections[0];
+            }
+            else if (vector == -transform.right)
+            {
+                return roadConnections[1];
+            }
         }
         else
         {
-            return null;
+            if (vector == transform.forward)
+            {
+                return roadConnections[0];
+            }
+            else if (-vector == transform.forward)
+            {
+                return roadConnections[1];
+            }
         }
+        return null;
     }
 
     public override RoadConnection AddConnectionFromVector(Vector3 vector, RoadConnection other,
@@ -48,6 +59,7 @@ public class TwoDirectionRoad : RoadPiece
             {
                 RoadConnection connection = GetRoadConnectionFromVector(vector);
                 connection.ConnectTo(other);
+                other.ConnectTo(connection);
                 return connection;
             }
             else if (elbowRoad)
@@ -79,6 +91,7 @@ public class TwoDirectionRoad : RoadPiece
         {
             transform.rotation = Quaternion.LookRotation(-vector, transform.up);
             roadConnections[0].ConnectTo(other);
+            other.ConnectTo(roadConnections[0]);
             return roadConnections[0];
         }
 
@@ -154,31 +167,31 @@ public class TwoDirectionRoad : RoadPiece
         return changedObjects;
     }
 
-    public override GameObject HandleRoadRemoval(RoadPiece toRemove)
-    {
-        List<RoadConnection> connectedRoads = GetFullConnections();
-        RoadConnection removeConnect = connectedRoads.Where(x => x.connectedTo.roadPiece == toRemove)
-                                                     .FirstOrDefault();
-        RoadConnection keepConnect = connectedRoads.Where(x => x.connectedTo.roadPiece != toRemove)
-                                                   .FirstOrDefault();
-        if (removeConnect == null)
-        {
-            return null;
-        }
-        GameObject newObj = null;
+    // public override GameObject HandleRoadRemoval(RoadPiece toRemove)
+    // {
+    //     List<RoadConnection> connectedRoads = GetFullConnections();
+    //     RoadConnection removeConnect = connectedRoads.Where(x => x.connectedTo.roadPiece == toRemove)
+    //                                                  .FirstOrDefault();
+    //     RoadConnection keepConnect = connectedRoads.Where(x => x.connectedTo.roadPiece != toRemove)
+    //                                                .FirstOrDefault();
+    //     if (removeConnect == null)
+    //     {
+    //         return null;
+    //     }
+    //     GameObject newObj = null;
 
-        Vector3 otherPos = toRemove.transform.position;
-        Vector3 toOtherPos = otherPos - transform.position;
+    //     Vector3 otherPos = toRemove.transform.position;
+    //     Vector3 toOtherPos = otherPos - transform.position;
 
-        removeConnect.ConnectTo(null);
+    //     removeConnect.ConnectTo(null);
 
-        if (elbowRoad)
-        {
-            newObj = ConvertElbowToStraight(keepConnect);
-        }
+    //     if (elbowRoad)
+    //     {
+    //         newObj = ConvertElbowToStraight(keepConnect);
+    //     }
 
-        return newObj;
-    }
+    //     return newObj;
+    // }
 
     public GameObject[] ConvertToThreeWay(RoadPiece newPiece)
     {
@@ -209,10 +222,10 @@ public class TwoDirectionRoad : RoadPiece
             RoadConnection newConnect = newPiece.AddConnectionFromVector(toNewPiece,
                                                                          threeWay.roadConnections[0],
                                                                          threeWay, out go);
-            if (newConnect != null)
-            {
-                threeWay.roadConnections[0].ConnectTo(newConnect);
-            }
+            // if (newConnect != null)
+            // {
+            //     threeWay.roadConnections[0].ConnectTo(newConnect);
+            // }
         }
         else
         {
@@ -235,10 +248,10 @@ public class TwoDirectionRoad : RoadPiece
                                                                          threeWay.roadConnections[newIndex],
                                                                          threeWay, out go);
             thisOtherRoad[1] = go;
-            if (newConnect != null)
-            {
-                threeWay.roadConnections[newIndex].ConnectTo(newConnect);
-            }
+            // if (newConnect != null)
+            // {
+            //     threeWay.roadConnections[newIndex].ConnectTo(newConnect);
+            // }
             threeWay.roadConnections[zPlusIndex].ConnectTo(roadConnections[0].connectedTo);
             roadConnections[0].connectedTo.ConnectTo(threeWay.roadConnections[zPlusIndex]);
             threeWay.roadConnections[xIndex].ConnectTo(roadConnections[1].connectedTo);
@@ -286,10 +299,10 @@ public class TwoDirectionRoad : RoadPiece
                                                                      elbow.roadConnections[newConnectionIndex],
                                                                      elbow, out go);
         thisOtherRoad[1] = go;
-        if (newConnect != null)
-        {
-            elbow.roadConnections[newConnectionIndex].ConnectTo(newConnect);
-        }
+        // if (newConnect != null)
+        // {
+        //     elbow.roadConnections[newConnectionIndex].ConnectTo(newConnect);
+        // }
         Destroy(gameObject);
 
         thisOtherRoad[0] = newRoad;
@@ -310,10 +323,10 @@ public class TwoDirectionRoad : RoadPiece
                                                                           otherPiece,
                                                                           out GameObject go);
 
-        if (newConnect != null)
-        {
-            keepConnection.connectedTo.ConnectTo(newConnect);
-        }
+        // if (newConnect != null)
+        // {
+        //     keepConnection.connectedTo.ConnectTo(newConnect);
+        // }
 
         Destroy(gameObject);
         return straightRoad;

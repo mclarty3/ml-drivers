@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5666115428827711794}
   - component: {fileID: 5666115428827711793}
   - component: {fileID: 5666115428827711792}
-  - component: {fileID: 5666115428827711807}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -49,7 +48,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5666115428827711806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -96,18 +95,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5666115428827711807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5666115428827711806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 724c272112f0942449f8e9f158e21e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  posX: 0
-  posZ: 0
-  textureId: 0

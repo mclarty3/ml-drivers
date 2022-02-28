@@ -8,6 +8,8 @@ public class LevelCreator : MonoBehaviour
     LevelManager manager;
     GridBase gridBase;
     InterfaceManager interfaceManager;
+    ModalManager modalManager;
+    CarSpawner carSpawner;
     DebugLogger log;
 
     GameObject objToPlace = null;
@@ -23,6 +25,8 @@ public class LevelCreator : MonoBehaviour
         gridBase = GridBase.GetInstance();
         manager = LevelManager.GetInstance();
         interfaceManager = InterfaceManager.GetInstance();
+        modalManager = GetComponent<ModalManager>();
+        carSpawner = GetComponent<CarSpawner>();
         log = DebugLogger.GetInstance();
     }
 
@@ -34,14 +38,22 @@ public class LevelCreator : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (objToPlace != null && !interfaceManager.mouseOverUIElement)
+            if (carSpawner.simulationActive)
+            {
+
+            }
+            else if (objToPlace != null && !interfaceManager.mouseOverUIElement)
             {
                 PlaceObject();
             }
         }
         if (Input.GetMouseButton(1))
         {
-            if (highlightedNode.vis != null && !interfaceManager.mouseOverUIElement)
+            if (carSpawner.simulationActive)
+            {
+
+            }
+            else if (highlightedNode.vis != null && !interfaceManager.mouseOverUIElement)
             {
                 RemoveObject();
             }
@@ -57,12 +69,16 @@ public class LevelCreator : MonoBehaviour
         {
             mousePosition = hit.point;
         }
+        else
+        {
+            mousePosition = Vector3.positiveInfinity;
+        }
     }
 
     void UpdateHighlightedNode()
     {
         Node node = gridBase.NodeFromWorldPosition(mousePosition, out bool isOnGrid);
-        if (node != highlightedNode)
+        if (node != highlightedNode && !interfaceManager.mouseOverUIElement && !modalManager.isOpen)
         {
             if (highlightedNode != null)
             {
@@ -88,14 +104,22 @@ public class LevelCreator : MonoBehaviour
                     }
                 }
             }
-            else if (objHighlight != null && highlightedNode.vis != null)
-            {
-                objHighlight.SetActive(true);
-            }
-            else if (objHighlight != null)
+            // else if (objHighlight != null && highlightedNode.vis != null)
+            // {
+            //     objHighlight.SetActive(true);
+            // }
+            // else if (objHighlight != null)
+            else
             {
                 Destroy(objHighlight);
                 objHighlight = null;
+            }
+        }
+        else if (node != highlightedNode)
+        {
+            if (objHighlight != null)
+            {
+                objHighlight.SetActive(false);
             }
         }
     }
@@ -175,6 +199,7 @@ public class LevelCreator : MonoBehaviour
                 {
                     log.Log("Converting surrounding road piece");
                     node.vis = newVis[0];
+                    node.objId = manager.GetRoadPiecePrefabId(node.vis.name);
                     newVis[0].transform.parent = gridBase.GetNodeTransform(node);
                 }
                 if (newVis[1] != null)
@@ -182,6 +207,7 @@ public class LevelCreator : MonoBehaviour
                     log.Log("Converting placed road piece");
                     road = newVis[1].GetComponent<RoadPiece>();
                     highlightedNode.vis = newVis[1];
+                    highlightedNode.objId = manager.GetRoadPiecePrefabId(highlightedNode.vis.name);
                     newVis[1].transform.parent = gridBase.GetNodeTransform(highlightedNode);
                 }
             }
@@ -191,6 +217,7 @@ public class LevelCreator : MonoBehaviour
         if (highlightedNode.vis == null)
         {
             highlightedNode.vis = obj;
+            highlightedNode.objId = manager.GetRoadPiecePrefabId(highlightedNode.vis.name);
         }
         manager.inSceneGameObjects.Add(obj);
         if (objHighlight)
@@ -218,12 +245,14 @@ public class LevelCreator : MonoBehaviour
                 if (newObj != null)
                 {
                     node.vis = newObj;
+                    node.objId = manager.GetRoadPiecePrefabId(node.vis.name);
                     newObj.transform.parent = gridBase.GetNodeTransform(node);
                 }
             }
         }
 
         highlightedNode.vis = null;
+        highlightedNode.objId = 0;
         Destroy(objToRemove);
     }
 

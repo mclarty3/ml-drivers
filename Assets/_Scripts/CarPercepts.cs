@@ -9,62 +9,55 @@ public class CarPercepts : MonoBehaviour
     public float verticalRaycastOffset = -0.1f;
     public float rayLength = 10f;
 
-    public class Raycast {
-        public Vector3 origin;
-        public Vector3 direction;
+    public class RaycastInfo {
+        public float forwardOffset;
+        public float sidewaysOffset;
+        public float angleFromForward;
         public float distance;
         public Vector3 hitPoint;
         public GameObject hitObject;
 
-        public Raycast(Vector3 origin, Vector3 direction, float distance) {
-            this.origin = origin;
-            this.direction = direction;
-            this.distance = distance;
+        public RaycastInfo(float forwardOffset, float sidewaysOffset,
+                           float angleFromForward)
+        {
+            this.forwardOffset = forwardOffset;
+            this.sidewaysOffset = sidewaysOffset;
+            this.angleFromForward = angleFromForward;
+            this.distance = 0f;
             this.hitPoint = Vector3.zero;
             this.hitObject = null;
         }
+
+        public Vector3 GetOrigin(Transform transform) {
+            return transform.position + transform.forward * forwardOffset +
+                transform.right * sidewaysOffset;
+        }
+
+        public Vector3 GetDirection(Transform transform) {
+            return Quaternion.Euler(0, angleFromForward, 0) * transform.forward;
+        }
     }
 
-    public List<Raycast> raycasts;
+    public List<RaycastInfo> raycasts;
 
-    // Start is called before the first frame update
     void Start()
     {
-        raycasts = new List<Raycast>()
+        raycasts = new List<RaycastInfo>()
         {
-            new Raycast(transform.position + new Vector3(0, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward, rayLength),
-            new Raycast(transform.position + new Vector3(sideRaycastOffset/2, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward + transform.right * 0.25f, rayLength),
-            new Raycast(transform.position + new Vector3(sideRaycastOffset/2, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward + transform.right * 0.5f, rayLength),
-            new Raycast(transform.position + new Vector3(sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward + transform.right, rayLength),
-            new Raycast(transform.position + new Vector3(sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward + transform.right * 2, rayLength),
-            new Raycast(transform.position + new Vector3(sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward + transform.right * 4, rayLength),
-            new Raycast(transform.position + new Vector3(sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward + transform.right * 8, rayLength),
-            new Raycast(transform.position + new Vector3(-sideRaycastOffset/2, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward - transform.right * 0.25f, rayLength),
-            new Raycast(transform.position + new Vector3(-sideRaycastOffset/2, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward - transform.right * 0.5f, rayLength),
-            new Raycast(transform.position + new Vector3(-sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward - transform.right, rayLength),
-            new Raycast(transform.position + new Vector3(-sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward - transform.right * 2, rayLength),
-            new Raycast(transform.position + new Vector3(-sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward - transform.right * 4, rayLength),
-            new Raycast(transform.position + new Vector3(-sideRaycastOffset, verticalRaycastOffset, forwardRaycastOffset),
-                        transform.forward - transform.right * 8, rayLength),
+            new RaycastInfo(forwardRaycastOffset, 0, 0),
+            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset/2, 15),
+            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset/2, 30),
+            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset/2, 45),
+            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset, 60),
+            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset, 75),
+            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset, 85),
+            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset/2, -15),
+            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset/2, -30),
+            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset/2, -45),
+            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset, -60),
+            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset, -75),
+            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset, -85),
         };
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void FixedUpdate()
@@ -76,7 +69,7 @@ public class CarPercepts : MonoBehaviour
     public bool GetCollisions(out List<GameObject> collisions, out List<float> distances, string objTag="") {
         collisions = new List<GameObject>();
         distances = new List<float>();
-        foreach (Raycast raycast in raycasts) {
+        foreach (RaycastInfo raycast in raycasts) {
             if (raycast.hitObject != null) {
                 if (objTag != "" && raycast.hitObject.tag != objTag) {
                     continue;
@@ -85,16 +78,16 @@ public class CarPercepts : MonoBehaviour
                 distances.Add(raycast.distance);
             }
         }
-
         return collisions.Count > 0;
     }
 
     void CheckCollisions()
     {
-        foreach (Raycast raycast in raycasts)
+        foreach (RaycastInfo raycast in raycasts)
         {
             RaycastHit hit;
-            if (Physics.Raycast(raycast.origin, raycast.direction, out hit, raycast.distance))
+            if (Physics.Raycast(raycast.GetOrigin(transform), raycast.GetDirection(transform), out hit,
+                                rayLength))
             {
                 raycast.distance = hit.distance;
                 raycast.hitPoint= hit.point;
@@ -109,11 +102,12 @@ public class CarPercepts : MonoBehaviour
 
     void DrawDebugLines()
     {
-        foreach (Raycast raycast in raycasts)
+        foreach (RaycastInfo raycast in raycasts)
         {
             Color color = raycast.hitObject == null ? Color.red : Color.green;
-            Vector3 endPoint = raycast.origin + raycast.direction.normalized * raycast.distance;
-            Debug.DrawLine(raycast.origin, endPoint, color);
+            Vector3 origin = raycast.GetOrigin(transform);
+            Vector3 endPoint = origin + raycast.GetDirection(transform).normalized * rayLength;
+            Debug.DrawLine(origin, endPoint, color);
         }
     }
 }

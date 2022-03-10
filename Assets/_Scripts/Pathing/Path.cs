@@ -8,8 +8,9 @@ public class Path : MonoBehaviour
     [SerializeField]
     public PathCreator path;
     public List<Path> connectingPaths = new List<Path>();
+    public TrafficLightGroup connectedTrafficLight = null;
     private Vector3[] _nodes = null;
-    public Vector3[] nodes { 
+    public Vector3[] nodes {
         get {
             if (_nodes == null) {
                 _nodes = GetPathNodes(path);
@@ -36,7 +37,7 @@ public class Path : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public static Path GetConnectingPath(List<Path> paths)

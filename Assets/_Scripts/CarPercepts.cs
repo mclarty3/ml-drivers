@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class CarPercepts : MonoBehaviour
 {
-    public float forwardRaycastOffset = 0.55f;
-    public float sideRaycastOffset = 0.225f;
-    public float verticalRaycastOffset = -0.1f;
-    public float rayLength = 10f;
-
     public class RaycastInfo {
         public float forwardOffset;
         public float sidewaysOffset;
@@ -38,47 +33,71 @@ public class CarPercepts : MonoBehaviour
         }
     }
 
+    [Header("Car Raycast Configuration")]
+    [SerializeField][Range(1, 20)]
+    [Tooltip("Number of pairs of rays to cast in addition to one ray in the center")]
+    private int numRaycastPairs = 15;
+    [SerializeField]
+    private float _rayLength = 10f;
+    [SerializeField][Range(1, 120)]
+    [Tooltip("Raycasts will be cast evenly spaced around the car's front up to this angle")]
+    private float maxRaycastAngle = 85f;
+    [SerializeField]
+    private float _forwardRaycastOffset = 0.55f;
+    [SerializeField]
+    private float _sideRaycastOffset = 0.225f;
+    [SerializeField]
+    private float _verticalRaycastOffset = -0.1f;
+
+    private PathCrawler _pathCrawler;
+    [HideInInspector]
+    public int approachingTrafficLightColour = -1;
+
     public List<RaycastInfo> raycasts;
+    public List<float> raycastCollisionDistances;
 
     void Start()
     {
-        raycasts = new List<RaycastInfo>()
+        raycasts = new List<RaycastInfo>();
+        HandleRaycastCountChange();
+        raycastCollisionDistances = new List<float>();
+
+        foreach (RaycastInfo raycast in raycasts)
         {
-            new RaycastInfo(forwardRaycastOffset, 0, 0),
-            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset/2, 15),
-            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset/2, 30),
-            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset/2, 45),
-            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset, 60),
-            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset, 75),
-            new RaycastInfo(forwardRaycastOffset, sideRaycastOffset, 85),
-            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset/2, -15),
-            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset/2, -30),
-            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset/2, -45),
-            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset, -60),
-            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset, -75),
-            new RaycastInfo(forwardRaycastOffset, -sideRaycastOffset, -85),
-        };
+            raycastCollisionDistances.Add(float.PositiveInfinity);
+        }
+
+        if (!TryGetComponent<PathCrawler>(out _pathCrawler))
+        {
+            Debug.Log("CarPercepts must be attached to a PathCrawler");
+        }
     }
 
     void FixedUpdate()
     {
+        HandleRaycastCountChange();
         CheckCollisions();
+        GetCollisions(out raycastCollisionDistances);
         DrawDebugLines();
+
+        if (_pathCrawler != null && _pathCrawler.currentPath != null) {
+            CheckApproachingTrafficLight();
+        }
     }
 
-    public bool GetCollisions(out List<GameObject> collisions, out List<float> distances, string objTag="") {
-        collisions = new List<GameObject>();
+    public bool GetCollisions(out List<float> distances, string objTag="") {
         distances = new List<float>();
         foreach (RaycastInfo raycast in raycasts) {
-            if (raycast.hitObject != null) {
+            if (raycast.hitObject != null && raycast.hitObject != transform.GetChild(0).gameObject) {
                 if (objTag != "" && raycast.hitObject.tag != objTag) {
                     continue;
                 }
-                collisions.Add(raycast.hitObject);
                 distances.Add(raycast.distance);
+                continue;
             }
+            distances.Add(float.PositiveInfinity);
         }
-        return collisions.Count > 0;
+        return distances.Count > 0;
     }
 
     void CheckCollisions()
@@ -87,15 +106,46 @@ public class CarPercepts : MonoBehaviour
         {
             RaycastHit hit;
             if (Physics.Raycast(raycast.GetOrigin(transform), raycast.GetDirection(transform), out hit,
-                                rayLength))
+                                _rayLength))
             {
-                raycast.distance = hit.distance;
-                raycast.hitPoint= hit.point;
-                raycast.hitObject = hit.collider.gameObject;
+                if (hit.collider.gameObject != transform.GetChild(0).gameObject)
+                {
+                    raycast.hitObject = hit.collider.gameObject;
+                    raycast.distance = hit.distance;
+                    raycast.hitPoint = hit.point;
+                    continue;
+                }
             }
-            else if (raycast.hitObject != null)
+            raycast.hitObject = null;
+            raycast.distance = float.PositiveInfinity;
+            raycast.hitPoint = Vector3.zero;
+        }
+    }
+
+    void CheckApproachingTrafficLight()
+    {
+        if (_pathCrawler != null && _pathCrawler.currentPath.connectedTrafficLight != null) {
+            TrafficLightGroup trafficLight = _pathCrawler.currentPath.connectedTrafficLight;
+            if (trafficLight != null)
             {
-                raycast.hitObject = null;
+                approachingTrafficLightColour = trafficLight.lightColour;
+            }
+        }
+    }
+
+    void HandleRaycastCountChange()
+    {
+        if (raycasts.Count != numRaycastPairs * 2 + 1 ||
+            raycasts[raycasts.Count - 1].angleFromForward != maxRaycastAngle)
+        {
+            Debug.Log("Creating " + (numRaycastPairs * 2 + 1) + " raycasts");
+            raycasts.Clear();
+            raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, 0));
+            for (int i = 0; i < numRaycastPairs; i++)
+            {
+                float angle = (i + 1) / (float)numRaycastPairs * maxRaycastAngle;
+                raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, angle));
+                raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, -angle));
             }
         }
     }
@@ -106,7 +156,7 @@ public class CarPercepts : MonoBehaviour
         {
             Color color = raycast.hitObject == null ? Color.red : Color.green;
             Vector3 origin = raycast.GetOrigin(transform);
-            Vector3 endPoint = origin + raycast.GetDirection(transform).normalized * rayLength;
+            Vector3 endPoint = origin + raycast.GetDirection(transform).normalized * _rayLength;
             Debug.DrawLine(origin, endPoint, color);
         }
     }

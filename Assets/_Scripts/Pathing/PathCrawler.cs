@@ -11,13 +11,14 @@ public class PathCrawler : MonoBehaviour
     private Vector3 currentNodePosition;
     public float timeBetweenNodes = 2f;
     private float time;
-    private 
+    private
 
     // Start is called before the first frame update
     void Start()
     {
         time = Time.time;
-        transform.position = currentPath.nodes[currentNodeIndex];
+        Vector3 nodePos = currentPath.nodes[currentNodeIndex];
+        transform.position = new Vector3(nodePos.x, transform.position.y, nodePos.z);
         MoveToNextNode();
     }
 
@@ -43,7 +44,8 @@ public class PathCrawler : MonoBehaviour
             currentNodeIndex = 0;
             currentPath = currentPath.GetConnectingPath();
         }
-        currentNodePosition = currentPath.nodes[currentNodeIndex];
+        Vector3 nodePos = currentPath.nodes[currentNodeIndex];
+        currentNodePosition = new Vector3(nodePos.x, transform.position.y, nodePos.z);
         transform.rotation = Quaternion.LookRotation(currentNodePosition - transform.position);
     }
 }

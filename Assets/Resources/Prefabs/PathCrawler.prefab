@@ -1043,6 +1043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6400297881066929010}
   - component: {fileID: 6400297881066929013}
+  - component: {fileID: 4004286814602838885}
   m_Layer: 0
   m_Name: PathCrawler
   m_TagString: Untagged
@@ -1080,9 +1081,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPath: {fileID: 0}
   currentNodeIndex: 0
-  speed: 5
+  speed: 1
   nodeTriggerDistance: 0.6
   timeBetweenNodes: 0.75
+--- !u!114 &4004286814602838885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6400297881066929012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58c16138d2033641b9c3bc1788ffda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardRaycastOffset: 0.55
+  sideRaycastOffset: 0.225
+  verticalRaycastOffset: -0.1
+  rayLength: 10
+  pathCrawler: {fileID: 0}
+  approachingTrafficLightColour: -1
 --- !u!1 &6400297881197806713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,6 +1273,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &6400297881264802187
@@ -1618,6 +1638,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &6400297882005812401

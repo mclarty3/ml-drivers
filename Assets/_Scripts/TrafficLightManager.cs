@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class TrafficLightGroup
+{
+    [SerializeField]
+    public TrafficLight[] trafficLights;
+    public int lightColour = -1;
+}
+
 public class TrafficLightManager : MonoBehaviour
 {
-    [System.Serializable]
-    public struct TrafficLightGroup
-    {
-        [SerializeField]
-        public TrafficLight[] trafficLights;
-    }
     [SerializeField]
     public TrafficLightGroup[] trafficLightGroups;
     public float redGreenLightTime = 10f;
     public float yellowLightTime = 3f;
-    
-    public int _activeLightGroup = -1;
+
+    public int activeLightGroup = -1;
     private bool _activeLightGroupYellow = false;
     private float _timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        _activeLightGroup = Random.Range(0, trafficLightGroups.Length);
-        ActivateLightGroup(_activeLightGroup);
+        activeLightGroup = Random.Range(0, trafficLightGroups.Length);
+        ActivateLightGroup(activeLightGroup);
         _timer = Time.time;
     }
 
@@ -35,7 +37,7 @@ public class TrafficLightManager : MonoBehaviour
             if (Time.time - _timer > redGreenLightTime)
             {
                 _activeLightGroupYellow = true;
-                SetGroupLightColour(_activeLightGroup, 1);
+                SetGroupLightColour(activeLightGroup, 1);
                 _timer = Time.time;
             }
         }
@@ -44,8 +46,8 @@ public class TrafficLightManager : MonoBehaviour
             if (Time.time - _timer > yellowLightTime)
             {
                 _activeLightGroupYellow = false;
-                _activeLightGroup = (_activeLightGroup + 1) % trafficLightGroups.Length;
-                ActivateLightGroup(_activeLightGroup);
+                activeLightGroup = (activeLightGroup + 1) % trafficLightGroups.Length;
+                ActivateLightGroup(activeLightGroup);
                 _timer = Time.time;
             }
         }
@@ -64,8 +66,8 @@ public class TrafficLightManager : MonoBehaviour
             SetGroupLightColour(i, 0);
         }
 
-        _activeLightGroup = lightGroup;
-        SetGroupLightColour(_activeLightGroup , 2);
+        activeLightGroup = lightGroup;
+        SetGroupLightColour(activeLightGroup , 2);
     }
 
     public void SetGroupLightColour(int groupIndex, int colourIndex)
@@ -73,6 +75,7 @@ public class TrafficLightManager : MonoBehaviour
         foreach (TrafficLight light in trafficLightGroups[groupIndex].trafficLights)
         {
             light.ActivateLight(colourIndex);
+            trafficLightGroups[groupIndex].lightColour = colourIndex;
         }
     }
 }

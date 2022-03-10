@@ -6,6 +6,8 @@ using System;
 
 public class FourWayIntersection : RoadPiece
 {
+    TrafficLightManager tlm;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +23,35 @@ public class FourWayIntersection : RoadPiece
                                 + "each road connection");
             }
         }
+        AddTrafficLight();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void AddTrafficLight()
+    {
+        GameObject prefab = LevelManager.GetInstance().prefabDict["FourWayTrafficLight"];
+        GameObject trafficLight = Instantiate(prefab, transform.position, transform.rotation);
+        trafficLight.transform.parent = transform;
+        tlm = trafficLight.GetComponent<TrafficLightManager>();
+        Debug.Log(tlm.trafficLightGroups.Length);
+
+        roadConnections[1].trafficLightGroup = tlm.trafficLightGroups[0];
+        roadConnections[2].trafficLightGroup = tlm.trafficLightGroups[0];
+        roadConnections[0].trafficLightGroup = tlm.trafficLightGroups[1];
+        roadConnections[3].trafficLightGroup = tlm.trafficLightGroups[1];
+
+        foreach (RoadConnection roadConnection in roadConnections) {
+            if (roadConnection.connectedTo == null) continue;
+
+            foreach (Path path in roadConnection.connectedTo.outPaths) {
+                path.connectedTrafficLight = roadConnection.trafficLightGroup;
+            }
+        }
     }
 
     public override RoadConnection GetRoadConnectionFromVector(Vector3 vector)
@@ -63,9 +88,4 @@ public class FourWayIntersection : RoadPiece
 
     public override GameObject[] HandleRoadPlacement(RoadPiece toPlace, bool dontRepeat=false)
     { return null; }
-
-    // public override GameObject HandleRoadRemoval(RoadPiece toRemove)
-    // {
-    //     throw new NotImplementedException();
-    // }
 }

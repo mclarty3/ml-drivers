@@ -37,15 +37,6 @@ public class LevelManager : MonoBehaviour
         {
             _instance = this;
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        gridBase = GridBase.GetInstance();
-        modalManager = GetComponent<ModalManager>();
-        interfaceManager = InterfaceManager.GetInstance();
-        carSpawner = GetComponent<CarSpawner>();
 
         prefabDict = new Dictionary<string, GameObject>()
         {
@@ -64,6 +55,10 @@ public class LevelManager : MonoBehaviour
             {
                 "FourWayIntersection",
                 Resources.Load<GameObject>("Prefabs/RoadPieces/FourWayIntersection")
+            },
+            {
+                "FourWayTrafficLight",
+                Resources.Load<GameObject>("Prefabs/TrafficSignals/FourWayTrafficLightManager")
             }
         };
 
@@ -74,6 +69,16 @@ public class LevelManager : MonoBehaviour
             prefabIdDict.Add(i, entry.Value);
             i += 1;
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        gridBase = GridBase.GetInstance();
+        modalManager = GetComponent<ModalManager>();
+        interfaceManager = InterfaceManager.GetInstance();
+        carSpawner = GetComponent<CarSpawner>();
+
     }
 
     public int GetRoadPiecePrefabId(string roadPieceName)

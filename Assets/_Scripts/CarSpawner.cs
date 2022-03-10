@@ -6,6 +6,7 @@ public class CarSpawner : MonoBehaviour
 {
     public GameObject carPrefab;
     public int numCarsAtStart = 20;
+    public float heightOffset = 0.4f;
     public bool simulationActive { get; private set; }
     GridBase grid;
     List<Path> paths;
@@ -69,7 +70,8 @@ public class CarSpawner : MonoBehaviour
 
     public void SpawnCar(Path pathToSpawn)
     {
-        GameObject newCar = Instantiate(carPrefab, pathToSpawn.nodes[0], Quaternion.identity);
+        Vector3 spawnPos = pathToSpawn.nodes[0] + Vector3.up * heightOffset;
+        GameObject newCar = Instantiate(carPrefab, spawnPos, Quaternion.identity);
         PathCrawler pathCrawler = newCar.GetComponent<PathCrawler>();
         pathCrawler.currentPath = pathToSpawn;
         crawlers.Add(pathCrawler);

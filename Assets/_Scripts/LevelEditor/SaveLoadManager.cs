@@ -66,11 +66,12 @@ public static class SaveLoadManager
 public class GridData
 {
     public int[] data;
+    public int numValsPerNode = 3;
 
     public GridData(GridBase grid)
     {
         // data = new int[grid.sizeX, grid.sizeZ];
-        data = new int[grid.sizeX * grid.sizeZ * 2 + 2];
+        data = new int[grid.sizeX * grid.sizeZ * numValsPerNode + 2];
         data[0] = grid.sizeX;
         data[1] = grid.sizeZ;
 
@@ -78,11 +79,20 @@ public class GridData
         {
             for (int z = 0; z < grid.sizeZ; z++)
             {
-                int index = (x * grid.sizeZ + z) * 2 + 2;
+                int index = (x * grid.sizeZ + z) * numValsPerNode + 2;
+
                 // Prefab ID
                 data[index] = grid.grid[x, z].objId;
 
-                if (data[index] != -1 && grid.grid[x, z].vis != null)
+                if (data[index] == 0)
+                {
+                    data[index + 1] = -1;
+                    data[index + 2] = 0;
+                    continue;
+                }
+
+                GameObject vis = grid.grid[x, z].vis;
+                if (data[index] != -1 && vis != null)
                 {
                     Vector3 rot = grid.grid[x, z].vis.transform.rotation.eulerAngles;
                     data[index + 1] = (int)rot.y;
@@ -90,6 +100,17 @@ public class GridData
                 else
                 {
                     data[index + 1] = -1;
+                }
+
+                RoadPiece roadPiece = null;
+				if (vis != null && vis.TryGetComponent<RoadPiece>(out roadPiece))
+                {
+                    Debug.Log("Saving intersection type " + roadPiece.currentSignalType);
+                    data[index + 2] = roadPiece.currentSignalType;
+                }
+                else
+                {
+                    data[index + 2] = 0;
                 }
             }
         }

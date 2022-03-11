@@ -96,6 +96,7 @@ public class LevelManager : MonoBehaviour
     public int GetRoadPiecePrefabId(string roadPieceName)
     {
         int id = prefabIdDict.FirstOrDefault(x => roadPieceName.Contains(x.Value.name)).Key;
+        Debug.Log(id);
         return id;
     }
 

@@ -92,7 +92,7 @@ BoxCollider:
   m_GameObject: {fileID: 177259473920959320}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -116,6 +116,9 @@ MonoBehaviour:
   - {fileID: 2331502143696567911}
   - {fileID: 8527903557840998253}
   connectedTo: {fileID: 0}
+  trafficSignalGroup:
+    signalType: -1
+  signalType: -1
 --- !u!1 &1136381703783842503
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 9206487823158307552}
   connectingPaths: []
+  connectedTrafficSignal:
+    signalType: -1
 --- !u!1 &1155224594902088085
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 8735900486464655333}
   connectingPaths: []
+  connectedTrafficSignal:
+    signalType: -1
 --- !u!1 &1690405064498524243
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +527,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 9081992081134183959}
   connectingPaths: []
+  connectedTrafficSignal:
+    signalType: -1
 --- !u!1 &2047073246346175131
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,101 +565,6 @@ Transform:
   m_Father: {fileID: 1569553953467263528}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2388312597016314864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2663119307870607215}
-  - component: {fileID: 1356579157285943335}
-  - component: {fileID: 6171864201786658814}
-  - component: {fileID: 3161805282914440060}
-  m_Layer: 0
-  m_Name: Cube (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2663119307870607215
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2388312597016314864}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.212}
-  m_LocalScale: {x: 0.037508335, y: 0.003143485, z: 0.18092}
-  m_Children: []
-  m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1356579157285943335
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2388312597016314864}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6171864201786658814
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2388312597016314864}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 28f0b7453975d824cb425f819561fb0d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3161805282914440060
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2388312597016314864}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3138438890057995381
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,17 +742,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7b14c98796c0141849a28431ddd776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paths:
-  - {fileID: 2331502143696567911}
-  - {fileID: 2353509848018322640}
-  - {fileID: 7512479317506446184}
-  - {fileID: 7826547193041011352}
-  - {fileID: 7270109066130456634}
-  - {fileID: 8527903557840998253}
   roadConnections:
   - {fileID: 7171092346359977196}
   - {fileID: 6128118010243253449}
   - {fileID: 382821781182857738}
+  currentSignalType: 0
 --- !u!1 &3515394202386143270
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +850,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 2496364184926556453}
   connectingPaths: []
+  connectedTrafficSignal:
+    signalType: -1
 --- !u!1 &3586001227736948077
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +883,7 @@ Transform:
   m_LocalScale: {x: 0.037508335, y: 0.003143485, z: 0.18092}
   m_Children: []
   m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &377291213042652900
 MeshFilter:
@@ -1068,7 +978,6 @@ Transform:
   - {fileID: 286473187641390019}
   - {fileID: 3184663109924660392}
   - {fileID: 2834606381123254387}
-  - {fileID: 2663119307870607215}
   - {fileID: 5132109468764412854}
   - {fileID: 3832395738619985100}
   - {fileID: 4598284404394104611}
@@ -1171,7 +1080,7 @@ BoxCollider:
   m_GameObject: {fileID: 3792524471150107164}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1195,6 +1104,9 @@ MonoBehaviour:
   - {fileID: 7826547193041011352}
   - {fileID: 7270109066130456634}
   connectedTo: {fileID: 0}
+  trafficSignalGroup:
+    signalType: -1
+  signalType: -1
 --- !u!1 &3795864912866352306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 1803788134516746591}
   connectingPaths: []
+  connectedTrafficSignal:
+    signalType: -1
 --- !u!1 &3866680918897438382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1338,7 @@ Transform:
   m_LocalScale: {x: 0.037508335, y: 0.003143485, z: 0.18092}
   m_Children: []
   m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &5611738164915598301
 MeshFilter:
@@ -1519,7 +1433,7 @@ Transform:
   m_LocalScale: {x: 0.037508335, y: 0.003143485, z: 0.18092}
   m_Children: []
   m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &3873068196345823965
 MeshFilter:
@@ -1614,7 +1528,7 @@ Transform:
   m_LocalScale: {x: 0.037508335, y: 0.003143485, z: 0.18092}
   m_Children: []
   m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &8801641668855245246
 MeshFilter:
@@ -2279,7 +2193,7 @@ Transform:
   m_LocalScale: {x: 0.037508372, y: 0.003143485, z: 0.112713724}
   m_Children: []
   m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &6834574891361979104
 MeshFilter:
@@ -2374,7 +2288,7 @@ Transform:
   m_LocalScale: {x: 0.037508335, y: 0.003143485, z: 0.18092}
   m_Children: []
   m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &6388159659891120509
 MeshFilter:
@@ -2530,7 +2444,7 @@ BoxCollider:
   m_GameObject: {fileID: 7876016576503046276}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -2554,6 +2468,9 @@ MonoBehaviour:
   - {fileID: 2353509848018322640}
   - {fileID: 7512479317506446184}
   connectedTo: {fileID: 0}
+  trafficSignalGroup:
+    signalType: -1
+  signalType: -1
 --- !u!1 &7952399374441168217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,7 +2502,7 @@ Transform:
   m_LocalScale: {x: 0.037508335, y: 0.003143485, z: 0.18092}
   m_Children: []
   m_Father: {fileID: 6311293918568512666}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &375171406819812834
 MeshFilter:
@@ -2752,6 +2669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 3813793902370846825}
   connectingPaths: []
+  connectedTrafficSignal:
+    signalType: -1
 --- !u!1 &8933604179605486934
 GameObject:
   m_ObjectHideFlags: 0

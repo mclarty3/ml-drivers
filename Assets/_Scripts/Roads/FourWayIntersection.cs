@@ -6,9 +6,6 @@ using System;
 
 public class FourWayIntersection : RoadPiece
 {
-    TrafficSignalManager tsm;
-    private int _currentSignalType = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,52 +21,8 @@ public class FourWayIntersection : RoadPiece
                                 + "each road connection");
             }
         }
-        AddStopSign();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void CycleTrafficSignal(int signalType = -1)
-    {
-        RemoveTrafficSignal();
-        switch (signalType)
-        {
-            case 0:
-                _currentSignalType = 0;
-                break;
-            case 1:
-                AddTrafficLight();
-                _currentSignalType = 1;
-                break;
-            case 2:
-                AddStopSign();
-                _currentSignalType = 2;
-                break;
-            default:
-                switch (_currentSignalType)
-                {
-                    case 0:
-                        AddTrafficLight();
-                        _currentSignalType = 1;
-                        break;
-                    case 1:
-                        AddStopSign();
-                        _currentSignalType = 2;
-                        break;
-                    case 2:
-                    	_currentSignalType = 0;
-                        break;
-                }
-                break;
-        }
-        Debug.Log("Set signal type to " + _currentSignalType);
-    }
-
-    public void AddTrafficLight()
+    public override void AddTrafficLight()
     {
         GameObject prefab = LevelManager.GetInstance().prefabDict["FourWayTrafficLight"];
         GameObject trafficSignal = Instantiate(prefab, transform.position, transform.rotation);
@@ -90,7 +43,7 @@ public class FourWayIntersection : RoadPiece
         }
     }
 
-    public void AddStopSign()
+    public override void AddStopSign()
     {
         GameObject prefab = LevelManager.GetInstance().prefabDict["FourWayStopSign"];
         GameObject stopSignIntersection = Instantiate(prefab, transform.position, transform.rotation);
@@ -104,24 +57,6 @@ public class FourWayIntersection : RoadPiece
 
             foreach (Path path in roadConnection.connectedTo.outPaths) {
                 path.connectedTrafficSignal = roadConnection.trafficSignalGroup;
-            }
-        }
-    }
-
-    public void RemoveTrafficSignal()
-    {
-        if (tsm == null) return;
-
-        Destroy(tsm.gameObject);
-        tsm = null;
-
-        foreach (RoadConnection roadConnection in roadConnections) {
-            roadConnection.trafficSignalGroup = null;
-
-            if (roadConnection.connectedTo == null) continue;
-
-            foreach (Path path in roadConnection.connectedTo.outPaths) {
-                path.connectedTrafficSignal = null;
             }
         }
     }

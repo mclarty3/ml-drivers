@@ -8,6 +8,8 @@ public abstract class RoadPiece : MonoBehaviour
 {
     [SerializeField]
     public List<RoadConnection> roadConnections = new List<RoadConnection>();
+    protected TrafficSignalManager tsm = null;
+    public int currentSignalType = 0;
 
     protected Dictionary<Type, int> _roadTypes = new Dictionary<Type, int>
     {
@@ -92,5 +94,58 @@ public abstract class RoadPiece : MonoBehaviour
 
         Destroy(gameObject);
         return newRoad;
+    }
+
+    public virtual void AddTrafficLight() { }
+
+    public virtual void AddStopSign() { }
+
+    public void CycleTrafficSignal(int signalType = -1)
+    {
+        RemoveTrafficSignal();
+
+        if (signalType != -1)
+        {
+            currentSignalType = -1;
+            return;
+        }
+
+        switch (currentSignalType)
+        {
+            case 0:
+                AddTrafficLight();
+                currentSignalType = 1;
+                break;
+            case 1:
+                AddStopSign();
+                currentSignalType = 2;
+                break;
+            case 2:
+                currentSignalType = 0;
+                break;
+        }
+    }
+
+    public void RemoveTrafficSignal()
+    {
+        if (tsm == null) return;
+
+        Destroy(tsm.gameObject);
+        tsm = null;
+
+        foreach (RoadConnection connection in roadConnections)
+        {
+            connection.trafficSignalGroup = null;
+        }
+
+        foreach (RoadConnection roadConnection in roadConnections) {
+            roadConnection.trafficSignalGroup = null;
+
+            if (roadConnection.connectedTo == null) continue;
+
+            foreach (Path path in roadConnection.connectedTo.outPaths) {
+                path.connectedTrafficSignal = null;
+            }
+        }
     }
 }

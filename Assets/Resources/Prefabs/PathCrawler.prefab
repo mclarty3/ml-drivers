@@ -1081,9 +1081,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPath: {fileID: 0}
   currentNodeIndex: 0
-  speed: 1
+  speed: 2
   nodeTriggerDistance: 0.6
   timeBetweenNodes: 0.75
+  _waitingAtTrafficSignal: 0
+  _waited: 0
+  _signalType: 0
+  stopSignTime: 0
 --- !u!114 &4004286814602838885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,15 +1097,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6400297881066929012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d58c16138d2033641b9c3bc1788ffda7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e90a89d4b885c14aa5823fca6a55583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardRaycastOffset: 0.55
-  sideRaycastOffset: 0.225
-  verticalRaycastOffset: -0.1
-  rayLength: 10
-  pathCrawler: {fileID: 0}
-  approachingTrafficLightColour: -1
+  numRaycastPairs: 15
+  _rayLength: 10
+  maxRaycastAngle: 85
+  _forwardRaycastOffset: 0.55
+  _sideRaycastOffset: 0.225
+  _verticalRaycastOffset: -0.1
+  approachingTrafficSignalType: -1
+  raycastCollisionDistances: []
 --- !u!1 &6400297881197806713
 GameObject:
   m_ObjectHideFlags: 0

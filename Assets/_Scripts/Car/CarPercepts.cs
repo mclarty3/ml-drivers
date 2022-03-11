@@ -7,16 +7,18 @@ public class CarPercepts : MonoBehaviour
     public class RaycastInfo {
         public float forwardOffset;
         public float sidewaysOffset;
+        public float verticalOffset;
         public float angleFromForward;
         public float distance;
         public Vector3 hitPoint;
         public GameObject hitObject;
 
-        public RaycastInfo(float forwardOffset, float sidewaysOffset,
+        public RaycastInfo(float forwardOffset, float sidewaysOffset, float verticalOffset,
                            float angleFromForward)
         {
             this.forwardOffset = forwardOffset;
             this.sidewaysOffset = sidewaysOffset;
+            this.verticalOffset = verticalOffset;
             this.angleFromForward = angleFromForward;
             this.distance = 0f;
             this.hitPoint = Vector3.zero;
@@ -25,7 +27,7 @@ public class CarPercepts : MonoBehaviour
 
         public Vector3 GetOrigin(Transform transform) {
             return transform.position + transform.forward * forwardOffset +
-                transform.right * sidewaysOffset;
+                transform.right * sidewaysOffset + transform.up * verticalOffset;
         }
 
         public Vector3 GetDirection(Transform transform) {
@@ -140,12 +142,12 @@ public class CarPercepts : MonoBehaviour
         {
             Debug.Log("Creating " + (numRaycastPairs * 2 + 1) + " raycasts");
             raycasts.Clear();
-            raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, 0));
+            raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, _verticalRaycastOffset, 0));
             for (int i = 0; i < numRaycastPairs; i++)
             {
                 float angle = (i + 1) / (float)numRaycastPairs * maxRaycastAngle;
-                raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, angle));
-                raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, -angle));
+                raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, _verticalRaycastOffset, angle));
+                raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, _verticalRaycastOffset, -angle));
             }
         }
     }

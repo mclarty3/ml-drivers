@@ -8,6 +8,7 @@ public class Node
     public int z;
     public GameObject vis;
     public int objId;
+    public int trafficSignalType;
 
     public Node(int x=-1, int z=-1, GameObject vis=null)
     {
@@ -15,6 +16,7 @@ public class Node
         z = -1;
         vis = null;
         objId = 0;
+        trafficSignalType = 0;
     }
 
     public static Node nullNode = new Node();

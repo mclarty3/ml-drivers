@@ -78,7 +78,7 @@ public class GridBase : MonoBehaviour
     {
         int sizeX = gridData[0];
         int sizeZ = gridData[1];
-        if (gridData.Length - 2 != sizeX * sizeZ * 2)
+        if (gridData.Length - 2 != sizeX * sizeZ * 3)
         {
             Debug.LogError("prefabIds.Length != sizeX * sizeZ");
             return;
@@ -88,16 +88,18 @@ public class GridBase : MonoBehaviour
         this.sizeZ = sizeZ;
         ResetGrid();
 
-        for (int i = 2; i < gridData.Length; i+=2)
+        int numValsPerNode = 3;
+
+        for (int i = 2; i < gridData.Length; i+=numValsPerNode)
         {
             int prefabId = gridData[i];
-            if (prefabId == 0)
+            if (prefabId < 1)
             {
                 continue;
             }
 
-            int x = (i - 2) / (sizeZ * 2);
-            int z = (i - 2) / 2 % sizeX;
+            int x = (i - 2) / (sizeZ * numValsPerNode);
+            int z = (i - 2) / numValsPerNode % sizeX;
             Node node = grid[x, z];
             Transform nodeTransform = GetNodeTransform(node);
             int angle = gridData[i + 1];
@@ -105,6 +107,21 @@ public class GridBase : MonoBehaviour
                                    Quaternion.Euler(0, angle, 0)) as GameObject;
             node.objId = prefabId;
             node.vis.transform.parent = nodeTransform;
+
+            int trafficSignal = gridData[i + 2];
+            if (trafficSignal != 0)
+            {
+                RoadPiece intersection = node.vis.GetComponent<RoadPiece>();
+
+                if (trafficSignal == 1)
+                {
+                    intersection.AddTrafficLight();
+                }
+                else if (trafficSignal == 2)
+                {
+                    intersection.AddStopSign();
+                }
+            }
         }
         ReconnectAllRoads();
     }

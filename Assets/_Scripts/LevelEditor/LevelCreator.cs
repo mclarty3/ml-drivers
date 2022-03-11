@@ -20,6 +20,8 @@ public class LevelCreator : MonoBehaviour
 
     public Node highlightedNode = null;
 
+    private bool _placedIntersection = false;
+
     void Start()
     {
         gridBase = GridBase.GetInstance();
@@ -42,11 +44,32 @@ public class LevelCreator : MonoBehaviour
             {
 
             }
-            else if (objToPlace != null && !interfaceManager.mouseOverUIElement)
+            else if (objToPlace != null && !interfaceManager.mouseOverUIElement
+                     && highlightedNode != null && highlightedNode.vis == null)
             {
                 PlaceObject();
             }
+            else if (highlightedNode != null && highlightedNode.vis != null && !_placedIntersection)
+            {
+                ThreeWayIntersection threeWayIntersection;
+                FourWayIntersection fourWayIntersection;
+                if (highlightedNode.vis.TryGetComponent<FourWayIntersection>(out fourWayIntersection))
+                {
+                    fourWayIntersection.CycleTrafficSignal();
+                    _placedIntersection = true;
+                }
+                else if (highlightedNode.vis.TryGetComponent<ThreeWayIntersection>(out threeWayIntersection))
+                {
+                    threeWayIntersection.CycleTrafficSignal();
+                    _placedIntersection = true;
+                }
+            }
         }
+        else
+        {
+            _placedIntersection = false;
+        }
+
         if (Input.GetMouseButton(1))
         {
             if (carSpawner.simulationActive)

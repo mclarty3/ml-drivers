@@ -59,6 +59,18 @@ public class LevelManager : MonoBehaviour
             {
                 "FourWayTrafficLight",
                 Resources.Load<GameObject>("Prefabs/TrafficSignals/FourWayTrafficLightManager")
+            },
+            {
+                "FourWayStopSign",
+                Resources.Load<GameObject>("Prefabs/TrafficSignals/FourWayStopManager")
+            },
+            {
+                "ThreeWayTrafficLight",
+                Resources.Load<GameObject>("Prefabs/TrafficSignals/ThreeWayTrafficLightManager")
+            },
+            {
+                "ThreeWayStopSign",
+                Resources.Load<GameObject>("Prefabs/TrafficSignals/ThreeWayStopManager")
             }
         };
 

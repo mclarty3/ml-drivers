@@ -8,7 +8,7 @@ public class Path : MonoBehaviour
     [SerializeField]
     public PathCreator path;
     public List<Path> connectingPaths = new List<Path>();
-    public TrafficLightGroup connectedTrafficLight = null;
+    public TrafficSignalGroup connectedTrafficSignal = null;
     private Vector3[] _nodes = null;
     public Vector3[] nodes {
         get {

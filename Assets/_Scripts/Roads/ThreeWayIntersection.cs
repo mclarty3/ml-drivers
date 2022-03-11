@@ -6,6 +6,9 @@ using System.Linq;
 
 public class ThreeWayIntersection : RoadPiece
 {
+    TrafficSignalManager tsm;
+    private int _currentSignalType = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,109 @@ public class ThreeWayIntersection : RoadPiece
             if (connection.outPaths.Count != 2 || connection.inPaths.Count != 2)
             {
                 Debug.LogError("ThreeWayIntersection must have exactly two out and two in paths for each road connection");
+            }
+        }
+    }
+
+    public void CycleTrafficSignal(int signalType = -1)
+    {
+        RemoveTrafficSignal();
+        switch (signalType)
+        {
+            case 0:
+                _currentSignalType = 0;
+                break;
+            case 1:
+                AddTrafficLight();
+                _currentSignalType = 1;
+                break;
+            case 2:
+                AddStopSign();
+                _currentSignalType = 2;
+                break;
+            default:
+                switch (_currentSignalType)
+                {
+                    case 0:
+                        AddTrafficLight();
+                        _currentSignalType = 1;
+                        break;
+                    case 1:
+                        AddStopSign();
+                        _currentSignalType = 2;
+                        break;
+                    case 2:
+                    	_currentSignalType = 0;
+                        break;
+                }
+                break;
+        }
+        Debug.Log("Set signal type to " + _currentSignalType);
+    }
+
+    public void AddTrafficLight()
+    {
+        GameObject prefab = LevelManager.GetInstance().prefabDict["ThreeWayTrafficLight"];
+        GameObject trafficSignal = Instantiate(prefab, transform.position, transform.rotation);
+        trafficSignal.transform.parent = transform;
+        tsm = trafficSignal.GetComponent<TrafficSignalManager>();
+
+        roadConnections[0].trafficSignalGroup = tsm.trafficSignalGroups[0];
+        roadConnections[1].trafficSignalGroup = tsm.trafficSignalGroups[1];
+        roadConnections[2].trafficSignalGroup = tsm.trafficSignalGroups[1];
+
+        foreach (RoadConnection roadConnection in roadConnections) {
+            if (roadConnection.connectedTo == null) continue;
+
+            foreach (Path path in roadConnection.connectedTo.outPaths) {
+                path.connectedTrafficSignal = roadConnection.trafficSignalGroup;
+            }
+        }
+    }
+
+    public void AddStopSign()
+    {
+        GameObject prefab = LevelManager.GetInstance().prefabDict["ThreeWayStopSign"];
+        Quaternion rot = transform.rotation * Quaternion.Euler(0, 180, 0);
+        GameObject stopSignIntersection = Instantiate(prefab, transform.position, rot);
+        stopSignIntersection.transform.parent = transform;
+        tsm = stopSignIntersection.GetComponent<TrafficSignalManager>();
+
+        foreach (RoadConnection connection in roadConnections)
+        {
+            connection.trafficSignalGroup = tsm.trafficSignalGroups[0];
+        }
+
+        foreach (RoadConnection roadConnection in roadConnections) {
+            roadConnection.trafficSignalGroup = tsm.trafficSignalGroups[0];
+
+            if (roadConnection.connectedTo == null) continue;
+
+            foreach (Path path in roadConnection.connectedTo.outPaths) {
+                path.connectedTrafficSignal = roadConnection.trafficSignalGroup;
+            }
+        }
+    }
+
+    public void RemoveTrafficSignal()
+    {
+        if (tsm == null) return;
+
+        Destroy(tsm.gameObject);
+        tsm = null;
+
+        foreach (RoadConnection connection in roadConnections)
+        {
+            connection.trafficSignalGroup = null;
+        }
+
+        foreach (RoadConnection roadConnection in roadConnections) {
+            roadConnection.trafficSignalGroup = null;
+
+            if (roadConnection.connectedTo == null) continue;
+
+            foreach (Path path in roadConnection.connectedTo.outPaths) {
+                path.connectedTrafficSignal = null;
             }
         }
     }

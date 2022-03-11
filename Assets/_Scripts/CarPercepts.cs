@@ -51,7 +51,7 @@ public class CarPercepts : MonoBehaviour
 
     private PathCrawler _pathCrawler;
     [HideInInspector]
-    public int approachingTrafficLightColour = -1;
+    public int approachingTrafficSignalType = -1;
 
     public List<RaycastInfo> raycasts;
     public List<float> raycastCollisionDistances;
@@ -124,11 +124,11 @@ public class CarPercepts : MonoBehaviour
 
     void CheckApproachingTrafficLight()
     {
-        if (_pathCrawler != null && _pathCrawler.currentPath.connectedTrafficLight != null) {
-            TrafficLightGroup trafficLight = _pathCrawler.currentPath.connectedTrafficLight;
-            if (trafficLight != null)
+        if (_pathCrawler != null && _pathCrawler.currentPath.connectedTrafficSignal != null) {
+            TrafficSignalGroup trafficSignal = _pathCrawler.currentPath.connectedTrafficSignal;
+            if (trafficSignal != null)
             {
-                approachingTrafficLightColour = trafficLight.lightColour;
+                approachingTrafficSignalType = trafficSignal.signalType;
             }
         }
     }

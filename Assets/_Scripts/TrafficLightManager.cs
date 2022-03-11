@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class TrafficLightGroup
+public class TrafficLightGroup : TrafficSignalGroup
 {
     [SerializeField]
     public TrafficLight[] trafficLights;
-    public int lightColour = -1;
 }
 
-public class TrafficLightManager : MonoBehaviour
+public class TrafficLightManager : TrafficSignalManager
 {
     [SerializeField]
-    public TrafficLightGroup[] trafficLightGroups;
+    private TrafficLightGroup[] _trafficLightGroups;
     public float redGreenLightTime = 10f;
     public float yellowLightTime = 3f;
 
@@ -21,10 +20,19 @@ public class TrafficLightManager : MonoBehaviour
     private bool _activeLightGroupYellow = false;
     private float _timer;
 
+    void Awake()
+    {
+        trafficSignalGroups = _trafficLightGroups;
+        Debug.Log("Setting signal groups to light groups");
+        Debug.Log(_trafficLightGroups[0].signalType);
+        Debug.Log(_trafficLightGroups[1].signalType);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
-        activeLightGroup = Random.Range(0, trafficLightGroups.Length);
+        activeLightGroup = Random.Range(0, trafficSignalGroups.Length);
         ActivateLightGroup(activeLightGroup);
         _timer = Time.time;
     }
@@ -46,7 +54,7 @@ public class TrafficLightManager : MonoBehaviour
             if (Time.time - _timer > yellowLightTime)
             {
                 _activeLightGroupYellow = false;
-                activeLightGroup = (activeLightGroup + 1) % trafficLightGroups.Length;
+                activeLightGroup = (activeLightGroup + 1) % trafficSignalGroups.Length;
                 ActivateLightGroup(activeLightGroup);
                 _timer = Time.time;
             }
@@ -55,12 +63,12 @@ public class TrafficLightManager : MonoBehaviour
 
     public void ActivateLightGroup(int lightGroup)
     {
-        if (lightGroup < 0 || lightGroup >= trafficLightGroups.Length)
+        if (lightGroup < 0 || lightGroup >= trafficSignalGroups.Length)
         {
             return;
         }
 
-        for (int i = 0; i < trafficLightGroups.Length; i++)
+        for (int i = 0; i < trafficSignalGroups.Length; i++)
         // if (_activeLightGroup != -1)
         {
             SetGroupLightColour(i, 0);
@@ -72,10 +80,11 @@ public class TrafficLightManager : MonoBehaviour
 
     public void SetGroupLightColour(int groupIndex, int colourIndex)
     {
-        foreach (TrafficLight light in trafficLightGroups[groupIndex].trafficLights)
+        TrafficLightGroup[] groups = trafficSignalGroups as TrafficLightGroup[];
+        foreach (TrafficLight light in groups[groupIndex].trafficLights)
         {
             light.ActivateLight(colourIndex);
-            trafficLightGroups[groupIndex].lightColour = colourIndex;
+            trafficSignalGroups[groupIndex].signalType = colourIndex;
         }
     }
 }

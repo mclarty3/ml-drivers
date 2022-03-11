@@ -10,8 +10,8 @@ public class RoadConnection : MonoBehaviour
     public List<Path> outPaths;
     public List<Path> inPaths;
     public RoadConnection connectedTo = null;
-    public TrafficLightGroup trafficLightGroup = null;
-    public int lightColor = -1;
+    public TrafficSignalGroup trafficSignalGroup = null;
+    public int signalType = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +25,8 @@ public class RoadConnection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (trafficLightGroup != null && trafficLightGroup.trafficLights.Length > 0) {
-            lightColor = trafficLightGroup.lightColour;
+        if (trafficSignalGroup != null && trafficSignalGroup.signalType != signalType) {
+            signalType = trafficSignalGroup.signalType;
         }
     }
 
@@ -37,8 +37,8 @@ public class RoadConnection : MonoBehaviour
         {
             // path.connectingPaths = other.inPaths;
             path.connectingPaths = other == null ? null : other.inPaths;
-            if (other.trafficLightGroup != null) {
-                path.connectedTrafficLight = other.trafficLightGroup;
+            if (other.trafficSignalGroup != null) {
+                path.connectedTrafficSignal = other.trafficSignalGroup;
             }
         }
     }

@@ -16,6 +16,7 @@ public class CarController : MonoBehaviour
     public float brakeForce = 100;
     public float velocityMultiplier = 10f;
     public float velocity;
+    public bool controlManually = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,8 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        GetInput();
+        if (controlManually)
+            GetInput();
         Steer();
         AccelerateOrBrake();
         UpdateWheelPoses();

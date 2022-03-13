@@ -23,9 +23,6 @@ public class TrafficLightManager : TrafficSignalManager
     void Awake()
     {
         trafficSignalGroups = _trafficLightGroups;
-        Debug.Log("Setting signal groups to light groups");
-        Debug.Log(_trafficLightGroups[0].signalType);
-        Debug.Log(_trafficLightGroups[1].signalType);
     }
 
 

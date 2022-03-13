@@ -263,7 +263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1195393640460216422
 Transform:
   m_ObjectHideFlags: 0
@@ -1040,9 +1040,10 @@ GameObject:
   - component: {fileID: 2360393117163428819}
   - component: {fileID: 2276666695366035925}
   - component: {fileID: 9059611469990130423}
+  - component: {fileID: -1798447470441245247}
   m_Layer: 0
   m_Name: Classic_16
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1076,7 +1077,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1126,7 +1127,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2360393117163428808}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef24253fca7183a4fa6a1b111f1bc7ef, type: 3}
   m_Name: 
@@ -1139,11 +1140,12 @@ MonoBehaviour:
   frontPassengerT: {fileID: 2540165206089136008}
   rearDriverT: {fileID: 1301639396742062886}
   rearPassengerT: {fileID: 8364743356352665296}
-  maxSteerAngle: 30
+  maxSteerAngle: 40
   motorForce: 50
-  brakeForce: 100
+  brakeForce: 200
   velocityMultiplier: 10
   velocity: 0
+  controlManually: 0
 --- !u!114 &2276666695366035925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,12 +1161,16 @@ MonoBehaviour:
   currentPath: {fileID: 0}
   currentNodeIndex: 0
   speed: 3
-  nodeTriggerDistance: 0.3
+  nodeTriggerDistance: 0.65
   timeBetweenNodes: 2
+  avoidCarDistanceMultiplier: 0.1
+  minAvoidCarDistance: 1
+  beginBrakeForTrafficSignalDistance: 1
+  trafficSignalBrakeDistanceMultiplier: 1
+  trafficSignalBrakeIntensity: 0.5
+  maxVelocity: 25
+  _stoppingAtTrafficSignal: 0
   _waitingAtTrafficSignal: 0
-  _waited: 0
-  _signalType: 0
-  stopSignTime: 0
 --- !u!114 &9059611469990130423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1184,6 +1190,7 @@ MonoBehaviour:
   _sideRaycastOffset: 0.225
   _verticalRaycastOffset: 0.15
   approachingTrafficSignalType: -1
+  trafficSignalPerceptionDistance: 2
   raycastCollisionDistances:
   - 0.25320283
   - 0.2639274
@@ -1216,6 +1223,20 @@ MonoBehaviour:
   - 0.4681363
   - Infinity
   - 0.5654207
+--- !u!114 &-1798447470441245247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360393117163428808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b80496b4e8edc478285fcd6204a980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _reachedTrafficSignalDistance: 0.4
+  distToSignal: 0
 --- !u!1 &2360393117163428810
 GameObject:
   m_ObjectHideFlags: 0

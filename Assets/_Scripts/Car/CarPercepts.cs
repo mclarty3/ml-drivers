@@ -45,7 +45,7 @@ public class CarPercepts : MonoBehaviour
     [Tooltip("Raycasts will be cast evenly spaced around the car's front up to this angle")]
     private float maxRaycastAngle = 85f;
     [SerializeField]
-    private float _forwardRaycastOffset = 0.55f;
+    private float _forwardRaycastOffset = 0.75f;
     [SerializeField]
     private float _sideRaycastOffset = 0.225f;
     [SerializeField]
@@ -54,6 +54,7 @@ public class CarPercepts : MonoBehaviour
     private PathCrawler _pathCrawler;
     [HideInInspector]
     public int approachingTrafficSignalType = -1;
+    public float trafficSignalPerceptionDistance = 2f;
 
     public List<RaycastInfo> raycasts;
     public List<float> raycastCollisionDistances;
@@ -80,10 +81,10 @@ public class CarPercepts : MonoBehaviour
         HandleRaycastCountChange();
         CheckCollisions();
         GetCollisions(out raycastCollisionDistances);
-        DrawDebugLines();
+        // DrawDebugLines();
 
         if (_pathCrawler != null && _pathCrawler.currentPath != null) {
-            CheckApproachingTrafficLight();
+            CheckApproachingTrafficSignal();
         }
     }
 
@@ -91,11 +92,10 @@ public class CarPercepts : MonoBehaviour
         distances = new List<float>();
         foreach (RaycastInfo raycast in raycasts) {
             if (raycast.hitObject != null && raycast.hitObject != transform.GetChild(0).gameObject) {
-                if (objTag != "" && raycast.hitObject.tag != objTag) {
+                if (objTag == "" || raycast.hitObject.tag == objTag) {
+                    distances.Add(raycast.distance);
                     continue;
                 }
-                distances.Add(raycast.distance);
-                continue;
             }
             distances.Add(float.PositiveInfinity);
         }
@@ -124,9 +124,9 @@ public class CarPercepts : MonoBehaviour
         }
     }
 
-    void CheckApproachingTrafficLight()
+    void CheckApproachingTrafficSignal()
     {
-        if (_pathCrawler != null && _pathCrawler.currentPath.connectedTrafficSignal != null) {
+        if (_pathCrawler.currentPath.connectedTrafficSignal != null) {
             TrafficSignalGroup trafficSignal = _pathCrawler.currentPath.connectedTrafficSignal;
             if (trafficSignal != null)
             {
@@ -135,12 +135,39 @@ public class CarPercepts : MonoBehaviour
         }
     }
 
+    public bool CheckStopForTrafficSignal(out float distance)
+    {
+        if (approachingTrafficSignalType == 0 || approachingTrafficSignalType == 3)
+        {
+            Vector3[] pathNodes = _pathCrawler.currentPath.nodes;
+            Vector3 lastNodePos = pathNodes[pathNodes.Length - 1];
+            float distanceToLastNode = Vector3.Distance(transform.position, lastNodePos);
+            if (distanceToLastNode < trafficSignalPerceptionDistance)
+            {
+                distance = distanceToLastNode;
+                return true;
+            }
+        }
+        distance = -1;
+        return false;
+    }
+
+    public Vector3 GetTrafficSignalNodePosition()
+    {
+        if (approachingTrafficSignalType != -1)
+        {
+            Vector3[] pathNodes = _pathCrawler.currentPath.nodes;
+            Vector3 lastNodePos = pathNodes[pathNodes.Length - 1];
+            return lastNodePos;
+        }
+        return Vector3.zero;
+    }
+
     void HandleRaycastCountChange()
     {
         if (raycasts.Count != numRaycastPairs * 2 + 1 ||
             raycasts[raycasts.Count - 1].angleFromForward != maxRaycastAngle)
         {
-            Debug.Log("Creating " + (numRaycastPairs * 2 + 1) + " raycasts");
             raycasts.Clear();
             raycasts.Add(new RaycastInfo(_forwardRaycastOffset, 0, _verticalRaycastOffset, 0));
             for (int i = 0; i < numRaycastPairs; i++)

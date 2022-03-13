@@ -153,9 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 541628}
-  connectingPaths:
-  - {fileID: 429959937}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &541628
@@ -1267,9 +1266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 71981607}
-  connectingPaths:
-  - {fileID: 776219876}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &71981606
@@ -2163,9 +2161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 122387402}
-  connectingPaths:
-  - {fileID: 1345447980}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &122387401
@@ -2497,9 +2494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 137032840}
-  connectingPaths:
-  - {fileID: 447245654}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &137032839
@@ -5847,9 +5843,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 312305906}
-  connectingPaths:
-  - {fileID: 1663633866}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &312305906
@@ -8741,9 +8736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 429959939}
-  connectingPaths:
-  - {fileID: 1654251176}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &429959938
@@ -9164,9 +9158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 447245655}
-  connectingPaths:
-  - {fileID: 1061571280}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &447245655
@@ -10552,9 +10545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 544322735}
-  connectingPaths:
-  - {fileID: 1814039975}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &544322735
@@ -11041,9 +11033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 579001688}
-  connectingPaths:
-  - {fileID: 2003211019}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &579001687
@@ -13279,9 +13270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 715135382}
-  connectingPaths:
-  - {fileID: 1260659141}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &715135382
@@ -13491,9 +13481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 757900770}
-  connectingPaths:
-  - {fileID: 1459572372}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &757900769
@@ -13999,9 +13988,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 776219878}
-  connectingPaths:
-  - {fileID: 872611826}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &776219877
@@ -14480,9 +14468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 791386396}
-  connectingPaths:
-  - {fileID: 1440497580}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &791386396
@@ -16114,9 +16101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 872611828}
-  connectingPaths:
-  - {fileID: 579001686}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &872611827
@@ -19437,9 +19423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1061571281}
-  connectingPaths:
-  - {fileID: 541627}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1061571281
@@ -20634,9 +20619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1138247917}
-  connectingPaths:
-  - {fileID: 715135381}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1138247917
@@ -21623,9 +21607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1183532066}
-  connectingPaths:
-  - {fileID: 312305905}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1183532066
@@ -21729,9 +21712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1186096847}
-  connectingPaths:
-  - {fileID: 1722825772}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1186096847
@@ -22108,9 +22090,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1209825353}
-  connectingPaths:
-  - {fileID: 1983935287}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1209825353
@@ -22569,9 +22550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1260659142}
-  connectingPaths:
-  - {fileID: 1430169051}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1260659142
@@ -23505,9 +23485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1345447982}
-  connectingPaths:
-  - {fileID: 71981605}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &1345447981
@@ -23909,9 +23888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1371970954}
-  connectingPaths:
-  - {fileID: 1760107599}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &1371970953
@@ -24973,9 +24951,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1430169052}
-  connectingPaths:
-  - {fileID: 791386395}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1430169052
@@ -25254,9 +25231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1440497581}
-  connectingPaths:
-  - {fileID: 1183532065}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1440497581
@@ -25534,9 +25510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1459572374}
-  connectingPaths:
-  - {fileID: 137032838}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &1459572373
@@ -25925,9 +25900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1472853984}
-  connectingPaths:
-  - {fileID: 1513508154}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1472853984
@@ -26576,9 +26550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1513508155}
-  connectingPaths:
-  - {fileID: 544322734}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1513508155
@@ -27268,9 +27241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1523301623}
-  connectingPaths:
-  - {fileID: 1138247916}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1523301623
@@ -29165,9 +29137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1654251178}
-  connectingPaths:
-  - {fileID: 1887166345}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &1654251177
@@ -29366,9 +29337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1663633867}
-  connectingPaths:
-  - {fileID: 1472853983}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1663633867
@@ -30075,9 +30045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1722825771}
-  connectingPaths:
-  - {fileID: 1209825352}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!1 &1724300648
@@ -30752,9 +30721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1760107601}
-  connectingPaths:
-  - {fileID: 122387400}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &1760107600
@@ -31665,9 +31633,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1814039976}
-  connectingPaths:
-  - {fileID: 1186096846}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1814039976
@@ -33201,9 +33168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1887166347}
-  connectingPaths:
-  - {fileID: 1371970952}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &1887166346
@@ -34865,9 +34831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 1983935288}
-  connectingPaths:
-  - {fileID: 1523301622}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!114 &1983935288
@@ -35832,9 +35797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b384e79155426649ae6ef76b151044a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 2003211021}
-  connectingPaths:
-  - {fileID: 757900768}
+  path: {fileID: 0}
+  connectingPaths: []
   connectedTrafficSignal:
     signalType: -1
 --- !u!4 &2003211020
@@ -39335,21 +39299,16 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 37
     NumStackedVectorObservations: 5
-    m_ActionSpec:
-      m_NumContinuousActions: 2
-      BranchSizes: 
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-    hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: ML-Driver
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
-  m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
 --- !u!1 &1987076292498077082
 GameObject:
@@ -39585,7 +39544,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987076292498077076}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 31.391504, y: 17.284012, z: -27.617506}
+  m_LocalPosition: {x: 31.391504, y: 17.284012, z: -6.65}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 3153833080318453791}

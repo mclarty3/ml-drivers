@@ -15,6 +15,7 @@ public class MLDriverAgent : Agent
 	{
 		carPercepts = GetComponent<CarPercepts>();
 		carController = GetComponent<CarController>();
+		pathCrawler = GetComponent<PathCrawler>();
 	}
 
 	public override void CollectObservations(VectorSensor sensor)

@@ -29,15 +29,17 @@ public class PathCrawler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 nodePos = currentPath.nodes[currentNodeIndex];
-        transform.position = new Vector3(nodePos.x, transform.position.y, nodePos.z);
-        MoveToNextNode();
-        Vector3 rot = Quaternion.LookRotation(currentPath.nodes[currentNodeIndex + 1] - transform.position).eulerAngles;
-        transform.rotation = Quaternion.Euler(0, rot.y, 0);
-
-
         carPercepts = GetComponent<CarPercepts>();
         carController = GetComponent<CarController>();
+
+		if (currentPath != null && currentPath.nodes != null)
+        {
+            Vector3 nodePos = currentPath.nodes[currentNodeIndex];
+            transform.position = new Vector3(nodePos.x, transform.position.y, nodePos.z);
+            MoveToNextNode();
+            Vector3 rot = Quaternion.LookRotation(currentPath.nodes[currentNodeIndex + 1] - transform.position).eulerAngles;
+            transform.rotation = Quaternion.Euler(0, rot.y, 0);
+        }
     }
 
     // Update is called once per frame
@@ -46,7 +48,7 @@ public class PathCrawler : MonoBehaviour
         Vector3 offset = new Vector3(0, 0.5f, 0);
         Debug.DrawLine(transform.position + offset, currentNodePosition + offset, Color.red);
 
-        if (currentPath == null) {
+        if (currentPath == null || currentPath.nodes == null) {
             return;
         }
 

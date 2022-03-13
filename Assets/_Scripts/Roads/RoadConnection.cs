@@ -7,8 +7,8 @@ using System;
 public class RoadConnection : MonoBehaviour
 {
     public RoadPiece roadPiece = null;
-    public List<Path> outPaths;
-    public List<Path> inPaths;
+    public List<NodePath> outPaths;
+    public List<NodePath> inPaths;
     public RoadConnection connectedTo = null;
     public TrafficSignalGroup trafficSignalGroup = null;
     public int signalType = -1;
@@ -33,7 +33,7 @@ public class RoadConnection : MonoBehaviour
     public void ConnectTo(RoadConnection other)
     {
         connectedTo = other;
-        foreach (Path path in outPaths)
+        foreach (NodePath path in outPaths)
         {
             // path.connectingPaths = other.inPaths;
             path.connectingPaths = other == null ? null : other.inPaths;

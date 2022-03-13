@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 
-public class Path : MonoBehaviour
+public class NodePath : MonoBehaviour
 {
     [SerializeField]
     public PathCreator path;
-    public List<Path> connectingPaths = new List<Path>();
+    public List<NodePath> connectingPaths = new List<NodePath>();
     public TrafficSignalGroup connectedTrafficSignal = null;
     private Vector3[] _nodes = null;
     public Vector3[] nodes {
@@ -40,7 +40,7 @@ public class Path : MonoBehaviour
 
     }
 
-    public static Path GetConnectingPath(List<Path> paths)
+    public static NodePath GetConnectingPath(List<NodePath> paths)
     {
         if (paths.Count == 0) {
             return null;
@@ -51,9 +51,9 @@ public class Path : MonoBehaviour
         }
     }
 
-    public Path GetConnectingPath()
+    public NodePath GetConnectingPath()
     {
-        return Path.GetConnectingPath(connectingPaths);
+        return NodePath.GetConnectingPath(connectingPaths);
     }
 
     public Vector3[] GetPathNodes(PathCreator path)

@@ -37,7 +37,7 @@ public class FourWayIntersection : RoadPiece
         foreach (RoadConnection roadConnection in roadConnections) {
             if (roadConnection.connectedTo == null) continue;
 
-            foreach (Path path in roadConnection.connectedTo.outPaths) {
+            foreach (NodePath path in roadConnection.connectedTo.outPaths) {
                 path.connectedTrafficSignal = roadConnection.trafficSignalGroup;
             }
         }
@@ -55,7 +55,7 @@ public class FourWayIntersection : RoadPiece
 
             if (roadConnection.connectedTo == null) continue;
 
-            foreach (Path path in roadConnection.connectedTo.outPaths) {
+            foreach (NodePath path in roadConnection.connectedTo.outPaths) {
                 path.connectedTrafficSignal = roadConnection.trafficSignalGroup;
             }
         }

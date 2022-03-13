@@ -47,8 +47,6 @@ public class CarPercepts : MonoBehaviour
     [SerializeField]
     private float _forwardRaycastOffset = 0.75f;
     [SerializeField]
-    private float _sideRaycastOffset = 0.225f;
-    [SerializeField]
     private float _verticalRaycastOffset = -0.1f;
 
     private PathCrawler _pathCrawler;

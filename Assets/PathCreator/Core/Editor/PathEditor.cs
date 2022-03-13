@@ -47,7 +47,6 @@ namespace PathCreationEditor {
         int draggingHandleIndex;
         int mouseOverHandleIndex;
         int handleIndexToDisplayAsTransform;
-        int instanceID = 0;
 
         bool shiftLastFrame;
         bool hasUpdatedScreenSpaceLine;
@@ -520,7 +519,7 @@ namespace PathCreationEditor {
             handlePosition = PathHandle.DrawHandle (handlePosition, bezierPath.Space, isInteractive, handleSize, cap, handleColours, out handleInputType, i);
 
             if (doTransformHandle) {
-                // Show normals rotate tool 
+                // Show normals rotate tool
                 if (data.showNormals && Tools.current == Tool.Rotate && isAnchorPoint && bezierPath.Space == PathSpace.xyz) {
                     Handles.color = handlesStartCol;
 

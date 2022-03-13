@@ -9,7 +9,7 @@ public class CarSpawner : MonoBehaviour
     public float heightOffset = 0.4f;
     public bool simulationActive { get; private set; }
     GridBase grid;
-    List<Path> paths;
+    List<NodePath> paths;
     List<PathCrawler> crawlers;
     InterfaceManager interfaceManager;
 
@@ -57,7 +57,7 @@ public class CarSpawner : MonoBehaviour
 
     public void InitializePaths(List<RoadPiece> roadPieces)
     {
-        paths = new List<Path>();
+        paths = new List<NodePath>();
         foreach (RoadPiece roadPiece in roadPieces)
         {
             foreach (RoadConnection connection in roadPiece.roadConnections)
@@ -68,7 +68,7 @@ public class CarSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnCar(Path pathToSpawn)
+    public void SpawnCar(NodePath pathToSpawn)
     {
         Vector3 spawnPos = pathToSpawn.nodes[0] + Vector3.up * heightOffset;
         GameObject newCar = Instantiate(carPrefab, spawnPos, Quaternion.identity);

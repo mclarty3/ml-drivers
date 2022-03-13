@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PathCrawler : MonoBehaviour
 {
-    public Path currentPath;
+    public NodePath currentPath;
     public int currentNodeIndex;
     public float speed = 0.5f;
     public float nodeTriggerDistance = 0.1f;
@@ -15,8 +15,8 @@ public class PathCrawler : MonoBehaviour
     public float trafficSignalBrakeDistanceMultiplier = 1f;
     public float trafficSignalBrakeIntensity = 0.5f;
     public float maxVelocity = 15f;
+    public Vector3 currentNodePosition;
 
-    private Vector3 _currentNodePosition;
     public bool _stoppingAtTrafficSignal;
     public bool _waitingAtTrafficSignal;
     private bool _waited = false;
@@ -44,7 +44,7 @@ public class PathCrawler : MonoBehaviour
     void Update()
     {
         Vector3 offset = new Vector3(0, 0.5f, 0);
-        Debug.DrawLine(transform.position + offset, _currentNodePosition + offset, Color.red);
+        Debug.DrawLine(transform.position + offset, currentNodePosition + offset, Color.red);
 
         if (currentPath == null) {
             return;
@@ -121,7 +121,7 @@ public class PathCrawler : MonoBehaviour
             return;
         }
 
-        if (Vector3.Distance(transform.position, _currentNodePosition) <=  nodeTriggerDistance) {
+        if (Vector3.Distance(transform.position, currentNodePosition) <=  nodeTriggerDistance) {
             MoveToNextNode();
             steerAngle = GetSteerToNextNode();
         }
@@ -140,14 +140,14 @@ public class PathCrawler : MonoBehaviour
             currentPath = currentPath.GetConnectingPath();
         }
         Vector3 nodePos = currentPath.nodes[currentNodeIndex];
-        _currentNodePosition = new Vector3(nodePos.x, transform.position.y, nodePos.z);
+        currentNodePosition = new Vector3(nodePos.x, transform.position.y, nodePos.z);
     }
 
     void MoveToNextPath()
     {
         currentPath = currentPath.GetConnectingPath();
         currentNodeIndex = 0;
-        _currentNodePosition = currentPath.nodes[currentNodeIndex];
+        currentNodePosition = currentPath.nodes[currentNodeIndex];
     }
 
     private float GetBrakeDistance()
@@ -162,7 +162,7 @@ public class PathCrawler : MonoBehaviour
 
     private void SetCarControllerInput(float horizontal, float vertical)
     {
-        carController.SetInput(horizontal, vertical);
+        carController.SetInput(vertical, horizontal);
     }
 
     private float GetSteerToNextNode()

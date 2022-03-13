@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PathDebugDrawer : MonoBehaviour
 {
-    Path[] paths;
+    NodePath[] paths;
 
     // Start is called before the first frame update
     void Start()
     {
-        paths = Transform.FindObjectsOfType<Path>() as Path[];
+        paths = Transform.FindObjectsOfType<NodePath>() as NodePath[];
     }
 
     // Update is called once per frame
     void Update()
     {
-        Path[] scenePaths = Transform.FindObjectsOfType<Path>() as Path[];
+        NodePath[] scenePaths = Transform.FindObjectsOfType<NodePath>() as NodePath[];
         if (paths.Length != scenePaths.Length) {
             paths = scenePaths;
         }
@@ -23,7 +23,7 @@ public class PathDebugDrawer : MonoBehaviour
 
     void DrawPaths()
     {
-        foreach (Path path in paths)
+        foreach (NodePath path in paths)
         {
             // List<Vector3> bezierNodes = path.path.bezierPath.po
             Vector3[] nodes = path.nodes;

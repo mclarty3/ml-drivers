@@ -41,7 +41,7 @@ public class CarController : MonoBehaviour
         m_verticalInput = Input.GetAxis("Vertical");
     }
 
-    public void SetInput(float horizontal, float vertical)
+    public void SetInput(float vertical, float horizontal)
     {
         m_horizontalInput = horizontal;
         m_verticalInput = vertical;

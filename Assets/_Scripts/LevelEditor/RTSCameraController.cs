@@ -31,7 +31,6 @@ public class RTSCameraController : MonoBehaviour {
     private Vector3 panMovement;
     private Vector3 pos;
     private Quaternion rot;
-    private bool rotationActive = false;
     private Vector3 lastMousePosition;
     private Quaternion initialRot;
     private float panIncrease = 0.0f;
@@ -52,8 +51,8 @@ public class RTSCameraController : MonoBehaviour {
         zoomLimit.x = 15;
         zoomLimit.y = 65;
 	}
-	
-	
+
+
 	void Update () {
 
         # region Camera Mode
@@ -99,7 +98,7 @@ public class RTSCameraController : MonoBehaviour {
 
 
         //increase pan speed
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) 
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
             || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)
             || Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Q)
             || Input.mousePosition.y >= Screen.height - ScreenEdgeBorderThickness
@@ -132,7 +131,6 @@ public class RTSCameraController : MonoBehaviour {
             // Mouse Rotation
             if (Input.GetMouseButton(0))
             {
-                rotationActive = true;
                 Vector3 mouseDelta;
                 if (lastMousePosition.x >= 0 &&
                     lastMousePosition.y >= 0 &&
@@ -156,7 +154,6 @@ public class RTSCameraController : MonoBehaviour {
 
             if (Input.GetMouseButtonUp(0))
             {
-                rotationActive = false;
                 if (RTSMode) transform.rotation = Quaternion.Slerp(transform.rotation, initialRot, 0.5f * Time.time);
             }
 
@@ -179,7 +176,7 @@ public class RTSCameraController : MonoBehaviour {
             pos.x = Mathf.Clamp(pos.x, widthLimit.x, widthLimit.y);
             transform.position = pos;
         }
-        
+
 
 
         #endregion

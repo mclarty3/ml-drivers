@@ -143,7 +143,7 @@ public abstract class RoadPiece : MonoBehaviour
 
             if (roadConnection.connectedTo == null) continue;
 
-            foreach (Path path in roadConnection.connectedTo.outPaths) {
+            foreach (NodePath path in roadConnection.connectedTo.outPaths) {
                 path.connectedTrafficSignal = null;
             }
         }

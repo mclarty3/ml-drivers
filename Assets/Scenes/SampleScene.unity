@@ -35467,7 +35467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carPrefab: {fileID: 2360393117163428808, guid: b182c5c897142a8499f4140ad8a964e0, type: 3}
-  numCarsAtStart: 10
+  numCarsAtStart: 1
   heightOffset: 0.095
 --- !u!114 &1994199470
 MonoBehaviour:

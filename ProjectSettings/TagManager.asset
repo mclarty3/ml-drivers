@@ -3,7 +3,36 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - agent
+  - ground
+  - Car
+  - goal
+  - block
+  - wall
+  - symbol_O_Goal
+  - symbol_X_Goal
+  - symbol_O
+  - symbol_X
+  - key
+  - walkableSurface
+  - blueGoal
+  - purpleGoal
+  - purpleAgent
+  - blueAgent
+  - ball
+  - target
+  - blockLarge
+  - blockSmall
+  - blockVeryLarge
+  - lock
+  - dragon
+  - portal
+  - tile
+  - switchOff
+  - Sidewalk
+  - Street
+  - TrafficSignal
   layers:
   - Default
   - TransparentFX

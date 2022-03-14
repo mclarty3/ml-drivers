@@ -40,21 +40,30 @@ public class CarPercepts : MonoBehaviour
     [Tooltip("Number of pairs of rays to cast in addition to one ray in the center")]
     private int numRaycastPairs = 15;
     [SerializeField]
+    [Tooltip("The length of the rays cast in units (default 10)")]
     private float _rayLength = 10f;
     [SerializeField][Range(1, 120)]
     [Tooltip("Raycasts will be cast evenly spaced around the car's front up to this angle")]
     private float maxRaycastAngle = 85f;
     [SerializeField]
+    [Tooltip("The distance between the center and the front of the car")]
     private float _forwardRaycastOffset = 0.75f;
     [SerializeField]
+    [Tooltip("The y distance between the car's origin and where the raycast originates")]
     private float _verticalRaycastOffset = -0.1f;
 
-    private PathCrawler _pathCrawler;
-    [HideInInspector]
-    public int approachingTrafficSignalType = -1;
+    [Header("Car Perception Parameters")]
+    [Tooltip("The distance from which a car can see a traffic signal at the end of its current path")]
     public float trafficSignalPerceptionDistance = 2f;
 
+    private PathCrawler _pathCrawler;
+    private bool _collidedWithObject = false;
+    private string _collidedWithObjectTag;
+
+    [HideInInspector]
+    public int approachingTrafficSignalType = -1;
     public List<RaycastInfo> raycasts;
+    [HideInInspector]
     public List<float> raycastCollisionDistances;
 
     void Start()
@@ -65,7 +74,7 @@ public class CarPercepts : MonoBehaviour
 
         foreach (RaycastInfo raycast in raycasts)
         {
-            raycastCollisionDistances.Add(float.PositiveInfinity);
+            raycastCollisionDistances.Add(-1);
         }
 
         if (!TryGetComponent<PathCrawler>(out _pathCrawler))
@@ -86,6 +95,29 @@ public class CarPercepts : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag != "Street")
+        {
+            _collidedWithObject = true;
+            _collidedWithObjectTag = other.gameObject.tag;
+        }
+    }
+
+    public bool CollidedWithObject(out string tag, bool clear = false)
+    {
+        tag = "";
+        if (_collidedWithObject)
+        {
+            if (clear)
+            {
+                _collidedWithObject = false;
+            }
+            tag = _collidedWithObjectTag;
+            return true;
+        }
+        return false;
+    }
+
     public bool GetCollisions(out List<float> distances, string objTag="") {
         distances = new List<float>();
         foreach (RaycastInfo raycast in raycasts) {
@@ -95,7 +127,7 @@ public class CarPercepts : MonoBehaviour
                     continue;
                 }
             }
-            distances.Add(float.PositiveInfinity);
+            distances.Add(-1);
         }
         return distances.Count > 0;
     }
@@ -117,7 +149,7 @@ public class CarPercepts : MonoBehaviour
                 }
             }
             raycast.hitObject = null;
-            raycast.distance = float.PositiveInfinity;
+            raycast.distance = -1;
             raycast.hitPoint = Vector3.zero;
         }
     }

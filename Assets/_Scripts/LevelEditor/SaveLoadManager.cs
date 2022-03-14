@@ -105,7 +105,6 @@ public class GridData
                 RoadPiece roadPiece = null;
 				if (vis != null && vis.TryGetComponent<RoadPiece>(out roadPiece))
                 {
-                    Debug.Log("Saving intersection type " + roadPiece.currentSignalType);
                     data[index + 2] = roadPiece.currentSignalType;
                 }
                 else

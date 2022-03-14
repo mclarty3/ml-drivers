@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     GridBase gridBase;
+    LevelCreator levelCreator;
     ModalManager modalManager;
     ModalManager loadMapModalManager;
     InterfaceManager interfaceManager;
@@ -87,16 +88,15 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         gridBase = GridBase.GetInstance();
+        levelCreator = GetComponent<LevelCreator>();
         modalManager = GetComponent<ModalManager>();
         interfaceManager = InterfaceManager.GetInstance();
         carSpawner = GetComponent<CarSpawner>();
-
     }
 
     public int GetRoadPiecePrefabId(string roadPieceName)
     {
         int id = prefabIdDict.FirstOrDefault(x => roadPieceName.Contains(x.Value.name)).Key;
-        Debug.Log(id);
         return id;
     }
 
@@ -129,7 +129,7 @@ public class LevelManager : MonoBehaviour
 
         if (loadedData != null)
         {
-            gridBase.ResetGridFromData(loadedData, prefabIdDict);
+            gridBase.ResetGridFromData(levelCreator.sceneObjectsParent.transform, loadedData, prefabIdDict);
         }
     }
 

@@ -1037,6 +1037,8 @@ GameObject:
   - component: {fileID: 2360393117163428815}
   - component: {fileID: 2360393117163428813}
   - component: {fileID: 2360393117163428811}
+  - component: {fileID: 5429793460376894810}
+  - component: {fileID: 1283384103237904375}
   - component: {fileID: 2360393117163428819}
   - component: {fileID: 2276666695366035925}
   - component: {fileID: 9059611469990130423}
@@ -1062,6 +1064,7 @@ Transform:
   - {fileID: 1195393639555974723}
   - {fileID: 1195393641602782302}
   - {fileID: 1195393640460216422}
+  - {fileID: 1217962950309036059}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -1092,8 +1095,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.4805644, z: 2.4766822}
-  m_Center: {x: 0, y: 0.84229773, z: -0.88762325}
+  m_Size: {x: 2, y: 1.4003189, z: 2.476682}
+  m_Center: {x: 9.021971e-10, y: 0.88244325, z: -0.8876233}
 --- !u!65 &2360393117163428813
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1105,8 +1108,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.0360794, z: 0.901071}
-  m_Center: {x: 0, y: 0.6177967, z: 0.82016873}
+  m_Size: {x: 2, y: 0.95446616, z: 0.90107095}
+  m_Center: {x: -8.748383e-10, y: 0.6586055, z: 0.8201687}
 --- !u!65 &2360393117163428811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1118,8 +1121,34 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.88961107, z: 1.0733174}
-  m_Center: {x: 0, y: 0.5445626, z: 1.930608}
+  m_Size: {x: 2, y: 0.8098282, z: 0.50845087}
+  m_Center: {x: 0, y: 0.5844583, z: 1.5096159}
+--- !u!65 &5429793460376894810
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360393117163428808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9092698, y: 0.7010553, z: 0.28825322}
+  m_Center: {x: 0.0016275544, y: 0.5300719, z: 1.9182962}
+--- !u!65 &1283384103237904375
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360393117163428808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5901194, y: 0.6594018, z: 0.36655584}
+  m_Center: {x: 0.0015113999, y: 0.50924516, z: 2.2543695}
 --- !u!114 &2360393117163428819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,6 +1161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef24253fca7183a4fa6a1b111f1bc7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocity: 0
   frontDriverW: {fileID: 8511100756754203045}
   frontPassengerW: {fileID: 6594023994586646179}
   rearDriverW: {fileID: 6852175387206614663}
@@ -1141,11 +1171,10 @@ MonoBehaviour:
   rearDriverT: {fileID: 1301639396742062886}
   rearPassengerT: {fileID: 8364743356352665296}
   maxSteerAngle: 40
-  motorForce: 50
-  brakeForce: 200
-  velocityMultiplier: 10
-  velocity: 0
-  controlManually: 0
+  _motorForce: 50
+  _brakeForce: 100
+  _velocityMultiplier: 10
+  _controlManually: 0
 --- !u!114 &2276666695366035925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,19 +1187,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87273d32f4a6b184580ee7901fc634cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heuristicControl: 1
   currentPath: {fileID: 0}
+  currentNodePosition: {x: 0, y: 0, z: 0}
+  nextThreeNodes: []
   currentNodeIndex: 0
-  speed: 3
-  nodeTriggerDistance: 0.65
-  timeBetweenNodes: 2
-  avoidCarDistanceMultiplier: 0.1
-  minAvoidCarDistance: 1
-  beginBrakeForTrafficSignalDistance: 1
-  trafficSignalBrakeDistanceMultiplier: 1
-  trafficSignalBrakeIntensity: 0.5
-  maxVelocity: 25
-  _stoppingAtTrafficSignal: 0
-  _waitingAtTrafficSignal: 0
+  _nodeTriggerDistance: 0.75
+  _outOfLaneSidewaysDist: 0.7
+  currentSideDist: 0
+  _signalType: 0
+  _maxVelocity: 15
+  _avoidCarDistanceMultiplier: 0.1
+  _minAvoidCarDistance: 1
+  _trafficSignalBrakeDistanceMultiplier: 1
+  _trafficSignalBrakeIntensity: 0.5
 --- !u!114 &9059611469990130423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,10 +1217,9 @@ MonoBehaviour:
   _rayLength: 10
   maxRaycastAngle: 85
   _forwardRaycastOffset: 0.75
-  _sideRaycastOffset: 0.225
   _verticalRaycastOffset: 0.15
-  approachingTrafficSignalType: -1
   trafficSignalPerceptionDistance: 2
+  approachingTrafficSignalType: -1
   raycastCollisionDistances:
   - 0.25320283
   - 0.2639274
@@ -1235,8 +1264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b80496b4e8edc478285fcd6204a980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _reachedTrafficSignalDistance: 0.4
-  distToSignal: 0
+  _reachedTrafficSignalDistance: 0.5
+  _passedTrafficSignalDistance: 0.3
+  _minStopSignStopTime: 1.5
 --- !u!1 &2360393117163428810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,6 +2646,89 @@ WheelCollider:
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
+  m_Enabled: 1
+--- !u!1 &6904730089536923900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1217962950309036059}
+  - component: {fileID: 7053696752465808475}
+  - component: {fileID: 3194362588447210320}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1217962950309036059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904730089536923900}
+  m_LocalRotation: {x: -0.36291796, y: -0.0034567113, z: 0.0012842416, w: -0.93181384}
+  m_LocalPosition: {x: 0.08336106, y: 9.906827, z: -6.0253015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2360393117163194344}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &7053696752465808475
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904730089536923900}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &3194362588447210320
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904730089536923900}
   m_Enabled: 1
 --- !u!1 &8364743356352432880
 GameObject:

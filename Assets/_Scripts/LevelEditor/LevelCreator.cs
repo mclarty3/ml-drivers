@@ -12,6 +12,8 @@ public class LevelCreator : MonoBehaviour
     CarSpawner carSpawner;
     DebugLogger log;
 
+    public GameObject sceneObjectsParent;
+
     GameObject objToPlace = null;
     GameObject objHighlight = null;
     [HideInInspector]
@@ -218,12 +220,16 @@ public class LevelCreator : MonoBehaviour
                 // Get changed objects (surroundingRoad, placedRoad)
                 GameObject[] newVis = node.vis.GetComponent<RoadPiece>().HandleRoadPlacement(road);
 
+				if (newVis.Length == 0)
+                {
+                    continue;
+                }
                 if (newVis[0] != null)
                 {
                     log.Log("Converting surrounding road piece");
                     node.vis = newVis[0];
                     node.objId = manager.GetRoadPiecePrefabId(node.vis.name);
-                    newVis[0].transform.parent = gridBase.GetNodeTransform(node);
+                    newVis[0].transform.parent = sceneObjectsParent.transform;
                 }
                 if (newVis[1] != null)
                 {
@@ -231,12 +237,12 @@ public class LevelCreator : MonoBehaviour
                     road = newVis[1].GetComponent<RoadPiece>();
                     highlightedNode.vis = newVis[1];
                     highlightedNode.objId = manager.GetRoadPiecePrefabId(highlightedNode.vis.name);
-                    newVis[1].transform.parent = gridBase.GetNodeTransform(highlightedNode);
+                    newVis[1].transform.parent = sceneObjectsParent.transform;
                 }
             }
         }
 
-        obj.transform.parent = nodeTransform;
+        obj.transform.parent = sceneObjectsParent.transform;
         if (highlightedNode.vis == null)
         {
             highlightedNode.vis = obj;
@@ -269,7 +275,7 @@ public class LevelCreator : MonoBehaviour
                 {
                     node.vis = newObj;
                     node.objId = manager.GetRoadPiecePrefabId(node.vis.name);
-                    newObj.transform.parent = gridBase.GetNodeTransform(node);
+                    newObj.transform.parent = sceneObjectsParent.transform;
                 }
             }
         }

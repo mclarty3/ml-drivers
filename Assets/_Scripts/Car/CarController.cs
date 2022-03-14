@@ -6,17 +6,24 @@ public class CarController : MonoBehaviour
 {
     private float m_horizontalInput;
     private float m_verticalInput;
+    private float m_brakeInput;
     private float m_steeringAngle;
+
+    public float velocity;
 
     public WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
 
+    [Header("Car Physics Parameters")]
     public float maxSteerAngle = 30;
-    public float motorForce = 50;
-    public float brakeForce = 100;
-    public float velocityMultiplier = 10f;
-    public float velocity;
-    public bool controlManually = false;
+    [SerializeField]
+    private float _motorForce = 50;
+    [SerializeField]
+    private float _brakeForce = 100;
+    [SerializeField]
+    private float _velocityMultiplier = 10f;
+    [SerializeField]
+    private bool _controlManually = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +34,11 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (controlManually)
+        if (_controlManually)
             GetInput();
         Steer();
-        AccelerateOrBrake();
+        Accelerate();
+        Brake();
         UpdateWheelPoses();
         UpdateVelocity();
     }
@@ -41,10 +49,11 @@ public class CarController : MonoBehaviour
         m_verticalInput = Input.GetAxis("Vertical");
     }
 
-    public void SetInput(float vertical, float horizontal)
+    public void SetInput(float vertical, float horizontal, float brake)
     {
         m_horizontalInput = horizontal;
         m_verticalInput = vertical;
+        m_brakeInput = brake;
     }
 
     private void Steer()
@@ -59,22 +68,30 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void AccelerateOrBrake()
+    private void Accelerate()
     {
-        if (velocity == 0 || ((velocity > 0) == (m_verticalInput > 0)))
-        {
-            frontDriverW.brakeTorque = 0;
-            frontPassengerW.brakeTorque = 0;
-            frontDriverW.motorTorque = motorForce * m_verticalInput;
-            frontPassengerW.motorTorque = motorForce * m_verticalInput;
-        }
-        else
-        {
-            frontDriverW.motorTorque = 0;
-            frontPassengerW.motorTorque = 0;
-            frontDriverW.brakeTorque = brakeForce * Mathf.Abs(m_verticalInput);
-            frontPassengerW.brakeTorque = brakeForce * Mathf.Abs(m_verticalInput);
-        }
+        frontDriverW.motorTorque = _motorForce * m_verticalInput;
+        frontPassengerW.motorTorque = _motorForce * m_verticalInput;
+        // if (velocity == 0 || ((velocity > 0) == (m_verticalInput > 0)))
+        // {
+        //     frontDriverW.brakeTorque = 0;
+        //     frontPassengerW.brakeTorque = 0;
+        //     frontDriverW.motorTorque = motorForce * m_verticalInput;
+        //     frontPassengerW.motorTorque = motorForce * m_verticalInput;
+        // }
+        // else
+        // {
+        //     frontDriverW.motorTorque = 0;
+        //     frontPassengerW.motorTorque = 0;
+        //     frontDriverW.brakeTorque = brakeForce * Mathf.Abs(m_verticalInput);
+        //     frontPassengerW.brakeTorque = brakeForce * Mathf.Abs(m_verticalInput);
+        // }
+    }
+
+    private void Brake()
+    {
+        frontDriverW.brakeTorque = _brakeForce * Mathf.Abs(m_brakeInput);
+        frontPassengerW.brakeTorque = _brakeForce * Mathf.Abs(m_brakeInput);
     }
 
     private void UpdateWheelPoses()
@@ -98,7 +115,7 @@ public class CarController : MonoBehaviour
 
     private void UpdateVelocity()
     {
-        velocity = GetComponent<Rigidbody>().velocity.magnitude * velocityMultiplier;
+        velocity = GetComponent<Rigidbody>().velocity.magnitude * _velocityMultiplier;
         velocity *= Mathf.Sign(Vector3.Dot(transform.forward, GetComponent<Rigidbody>().velocity));
 
         if (EqualsZero(velocity))

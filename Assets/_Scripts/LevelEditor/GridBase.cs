@@ -74,7 +74,8 @@ public class GridBase : MonoBehaviour
         return;
     }
 
-    public void ResetGridFromData(int[] gridData=null, Dictionary<int, GameObject> prefabIds=null)
+    public void ResetGridFromData(Transform objectParent, int[] gridData=null,
+                                  Dictionary<int, GameObject> prefabIds=null)
     {
         int sizeX = gridData[0];
         int sizeZ = gridData[1];
@@ -106,7 +107,7 @@ public class GridBase : MonoBehaviour
             node.vis = Instantiate(prefabIds[prefabId], nodeTransform.position + objectOffset * Vector3.up,
                                    Quaternion.Euler(0, angle, 0)) as GameObject;
             node.objId = prefabId;
-            node.vis.transform.parent = nodeTransform;
+            node.vis.transform.parent = objectParent;
 
             int trafficSignal = gridData[i + 2];
             if (trafficSignal != 0)

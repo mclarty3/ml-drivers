@@ -1,0 +1,29 @@
+{
+    "MLDriver": {
+        "checkpoints": [
+            {
+                "steps": 192048,
+                "file_path": "results\\MLDriver2\\MLDriver\\MLDriver-192048.onnx",
+                "reward": -1.001722220579783,
+                "creation_time": 1647242899.1647456,
+                "auxillary_file_paths": [
+                    "results\\MLDriver2\\MLDriver\\MLDriver-192048.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 192048,
+            "file_path": "results\\MLDriver2\\MLDriver.onnx",
+            "reward": -1.001722220579783,
+            "creation_time": 1647242899.1647456,
+            "auxillary_file_paths": [
+                "results\\MLDriver2\\MLDriver\\MLDriver-192048.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

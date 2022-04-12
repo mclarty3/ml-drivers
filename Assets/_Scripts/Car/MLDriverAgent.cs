@@ -13,6 +13,13 @@ public class MLDriverAgent : Agent
 	CarRuleEnforcer carRuleEnforcer;
 	MLTrainingScene scene;
 
+	public float maxEpisodeTime = 15f;
+	public float maxNegativeReward = -100f;
+	public float accelerationOutput;
+	public float steeringOutput;
+	public float brakeOutput;
+	private float _elapsedTime = 0f;
+
 	public void Start()
 	{
 		scene = transform.GetComponentInParent<MLTrainingScene>();
@@ -26,9 +33,24 @@ public class MLDriverAgent : Agent
 		carRuleEnforcer = GetComponent<CarRuleEnforcer>();
 	}
 
+	public void FixedUpdate()
+	{
+		_elapsedTime += Time.fixedDeltaTime;
+		if (_elapsedTime > maxEpisodeTime)
+		{
+			EndEpisode();
+			_elapsedTime = 0f;
+		}
+
+		if (GetCumulativeReward() < maxNegativeReward)
+		{
+			EndEpisode();
+		}
+	}
+
 	public override void CollectObservations(VectorSensor sensor)
 	{
-		// 3 + 8 + 1 + 31 = 43 total observations
+		// 3 + 8 + 1 + 1 = 13
 
 		// Track self position and rotation
 		sensor.AddObservation(transform.position.x);
@@ -53,11 +75,12 @@ public class MLDriverAgent : Agent
 
 		// Track status of raycast percepts coming from the front of the car
 		// By default, car casts 31 rays
-		carPercepts.GetCollisions(out List<float> distances, "Car");
-		foreach (float distance in distances)
-		{
-			sensor.AddObservation(distance);
-		}
+		// carPercepts.GetCollisions(out List<float> distances, "Car");
+		// foreach (float distance in distances)
+		// {
+		// 	sensor.AddObservation(distance);
+		// }
+
 	}
 
 	public override void OnActionReceived(ActionBuffers actionBuffers)
@@ -66,12 +89,16 @@ public class MLDriverAgent : Agent
 		float horizontalAxis = Mathf.Clamp(actionBuffers.ContinuousActions[1], -1f, 1f);
 		float brakeValue = Mathf.Clamp(actionBuffers.ContinuousActions[2], 0f, 1f);
 
+		accelerationOutput = verticalAxis;
+		steeringOutput = horizontalAxis;
+		brakeOutput = brakeValue;
+
 		// Debug.Log("Vertical: " + verticalAxis + " Horizontal: " + horizontalAxis + " Brake: " + brakeValue);
 		carController.SetInput(verticalAxis, horizontalAxis, brakeValue);
 
-		if (Mathf.Abs(transform.rotation.eulerAngles.x) > 10f || Mathf.Abs(transform.rotation.eulerAngles.z) > 10f)
+		if (Vector3.Angle(transform.up, Vector3.up) > 45f)
 		{
-			// Debug.Log("Car is upside down");
+			Debug.Log("Car is upside down");
 			AddReward(-1f);
 			EndEpisode();
 		}
@@ -80,7 +107,7 @@ public class MLDriverAgent : Agent
 		{
 			if (tag == "Car" || tag == "TrafficSignal" || tag == "Sidewalk")
 			{
-				// Debug.Log("Collided with " + tag + "! Resetting...");
+				Debug.Log("Collided with " + tag + "! Resetting...");
 				AddReward(-1f);
 				EndEpisode();
 			}
@@ -94,7 +121,6 @@ public class MLDriverAgent : Agent
 		{
 			// Debug.Log("Went into other lane");
 			AddReward(-1f);
-			EndEpisode();
 		}
 		if (carController.velocity > pathCrawler.maxVelocity)
 		{
@@ -102,9 +128,10 @@ public class MLDriverAgent : Agent
 			AddReward(-0.2f);
 		}
 
+		// This is triggering when the level is reset, which I think is throwing off the rewards
 		if (pathCrawler.CheckChangedNodes(clear: true))
 		{
-			// Debug.Log("Changed nodes");
+			Debug.Log("Changed nodes");
 			AddReward(1f);
 		}
 

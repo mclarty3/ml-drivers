@@ -36,7 +36,7 @@ public class CarPercepts : MonoBehaviour
     }
 
     [Header("Car Raycast Configuration")]
-    [SerializeField][Range(1, 20)]
+    [SerializeField][Range(0, 20)]
     [Tooltip("Number of pairs of rays to cast in addition to one ray in the center")]
     private int numRaycastPairs = 15;
     [SerializeField]
@@ -195,6 +195,8 @@ public class CarPercepts : MonoBehaviour
 
     void HandleRaycastCountChange()
     {
+        if (numRaycastPairs == 0)
+            return;
         if (raycasts.Count != numRaycastPairs * 2 + 1 ||
             raycasts[raycasts.Count - 1].angleFromForward != maxRaycastAngle)
         {

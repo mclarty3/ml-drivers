@@ -14,6 +14,7 @@ public class MLTrainingScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _nodePaths = roadsParent.transform.GetComponentsInChildren<NodePath>();
     }
 
     // Update is called once per frame
@@ -24,11 +25,11 @@ public class MLTrainingScene : MonoBehaviour
 
     public void InitializeScene(MLDriverAgent agent)
     {
-        _nodePaths = roadsParent.transform.GetComponentsInChildren<NodePath>();
         NodePath startingPath = _nodePaths[Random.Range(0, _nodePaths.Length)];
         Quaternion startingRot = Quaternion.LookRotation(startingPath.nodes[1] - startingPath.nodes[0]);
 
         agent.transform.position = startingPath.nodes[0];
+        agent.transform.position += agent.transform.forward * -0.5f;
         agent.transform.rotation = startingRot;
         agent.transform.parent = transform;
         agent.GetComponent<PathCrawler>().Initialize(startingPath);

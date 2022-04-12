@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,6 +70,7 @@ public class PathCrawler : MonoBehaviour
                 if (Vector3.Distance(transform.position, currentNodePosition) < _nodeTriggerDistance)
                 {
                     MoveToNextNode();
+                    _changedNodes = true;
                 }
             }
         }
@@ -227,14 +228,6 @@ public class PathCrawler : MonoBehaviour
 
     public void MoveToNextNode()
     {
-        // currentNodeIndex++;
-        // if (currentNodeIndex >= currentPath.NumNodes)
-        // {
-        //     currentNodeIndex = 0;
-        //     currentPath = currentPath.GetConnectingPath();
-        // }
-        // Vector3 nodePos = currentPath.nodes[currentNodeIndex];
-        // currentNodePosition = new Vector3(nodePos.x, transform.position.y, nodePos.z);
         currentNodePosition = nextThreeNodes[0];
         UpdateNextThreeNodes();
         if (_latestPathNodeIndex == 0)

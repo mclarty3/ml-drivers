@@ -1196,11 +1196,14 @@ MonoBehaviour:
   _outOfLaneSidewaysDist: 0.7
   currentSideDist: 0
   _signalType: 0
-  _maxVelocity: 15
+  maxVelocity: 15
   _avoidCarDistanceMultiplier: 0.1
   _minAvoidCarDistance: 1
   _trafficSignalBrakeDistanceMultiplier: 1
   _trafficSignalBrakeIntensity: 0.5
+  _stoppingAtTrafficSignal: 0
+  _waitingAtTrafficSignal: 0
+  _waited: 0
 --- !u!114 &9059611469990130423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2664,7 +2667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1217962950309036059
 Transform:
   m_ObjectHideFlags: 0

@@ -38,9 +38,9 @@ public class PathCrawler : MonoBehaviour
     [SerializeField]
     private float _trafficSignalBrakeIntensity = 0.5f;
 
-    private bool _stoppingAtTrafficSignal;
-    private bool _waitingAtTrafficSignal;
-    private bool _waited = false;
+    public bool _stoppingAtTrafficSignal;
+    public bool _waitingAtTrafficSignal;
+    public bool _waited = false;
     private float _stopSignTime;
     private NodePath _latestPath;
     private int _latestPathNodeIndex;
@@ -73,93 +73,93 @@ public class PathCrawler : MonoBehaviour
                     _changedNodes = true;
                 }
             }
+            return;
         }
-        else
+
+        if (currentPath == null || currentPath.nodes == null) {
+            Debug.LogWarning("No nodes! Can't drive");
+            return;
+        }
+
+        float steerAngle = GetSteerToNextNode();
+        steerAngle = Mathf.Clamp(steerAngle / carController.maxSteerAngle, -1, 1);
+
+        if (CarInFront(out bool emergency)) {
+            float brake = carController.velocity <= 0 ? 1 : 0;
+            SetCarControllerInput(steerAngle, 0, brake);
+        }
+
+        if (emergency)
         {
-            if (currentPath == null || currentPath.nodes == null) {
-                Debug.LogWarning("No nodes! Can't drive");
-                return;
-            }
-
-            float steerAngle = GetSteerToNextNode();
-            steerAngle = Mathf.Clamp(steerAngle / carController.maxSteerAngle, -1, 1);
-
-            if (CarInFront(out bool emergency)) {
-                float brake = carController.velocity <= 0 ? 1 : 0;
-                SetCarControllerInput(steerAngle, 0, brake);
-            }
-
-            if (emergency)
-            {
-                SetCarControllerInput(steerAngle, 0, carController.velocity <= 0 ? 1 : 0);
-                return;
-            }
-
-            if (carPercepts.CheckStopForTrafficSignal(out float distanceToTrafficSignal) && !_waitingAtTrafficSignal
-                && !_stoppingAtTrafficSignal && !_waited)
-            {
-                if (distanceToTrafficSignal != -1 && distanceToTrafficSignal < GetBrakeDistance())
-                {
-                    _stoppingAtTrafficSignal = true;
-                    _waited = false;
-                    _signalType = currentPath.connectedTrafficSignal.signalType;
-
-                    if (_signalType == 3)
-                    {
-                        _stopSignTime = Time.time;
-                    }
-                }
-            }
-
-            if (_stoppingAtTrafficSignal)
-            {
-                _signalType = currentPath.connectedTrafficSignal.signalType;
-                if (_signalType != 3 && _signalType != 0)
-                {
-                    _stoppingAtTrafficSignal = false;
-                    MoveToNextPath();
-                }
-                else if (carController.velocity == 0)
-                {
-                    _stoppingAtTrafficSignal = false;
-                    _waitingAtTrafficSignal = true;
-                }
-                else
-                {
-                    float brake = 0;
-                    if (distanceToTrafficSignal < GetBrakeDistance() && carController.velocity > 0)
-                    {
-                        brake = 1 * _trafficSignalBrakeIntensity / distanceToTrafficSignal;
-                        brake *= Mathf.Pow(carController.velocity, 2);
-                    }
-                    brake = Mathf.Clamp(brake, 0, 1);
-                    SetCarControllerInput(0, 0, brake);
-                    return;
-                }
-            }
-
-            if (_waitingAtTrafficSignal)
-            {
-                _signalType = currentPath.connectedTrafficSignal.signalType;
-                if ((_signalType == 3 && Time.time - _stopSignTime >= 3) ||
-                    (_signalType != 3 && _signalType != 0))
-                {
-                    _waitingAtTrafficSignal = false;
-                    _waited = true;
-                    MoveToNextPath();
-                }
-                SetCarControllerInput(steerAngle, 0, 1);
-                return;
-            }
-
-            if (Vector3.Distance(transform.position, currentNodePosition) <=  _nodeTriggerDistance) {
-                MoveToNextNode();
-                steerAngle = GetSteerToNextNode();
-            }
-
-            float accel = carController.velocity > maxVelocity ? 0 : 1;
-            SetCarControllerInput(steerAngle, accel, 0);
+            SetCarControllerInput(steerAngle, 0, carController.velocity <= 0 ? 1 : 0);
+            return;
         }
+
+        if (carPercepts.CheckStopForTrafficSignal(out float distanceToTrafficSignal) && !_waitingAtTrafficSignal
+            && !_stoppingAtTrafficSignal)
+        {
+            if (distanceToTrafficSignal != -1 && distanceToTrafficSignal < GetBrakeDistance() &&
+                currentPath.connectedTrafficSignal != null)
+            {
+                _stoppingAtTrafficSignal = true;
+                _waited = false;
+                _signalType = currentPath.connectedTrafficSignal.signalType;
+
+                if (_signalType == 3)
+                {
+                    _stopSignTime = Time.time;
+                }
+            }
+        }
+
+        if (_stoppingAtTrafficSignal)
+        {
+            _signalType = currentPath.connectedTrafficSignal.signalType;
+            if (_signalType != 3 && _signalType != 0)
+            {
+                _stoppingAtTrafficSignal = false;
+                MoveToNextPath();
+            }
+            else if (carController.velocity == 0)
+            {
+                _stoppingAtTrafficSignal = false;
+                _waitingAtTrafficSignal = true;
+            }
+            else
+            {
+                float brake = 0;
+                if (distanceToTrafficSignal < GetBrakeDistance() && carController.velocity > 0)
+                {
+                    brake = 1 * _trafficSignalBrakeIntensity / distanceToTrafficSignal;
+                    brake *= Mathf.Pow(carController.velocity, 2);
+                }
+                brake = Mathf.Clamp(brake, 0, 1);
+                SetCarControllerInput(0, 0, brake);
+                return;
+            }
+        }
+
+        if (_waitingAtTrafficSignal)
+        {
+            _signalType = currentPath.connectedTrafficSignal.signalType;
+            if ((_signalType == 3 && Time.time - _stopSignTime >= 3) ||
+                (_signalType != 3 && _signalType != 0))
+            {
+                _waitingAtTrafficSignal = false;
+                // _waited = true;
+                MoveToNextPath();
+            }
+            SetCarControllerInput(steerAngle, 0, 1);
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, currentNodePosition) <=  _nodeTriggerDistance) {
+            MoveToNextNode();
+            steerAngle = GetSteerToNextNode();
+        }
+
+        float accel = carController.velocity > maxVelocity ? 0 : 1;
+        SetCarControllerInput(steerAngle, accel, 0);
     }
 
     public void Initialize(NodePath path)
@@ -229,18 +229,28 @@ public class PathCrawler : MonoBehaviour
     public void MoveToNextNode()
     {
         currentNodePosition = nextThreeNodes[0];
-        UpdateNextThreeNodes();
-        if (_latestPathNodeIndex == 0)
+        currentNodeIndex += 1;
+
+        if (currentNodeIndex >= currentPath.NumNodes)
         {
-            currentPath = _latestPath;
+            currentNodeIndex = 0;
+            currentPath = currentPath.GetConnectingPath();
         }
+
+        UpdateNextThreeNodes();
+
+        // if (_latestPathNodeIndex == 0)
+        // {
+        //     currentPath = _latestPath;
+        // }
     }
 
     void MoveToNextPath()
     {
-        currentPath = currentPath.GetConnectingPath();
-        currentNodeIndex = 0;
-        currentNodePosition = currentPath.nodes[currentNodeIndex];
+        Initialize(currentPath.GetConnectingPath());
+        // currentPath = currentPath.GetConnectingPath();
+        // currentNodeIndex = 0;
+        // currentNodePosition = currentPath.nodes[currentNodeIndex];
     }
 
     private float GetBrakeDistance()

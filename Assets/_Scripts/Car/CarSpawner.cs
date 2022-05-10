@@ -8,9 +8,12 @@ public class CarSpawner : MonoBehaviour
     public int numCarsAtStart = 20;
     public float heightOffset = 0.4f;
     public bool simulationActive { get; private set; }
+    public bool spawnOnStart = false;
+    public GameObject roadParent = null;
     GridBase grid;
     List<NodePath> paths;
     List<PathCrawler> crawlers;
+    List<int> occupiedPaths;
     InterfaceManager interfaceManager;
 
     // Start is called before the first frame update
@@ -19,13 +22,27 @@ public class CarSpawner : MonoBehaviour
         grid = GridBase.GetInstance();
         interfaceManager = InterfaceManager.GetInstance();
         crawlers = new List<PathCrawler>();
+        occupiedPaths = new List<int>();
         simulationActive = false;
+
+        if (spawnOnStart)
+        {
+            InitializePaths(new List<RoadPiece>(roadParent.transform.GetComponentsInChildren<RoadPiece>()));
+            SpawnCars(numCarsAtStart);
+        }
     }
 
     public void BeginSimulation()
     {
         bool disconnectedPath = true;
-        InitializePaths(grid.GetRoadPieces(ref disconnectedPath));
+        if (roadParent != null)
+        {
+            InitializePaths(new List<RoadPiece>(roadParent.transform.GetComponentsInChildren<RoadPiece>()));
+        }
+        else
+        {
+            InitializePaths(grid.GetRoadPieces(ref disconnectedPath));
+        }
 
         if (paths.Count == 0)
         {
@@ -68,18 +85,62 @@ public class CarSpawner : MonoBehaviour
         }
     }
 
+    public void SpawnCars(int numCars)
+    {
+        for (int i = 0; i < numCars; i++)
+        {
+            SpawnCarOnRandomPath();
+        }
+    }
+
     public void SpawnCar(NodePath pathToSpawn)
     {
         Vector3 spawnPos = pathToSpawn.nodes[0] + Vector3.up * heightOffset;
         GameObject newCar = Instantiate(carPrefab, spawnPos, Quaternion.identity);
+
+        Material newMat = Resources.Load("Materials/CarBodyMaterial") as Material;
+        // Change albedo color of car body to random color
+        newMat.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+        foreach (MeshRenderer renderer in newCar.GetComponentsInChildren<MeshRenderer>())
+        {
+            foreach (Material mat in renderer.materials)
+            {
+                if (mat.name == "Classic_16_Body (Instance)")
+                {
+                    mat.color = newMat.color;
+                }
+            }
+        }
+
         PathCrawler pathCrawler = newCar.GetComponent<PathCrawler>();
-        pathCrawler.currentPath = pathToSpawn;
+        // pathCrawler.currentPath = pathToSpawn;
+        pathCrawler.Initialize(pathToSpawn);
+        Vector3 toNode = pathToSpawn.nodes[1] - pathToSpawn.nodes[0];
+        pathCrawler.transform.rotation = Quaternion.LookRotation(toNode);
         crawlers.Add(pathCrawler);
     }
 
     public void SpawnCarOnRandomPath()
     {
-        int randomIndex = UnityEngine.Random.Range(0, paths.Count);
+        int randomIndex;
+        bool tryNewPath = false;
+        do
+        {
+            tryNewPath = false;
+            randomIndex = UnityEngine.Random.Range(0, paths.Count);
+            NodePath path = paths[randomIndex];
+            Vector3 nodePos = path.nodes[0] + Vector3.up * heightOffset;
+            Collider[] colliders = Physics.OverlapSphere(nodePos, 1f);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject.tag == "Car")
+                {
+                    tryNewPath = true;
+                    break;
+                }
+            }
+        } while (tryNewPath);
         SpawnCar(paths[randomIndex]);
     }
 }

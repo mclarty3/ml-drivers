@@ -15,8 +15,8 @@ public class CarRuleEnforcer : MonoBehaviour
     [SerializeField][Tooltip("The minimum amount of time a car must wait at a stop sign before it can pass")]
     private float _minStopSignStopTime = 1.5f;
 
-    private Vector3 _trafficSignalPosition = Vector3.zero;
-    private NodePath _trafficSignalPath = null;
+    public Vector3 _trafficSignalPosition = Vector3.zero;
+    public NodePath _trafficSignalPath = null;
     private int _trafficSignalType;
     private float _distToSignal;
     private bool _reachedTrafficSignal = false;
@@ -98,7 +98,7 @@ public class CarRuleEnforcer : MonoBehaviour
 
     private void CheckForTrafficSignal()
     {
-        if (carPercepts.CheckStopForTrafficSignal(out float distance))
+        if (carPercepts.CheckStopForTrafficSignal(out float distance) && pathCrawler.currentPath.connectedTrafficSignal != null)
         {
             _trafficSignalPath = pathCrawler.currentPath;
             _trafficSignalPosition = carPercepts.GetTrafficSignalNodePosition();

@@ -190,6 +190,104 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3544976987546539354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6064538171707006216}
+  - component: {fileID: 3340200489849676653}
+  m_Layer: 0
+  m_Name: TrafficLightGroupX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6064538171707006216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3544976987546539354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6134189771600281795}
+  - {fileID: 6134189771007967538}
+  m_Father: {fileID: 6134189772315145459}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3340200489849676653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3544976987546539354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf84ebf2f773f04788061f159fbd64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signalType: -1
+  trafficLights:
+  - {fileID: 5523168022023631551}
+  - {fileID: 8872491204545837164}
+--- !u!1 &5752668985964807443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968499213496963540}
+  - component: {fileID: 1830539213511128450}
+  m_Layer: 0
+  m_Name: TrafficLightGroupZ
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &968499213496963540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752668985964807443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6134189772070343594}
+  - {fileID: 6134189771287027688}
+  m_Father: {fileID: 6134189772315145459}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1830539213511128450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752668985964807443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf84ebf2f773f04788061f159fbd64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signalType: -1
+  trafficLights:
+  - {fileID: 7078725829036505383}
+  - {fileID: 8141822645847661814}
 --- !u!1 &6134189770309283411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,13 +1177,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6134189771007967541}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: -1.375, y: 0.75, z: -1.375}
   m_LocalScale: {x: 0.1, y: 1.5, z: 0.1}
   m_Children:
   - {fileID: 6134189772218344711}
-  m_Father: {fileID: 6134189772315145459}
-  m_RootOrder: 2
+  m_Father: {fileID: 6064538171707006216}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &6134189771007967550
 MeshFilter:
@@ -1285,13 +1383,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6134189771287027691}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -1.375, y: 0.75, z: 1.375}
   m_LocalScale: {x: 0.1, y: 1.5, z: 0.1}
   m_Children:
   - {fileID: 6134189771809457277}
-  m_Father: {fileID: 6134189772315145459}
-  m_RootOrder: 3
+  m_Father: {fileID: 968499213496963540}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &6134189771287027668
 MeshFilter:
@@ -2167,7 +2265,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 1.5, z: 0.1}
   m_Children:
   - {fileID: 6134189770762482476}
-  m_Father: {fileID: 6134189772315145459}
+  m_Father: {fileID: 6064538171707006216}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6134189771600281807
@@ -2753,13 +2851,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6134189772070343597}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 1.375, y: 0.75, z: -1.375}
   m_LocalScale: {x: 0.1, y: 1.5, z: 0.1}
   m_Children:
   - {fileID: 6134189772290329326}
-  m_Father: {fileID: 6134189772315145459}
-  m_RootOrder: 1
+  m_Father: {fileID: 968499213496963540}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &6134189772070343574
 MeshFilter:
@@ -3249,11 +3347,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.25, y: 1, z: 1.25}
   m_Children:
-  - {fileID: 6134189771600281795}
-  - {fileID: 6134189772070343594}
-  - {fileID: 6134189771007967538}
-  - {fileID: 6134189771287027688}
   - {fileID: 593938876130109211}
+  - {fileID: 6064538171707006216}
+  - {fileID: 968499213496963540}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3271,14 +3367,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trafficSignalGroups: []
   _trafficLightGroups:
-  - signalType: 0
-    trafficLights:
-    - {fileID: 5523168022023631551}
-    - {fileID: 8872491204545837164}
-  - signalType: 0
-    trafficLights:
-    - {fileID: 7078725829036505383}
-    - {fileID: 8141822645847661814}
+  - {fileID: 3340200489849676653}
+  - {fileID: 1830539213511128450}
   redGreenLightTime: 10
   yellowLightTime: 3
   activeLightGroup: -1
@@ -3407,7 +3497,7 @@ Transform:
   - {fileID: 8722851546779323347}
   - {fileID: 4464442623629233584}
   m_Father: {fileID: 6134189772315145459}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7517686474379058054
 GameObject:

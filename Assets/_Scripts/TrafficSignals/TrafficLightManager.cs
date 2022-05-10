@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class TrafficLightGroup : TrafficSignalGroup
-{
-    [SerializeField]
-    public TrafficLight[] trafficLights;
-}
+// [System.Serializable]
+// public class TrafficLightGroup : TrafficSignalGroup
+// {
+//     [SerializeField]
+//     public TrafficLight[] trafficLights;
+// }
 
 public class TrafficLightManager : TrafficSignalManager
 {

@@ -60,7 +60,7 @@ public class CarPercepts : MonoBehaviour
     private bool _collidedWithObject = false;
     private string _collidedWithObjectTag;
 
-    [HideInInspector]
+    // [HideInInspector]
     public int approachingTrafficSignalType = -1;
     public List<RaycastInfo> raycasts;
     [HideInInspector]

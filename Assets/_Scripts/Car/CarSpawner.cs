@@ -10,6 +10,7 @@ public class CarSpawner : MonoBehaviour
     public bool simulationActive { get; private set; }
     public bool spawnOnStart = false;
     public GameObject roadParent = null;
+    private int _maxSpeed = 15;
     GridBase grid;
     List<NodePath> paths;
     List<PathCrawler> crawlers;
@@ -29,6 +30,43 @@ public class CarSpawner : MonoBehaviour
         {
             InitializePaths(new List<RoadPiece>(roadParent.transform.GetComponentsInChildren<RoadPiece>()));
             SpawnCars(numCarsAtStart);
+        }
+    }
+
+    public void SetNumCars(int numCars)
+    {
+        if (simulationActive)
+        {
+            if (numCars < crawlers.Count)
+            {
+                for (int i = numCars; i < crawlers.Count; i++)
+                {
+                    PathCrawler crawler = crawlers[0];
+                    crawlers.RemoveAt(0);
+                    Destroy(crawler.gameObject);
+                }
+            } else {
+                numCarsAtStart = numCars;
+                foreach (PathCrawler crawler in crawlers)
+                {
+                    Destroy(crawler.gameObject);
+                }
+                crawlers.Clear();
+                SpawnCars(numCars);
+            }
+        }
+    }
+
+    public void SetMaxSpeed(int maxSpeed)
+    {
+        _maxSpeed = maxSpeed;
+
+        if (simulationActive)
+        {
+            foreach (PathCrawler crawler in crawlers)
+            {
+                crawler.maxVelocity = _maxSpeed;
+            }
         }
     }
 
@@ -114,6 +152,7 @@ public class CarSpawner : MonoBehaviour
         }
 
         PathCrawler pathCrawler = newCar.GetComponent<PathCrawler>();
+        pathCrawler.maxVelocity = _maxSpeed;
         // pathCrawler.currentPath = pathToSpawn;
         pathCrawler.Initialize(pathToSpawn);
         Vector3 toNode = pathToSpawn.nodes[1] - pathToSpawn.nodes[0];

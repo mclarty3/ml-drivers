@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class InterfaceManager : MonoBehaviour
 {
     public bool mouseOverUIElement = false;
+    public Slider numCarsSlider;
+    public Text numCarsText;
+    public Slider maxSpeedSlider;
+    public Text maxSpeedText;
     [SerializeField]
     private Canvas canvas;
     private Button simulateButton;
@@ -25,6 +29,28 @@ public class InterfaceManager : MonoBehaviour
                                          .Find("SimulateButton").GetComponent<Button>();
         carSpawner = GetComponent<CarSpawner>();
         ToggleSimulationButton(carSpawner.simulationActive);
+    }
+
+    void SetNumCars(float numCars)
+    {
+        carSpawner.SetNumCars((int)numCars);
+        numCarsText.text = numCars.ToString();
+    }
+
+    void SetMaxSpeed(float maxSpeed)
+    {
+        carSpawner.SetMaxSpeed((int)maxSpeed);
+        maxSpeedText.text = maxSpeed.ToString();
+    }
+
+    private void OnEnable() {
+        carSpawner = GetComponent<CarSpawner>();
+
+        numCarsSlider.onValueChanged.AddListener(SetNumCars);
+        SetNumCars(numCarsSlider.value);
+
+        maxSpeedSlider.onValueChanged.AddListener(SetMaxSpeed);
+        SetMaxSpeed(maxSpeedSlider.value);
     }
 
     public static InterfaceManager GetInstance()

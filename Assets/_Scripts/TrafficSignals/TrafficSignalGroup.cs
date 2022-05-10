@@ -5,16 +5,4 @@ using UnityEngine;
 public class TrafficSignalGroup : MonoBehaviour
 {
     public int signalType = -1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
